@@ -18,3 +18,10 @@ jobs:
       export NDK=$ANDROID_NDK_HOME
       sh ./build_$(buildTarget).sh
     displayName: 'Build'
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: '$(buildTarget)'
+      ArtifactName: '$(buildTarget)'
+      publishLocation: 'Container'
+    displayName: 'Publish'
