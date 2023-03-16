@@ -24,7 +24,6 @@ jobs:
       TO_REPLACE="/Users/linfel/Library/Android/sdk/ndk/25.1.8937393"
       NEW_STRING="$ANDROID_HOME/ndk/$(ndkVersion)"
       sed -ie "s#${TO_REPLACE}#${NEW_STRING}#g" *.txt
-      find . -name "*.txt" | xargs cat
     displayName: 'Replace Strings'
 
   - script: |
