@@ -20,6 +20,31 @@ build_with_cmake "fmt" $FMT_VERSION ".tar.gz" "fmt" "libfmt" ".." "-DFMT_TEST=OF
 build_with_cmake "eigen" $EIGEN_VERSION ".tar.gz"
 build_with_cmake "meshoptimizer" $MESHOPTIMIZER_VERSION ".tar.gz" "meshoptimizer" "libmeshoptimizer"
 
+# icu
+
+compile_icu_prepare()
+{
+  unarchive_and_enter $ICU_VERSION ".tgz"
+
+  cp source/config/mh-darwin source/config/mh-unknown
+
+  export CC=""
+  export CXX=""
+  export LDFLAGS="-lc++"
+  ./source/runConfigureICU MacOSX
+  check_success
+
+  make -j4
+  check_success
+
+  cd ..
+
+  mv $ICU_VERSION icu-mac
+  check_success
+}
+
+compile_icu_prepare
+
 # breakpad
 
 echo "Building breakpad"
@@ -378,30 +403,6 @@ compile_libepoxy "x86"
 compile_libepoxy "x86_64"
 compile_libepoxy "armeabi-v7a"
 compile_libepoxy "arm64-v8a"
-
-# icu
-
-compile_icu_prepare()
-{
-  unarchive_and_enter $ICU_VERSION ".tgz"
-
-  cp source/config/mh-darwin source/config/mh-unknown
-
-  export LDFLAGS="${LDFLAGS} -lc++"
-  OUTPUT_PATH="$(pwd)/output"
-  ./source/runConfigureICU MacOSX
-  check_success
-
-  make -j4
-  check_success
-
-  cd ..
-
-  mv $ICU_VERSION icu-mac
-  check_success
-}
-
-compile_icu_prepare
 
 # icu
 
