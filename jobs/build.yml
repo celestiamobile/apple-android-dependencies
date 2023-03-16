@@ -14,5 +14,5 @@ jobs:
   - script: sh ./download.sh
     displayName: 'Download'
 
-  - script: sh ./build_${buildTarget}.sh
+  - script: sh ./build_$(buildTarget).sh
     displayName: 'Build'
