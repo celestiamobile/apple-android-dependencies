@@ -20,6 +20,51 @@ build_with_cmake "fmt" $FMT_VERSION ".tar.gz" "fmt" "libfmt" ".." "-DFMT_TEST=OF
 build_with_cmake "eigen" $EIGEN_VERSION ".tar.gz"
 build_with_cmake "meshoptimizer" $MESHOPTIMIZER_VERSION ".tar.gz" "meshoptimizer" "libmeshoptimizer"
 
+# breakpad
+
+echo "Building breakpad"
+compile_breakpad()
+{
+  unarchive_and_enter $BREAKPAD_VERSION ".tar.gz"
+
+  mkdir -p src/third_party/lss
+  curl https://chromium.googlesource.com/linux-syscall-support/+/refs/heads/main/linux_syscall_support.h\?format\=TEXT | base64 --decode > src/third_party/lss/linux_syscall_support.h
+
+  echo "Compiling for $1"
+  OUTPUT_PATH="$(pwd)/output"
+  ./configure --disable-dependency-tracking \
+              --disable-silent-rules \
+              --disable-processor \
+              --disable-tools \
+              --host=arm-linux-androideabi \
+              --prefix=${OUTPUT_PATH}
+  check_success
+
+  rm -rf src/common/android/testing
+
+  make -j4 install
+  check_success
+
+  echo "Copying products"
+  mkdir -p $INCLUDE_PATH/breakpad
+  cp -r output/include/* $INCLUDE_PATH/breakpad/
+  cp output/lib/libbreakpad_client.a $LIB_PATH/${1}
+  check_success
+
+  echo "Cleaning"
+  cd ..
+  rm -rf $BREAKPAD_VERSION
+}
+
+configure_armv7
+compile_breakpad "armeabi-v7a"
+configure_arm64
+compile_breakpad "arm64-v8a"
+configure_x86
+compile_breakpad "x86"
+configure_x86_64
+compile_breakpad "x86_64"
+
 # CSPICE
 
 echo "Building CSPICE"
@@ -334,51 +379,6 @@ compile_libepoxy "x86_64"
 compile_libepoxy "armeabi-v7a"
 compile_libepoxy "arm64-v8a"
 
-# breakpad
-
-echo "Building breakpad"
-compile_breakpad()
-{
-  unarchive_and_enter $BREAKPAD_VERSION ".tar.gz"
-
-  mkdir -p src/third_party/lss
-  curl https://chromium.googlesource.com/linux-syscall-support/+/refs/heads/main/linux_syscall_support.h\?format\=TEXT | base64 --decode > src/third_party/lss/linux_syscall_support.h
-
-  echo "Compiling for $1"
-  OUTPUT_PATH="$(pwd)/output"
-  ./configure --disable-dependency-tracking \
-              --disable-silent-rules \
-              --disable-processor \
-              --disable-tools \
-              --host=arm-linux-androideabi \
-              --prefix=${OUTPUT_PATH}
-  check_success
-
-  rm -rf src/common/android/testing
-
-  make -j4 install
-  check_success
-
-  echo "Copying products"
-  mkdir -p $INCLUDE_PATH/breakpad
-  cp -r output/include/* $INCLUDE_PATH/breakpad/
-  cp output/lib/libbreakpad_client.a $LIB_PATH/${1}
-  check_success
-
-  echo "Cleaning"
-  cd ..
-  rm -rf $BREAKPAD_VERSION
-}
-
-configure_armv7
-compile_breakpad "armeabi-v7a"
-configure_arm64
-compile_breakpad "arm64-v8a"
-configure_x86
-compile_breakpad "x86"
-configure_x86_64
-compile_breakpad "x86_64"
-
 # icu
 
 compile_icu_prepare()
@@ -387,8 +387,6 @@ compile_icu_prepare()
 
   cp source/config/mh-darwin source/config/mh-unknown
 
-  export CC=$2
-  export CXX=$2
   export LDFLAGS="${LDFLAGS} -lc++"
   OUTPUT_PATH="$(pwd)/output"
   ./source/runConfigureICU MacOSX

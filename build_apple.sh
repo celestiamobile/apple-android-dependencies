@@ -310,8 +310,6 @@ compile_icu_prepare()
 
   cp source/config/mh-darwin source/config/mh-unknown
 
-  export CC=$2
-  export CXX=$2
   export LDFLAGS="${LDFLAGS} -lc++"
   OUTPUT_PATH="$(pwd)/output"
   ./source/runConfigureICU MacOSX
