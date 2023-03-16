@@ -381,6 +381,32 @@ compile_breakpad "x86_64"
 
 # icu
 
+compile_icu_prepare()
+{
+  unarchive_and_enter $ICU_VERSION ".tgz"
+
+  cp source/config/mh-darwin source/config/mh-unknown
+
+  export CC=$2
+  export CXX=$2
+  export LDFLAGS="${LDFLAGS} -lc++"
+  OUTPUT_PATH="$(pwd)/output"
+  ./source/runConfigureICU MacOSX
+  check_success
+
+  make -j4
+  check_success
+
+  cd ..
+
+  mv $ICU_VERSION icu-mac
+  check_success
+}
+
+compile_icu_prepare
+
+# icu
+
 echo "Building icu"
 compile_icu()
 {

@@ -256,46 +256,6 @@ compile_libepoxy()
   cd ..
   rm -rf $LIBEPOXY_VERSION
 }
-#
-## eigen
-#
-#compile_eigen()
-#{
-#  unarchive_and_enter $EIGEN_VERSION ".tar.gz"
-#
-#  echo "Compiling for $1"
-#
-#  mkdir build
-#  cd build
-#
-#  OUTPUT_PATH=$(pwd)/output
-#  mkdir -p ${OUTPUT_PATH}
-#
-#  if [ -n "$6" ]; then
-#    CMAKE_FILE_PATH=$6
-#  else
-#    CMAKE_FILE_PATH=".."
-#  fi
-#
-#  cmake $CMAKE_FILE_PATH \
-#           -DCMAKE_OSX_DEPLOYMENT_TARGET=10.10 \
-#           -DCMAKE_INSTALL_PREFIX=$OUTPUT_PATH
-#  check_success
-#  cmake --build . --config Release --target install
-#  check_success
-#
-#  cd ..
-#
-#  echo "Copying products"
-#  DIRECT_INCLUDE_PATH=$INCLUDE_PATH/eigen3
-#  mkdir -p $DIRECT_INCLUDE_PATH
-#  cp -r ${OUTPUT_PATH}/include/eigen3/* $INCLUDE_PATH
-#  check_success
-#
-#  echo "Cleaning"
-#  cd ..
-#  rm -rf $EIGEN_VERSION
-#}
 
 # icu
 
