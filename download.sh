@@ -30,4 +30,6 @@ wget "https://gitlab.com/libeigen/eigen/-/archive/3.4.0/${EIGEN_VERSION}.tar.gz"
 ICU_DOWNLOAD_NAME="icu4c-72_1-src.tgz"
 wget "https://github.com/unicode-org/icu/releases/download/release-72-1/${ICU_DOWNLOAD_NAME}" -O "${ICU_VERSION}.tgz"
 
+wget "https://github.com/google/breakpad/tarball/309534f959c47b1518a1a01817ad7ab4ec20a12b" -O "${BREAKPAD_VERSION}.tar.gz"
 
+wget "https://github.com/nlohmann/json/releases/download/v3.11.2/json.hpp"

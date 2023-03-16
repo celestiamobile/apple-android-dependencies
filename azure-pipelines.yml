@@ -12,7 +12,7 @@ stages:
   jobs:
   - template: jobs/build.yml
     parameters:
-      buildType: iossim
+      buildTarget: iossim
 
 - stage: macOS
   displayName: 'macOS'
@@ -20,7 +20,7 @@ stages:
   jobs:
   - template: jobs/build.yml
     parameters:
-      buildType: mac
+      buildTarget: mac
 
 - stage: macCatalyst
   displayName: 'macCatalyst'
@@ -28,4 +28,12 @@ stages:
   jobs:
   - template: jobs/build.yml
     parameters:
-      buildType: catalyst
+      buildTarget: catalyst
+
+- stage: Android
+  displayName: 'Android'
+  dependsOn: []
+  jobs:
+  - template: jobs/build.yml
+    parameters:
+      buildTarget: android

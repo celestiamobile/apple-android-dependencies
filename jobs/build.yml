@@ -14,5 +14,7 @@ jobs:
   - script: sh ./download.sh
     displayName: 'Download'
 
-  - script: sh ./build_$(buildTarget).sh
+  - script: |
+      export NDK=$ANDROID_NDK_HOME
+      sh ./build_$(buildTarget).sh
     displayName: 'Build'
