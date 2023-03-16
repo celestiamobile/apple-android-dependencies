@@ -1,0 +1,31 @@
+stages:
+- stage: iOS
+  displayName: 'iOS'
+  jobs:
+  - template: jobs/build.yml
+    parameters:
+      buildTarget: ios
+
+- stage: iOSSimulator
+  displayName: 'iOS Simulator'
+  dependsOn: []
+  jobs:
+  - template: jobs/build.yml
+    parameters:
+      buildType: iossim
+
+- stage: macOS
+  displayName: 'macOS'
+  dependsOn: []
+  jobs:
+  - template: jobs/build.yml
+    parameters:
+      buildType: mac
+
+- stage: macCatalyst
+  displayName: 'macCatalyst'
+  dependsOn: []
+  jobs:
+  - template: jobs/build.yml
+    parameters:
+      buildType: catalyst
