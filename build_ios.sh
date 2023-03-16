@@ -38,8 +38,6 @@ fat_create_and_clean "libintl"
 compile_libepoxy "arm64"
 fat_create_and_clean "libGL"
 
-compile_icu_prepare
-
 compile_icu "arm64" "${CC_ARM64}"
 fat_create_and_clean "libicudata"
 fat_create_and_clean "libicui18n"

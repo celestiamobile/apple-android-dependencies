@@ -45,8 +45,6 @@ compile_libepoxy "arm64"
 compile_libepoxy "x86_64"
 fat_create_and_clean "libGL"
 
-compile_icu_prepare
-
 compile_icu "arm64" "${CC_ARM64}"
 compile_icu "x86_64" "${CC_X86_64}"
 fat_create_and_clean "libicudata"

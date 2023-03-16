@@ -30,6 +30,7 @@ jobs:
   - script: |
       export NDK=$ANDROID_HOME/ndk/$(ndkVersion)
       sudo xcode-select -s /Applications/Xcode_$(xcodeVersion).app
+      sh ./prepare_icu.sh
       sh ./build_$(buildTarget).sh
     displayName: 'Build'
 
