@@ -119,11 +119,17 @@ build_with_cmake_arch()
 
   cd ..
 
+  if [ -z "$4" ] || [ "$4" == "dummy" ]; then
+    HEADER_PATH=$INCLUDE_PATH
+  else
+    HEADER_PATH=$INCLUDE_PATH/$4
+  fi
+
   echo "Copying products"
-  mkdir -p $INCLUDE_PATH/$4
-  cp -r $OUTPUT_PATH/include/* $INCLUDE_PATH/$4
+  mkdir -p $HEADER_PATH
+  cp -r $OUTPUT_PATH/include/* $HEADER_PATH
   check_success
-  if [ ! -z "$5" ]; then
+  if [ ! -z "$5" ] && [ "$5" != "dummy" ]; then
     if [ "$TARGET" == "Android" ]; then
       cp $OUTPUT_PATH/lib/$5.a $LIB_PATH/$1/$5.a
       check_success

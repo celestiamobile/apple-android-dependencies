@@ -13,7 +13,7 @@ mkdir -p $INCLUDE_PATH
 
 source build_apple.sh
 
-build_with_cmake "fmt" $FMT_VERSION ".tar.gz" "fmt" "libfmt" ".." "-DFMT_TEST=OFF" "-DBUILD_SHARED_LIBS=OFF"
+build_with_cmake "fmt" $FMT_VERSION ".tar.gz" "dummy" "libfmt" ".." "-DFMT_TEST=OFF" "-DBUILD_SHARED_LIBS=OFF"
 build_with_cmake "eigen" $EIGEN_VERSION ".tar.gz"
 build_with_cmake "meshoptimizer" $MESHOPTIMIZER_VERSION ".tar.gz" "meshoptimizer" "libmeshoptimizer"
 

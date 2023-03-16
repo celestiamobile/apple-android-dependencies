@@ -16,7 +16,7 @@ mkdir -p $LIB_PATH/x86_64
 mkdir -p $LIB_PATH/armeabi-v7a
 mkdir -p $LIB_PATH/arm64-v8a
 
-build_with_cmake "fmt" $FMT_VERSION ".tar.gz" "fmt" "libfmt" ".." "-DFMT_TEST=OFF" "-DBUILD_SHARED_LIBS=OFF"
+build_with_cmake "fmt" $FMT_VERSION ".tar.gz" "dummy" "libfmt" ".." "-DFMT_TEST=OFF" "-DBUILD_SHARED_LIBS=OFF"
 build_with_cmake "eigen" $EIGEN_VERSION ".tar.gz"
 build_with_cmake "meshoptimizer" $MESHOPTIMIZER_VERSION ".tar.gz" "meshoptimizer" "libmeshoptimizer"
 
