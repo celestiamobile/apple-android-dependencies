@@ -1,0 +1,18 @@
+jobs:
+- job: Build
+  displayName: 'Build'
+  pool:
+    vmImage: macos-12
+
+  variables:
+    buildTarget: ${{ parameters.buildTarget }}
+
+  steps:
+  - script: brew install meson wget
+    displayName: 'Install Dependencies'
+
+  - script: sh ./download.sh
+    displayName: 'Download'
+
+  - script: sh ./build_${buildTarget}.sh
+    displayName: 'Build'
