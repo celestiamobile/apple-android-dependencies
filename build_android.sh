@@ -403,8 +403,7 @@ compile_icu()
               --disable-tools \
               --disable-icuio \
               --disable-shared \
-              --disable-tests \
-              --disable-samples \
+              --disable-dyload \
               --host=arm \
               --with-cross-build=`pwd`/../icu-mac \
               --prefix=${OUTPUT_PATH}

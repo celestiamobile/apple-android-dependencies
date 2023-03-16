@@ -279,7 +279,10 @@ compile_icu()
               --disable-tests \
               --disable-extras \
               --enable-static \
+              --disable-tools \
+              --disable-icuio \
               --disable-shared \
+              --disable-dyload \
               --host=arm \
               --with-cross-build=`pwd`/../icu-mac \
               --prefix=${OUTPUT_PATH}
