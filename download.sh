@@ -22,7 +22,7 @@ wget "https://download.gnome.org/sources/libepoxy/1.5/${LIBEPOXY_VERSION}.tar.xz
 FMT_DOWNLOAD_NAME="9.1.0.tar.gz"
 wget "https://github.com/fmtlib/fmt/archive/${FMT_DOWNLOAD_NAME}" -O "${FMT_VERSION}.tar.gz"
 
-MESHOPTIMIZER_DOWNLOAD_NAME="v0.18.tar.gz"
+MESHOPTIMIZER_DOWNLOAD_NAME="v0.19.tar.gz"
 wget "https://github.com/zeux/meshoptimizer/archive/refs/tags/${MESHOPTIMIZER_DOWNLOAD_NAME}" -O "${MESHOPTIMIZER_VERSION}.tar.gz"
 
 wget "https://gitlab.com/libeigen/eigen/-/archive/3.4.0/${EIGEN_VERSION}.tar.gz"
@@ -30,6 +30,6 @@ wget "https://gitlab.com/libeigen/eigen/-/archive/3.4.0/${EIGEN_VERSION}.tar.gz"
 ICU_DOWNLOAD_NAME="icu4c-72_1-src.tgz"
 wget "https://github.com/unicode-org/icu/releases/download/release-72-1/${ICU_DOWNLOAD_NAME}" -O "${ICU_VERSION}.tgz"
 
-wget "https://github.com/google/breakpad/tarball/309534f959c47b1518a1a01817ad7ab4ec20a12b" -O "${BREAKPAD_VERSION}.tar.gz"
+wget "https://github.com/google/breakpad/tarball/7a1a190f4f68e8a3e06788498f50a4d5520a69f3" -O "${BREAKPAD_VERSION}.tar.gz"
 
 wget "https://github.com/nlohmann/json/releases/download/v3.11.2/json.hpp"
