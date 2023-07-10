@@ -74,6 +74,21 @@ build_with_cmake_arch()
       echo "Unknown arch"
       exit
     fi
+  elif [ "$TARGET" == "visionOS" ]; then
+    echo "Building for visonOS"
+    DEPLOYMENT_TARGET="1.0"
+    PLATFORM="VISIONOS"
+  elif [ "$TARGET" == "visionOSSimulator" ]; then
+    echo "Building for visionOSSimulator"
+    DEPLOYMENT_TARGET="1.0"
+    if [ "$1" == "arm64" ]; then
+      PLATFORM="SIMULATOR_VISIONOS_ARM64"
+    elif [ "$1" == "x86_64" ]; then
+      PLATFORM="SIMULATOR_VISIONOS"
+    else
+      echo "Unknown arch"
+      exit
+    fi
   elif [ "$TARGET" == "Android" ]; then
     echo "Building for Android"
   elif [ "$TARGET" == "Emscripten" ]; then
@@ -157,7 +172,7 @@ build_with_cmake_arch()
 build_with_cmake()
 {
   echo "Building $1"
-  if [ "$TARGET" == "iOS" ]; then
+  if [ "$TARGET" == "iOS" ] || [ "$TARGET" == "visionOS" ]; then
     build_with_cmake_arch "arm64" ${@:2}
     if [ ! -z "$5" ]; then
       fat_create_and_clean $5

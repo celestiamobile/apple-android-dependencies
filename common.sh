@@ -124,6 +124,19 @@ elif [ "$TARGET" == "iOSSimulator" ]; then
     CC_X86_64="$(xcrun --sdk iphonesimulator --find clang) -isysroot $(xcrun --sdk iphonesimulator --show-sdk-path) -arch x86_64 -miphonesimulator-version-min=13.1"
     CC_ARM64="$(xcrun --sdk iphonesimulator --find clang) -isysroot $(xcrun --sdk iphonesimulator --show-sdk-path) -arch arm64 -miphonesimulator-version-min=13.1"
   fi
+elif [ "$TARGET" == "visionOS" ]; then
+  LIB_PATH="$(pwd)/visionos/libs"
+  INCLUDE_PATH="$(pwd)/visionos/include"
+  CMAKE=cmake
+  CMAKE_TOOLCHAIN_PATH="$(pwd)/ios.toolchain.cmake"
+  CC_ARM64="$(xcrun --sdk xros --find clang) -isysroot $(xcrun --sdk xros --show-sdk-path) -target arm64-apple-xros1.0"
+elif [ "$TARGET" == "visionOSSimulator" ]; then
+  LIB_PATH="$(pwd)/visionossim/libs"
+  INCLUDE_PATH="$(pwd)/visionossim/include"
+  CMAKE=cmake
+  CMAKE_TOOLCHAIN_PATH="$(pwd)/ios.toolchain.cmake"
+  CC_X86_64="$(xcrun --sdk xrsimulator --find clang) -isysroot $(xcrun --sdk xrsimulator --show-sdk-path) -target x86_64-apple-xros1.0-simulator"
+  CC_ARM64="$(xcrun --sdk xrsimulator --find clang) -isysroot $(xcrun --sdk xrsimulator --show-sdk-path) -target arm64-apple-xros1.0-simulator"
 elif [ "$TARGET" == "macOS" ]; then
   LIB_PATH="$(pwd)/mac/libs"
   INCLUDE_PATH="$(pwd)/mac/include"
