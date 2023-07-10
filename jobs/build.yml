@@ -3,11 +3,11 @@ jobs:
   displayName: 'Build'
   timeoutInMinutes: 120
   pool:
-    vmImage: macos-12
+    vmImage: macos-13
 
   variables:
     buildTarget: ${{ parameters.buildTarget }}
-    xcodeVersion: ${{ '14.2' }}
+    xcodeVersion: ${{ '14.3.1' }}
     ndkVersion: ${{ '25.2.9519653' }}
 
   steps:
