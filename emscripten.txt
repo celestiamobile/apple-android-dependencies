@@ -1,0 +1,21 @@
+[binaries]
+c = 'emcc'
+cpp = 'em++'
+ar = 'emar'
+ranlib = 'emranlib'
+strip = 'emstrip'
+pkgconfig = ['pkg-config']
+
+[built-in options]
+c_args = ['-fPIC']
+cpp_args = ['-fPIC']
+
+[properties]
+sys_root = '/Users/linfel/Developer/Personal/Celestia/emsdk/upstream/emscripten/cache/sysroot'
+pkg_config_libdir = '/Users/linfel/Developer/Personal/Celestia/emsdk/upstream/emscripten/cache/sysroot/lib/pkgconfig'
+
+[host_machine]
+system = 'wasm'
+cpu_family = 'wasm'
+cpu = 'wasm'
+endian = 'little'

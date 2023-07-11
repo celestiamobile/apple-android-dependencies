@@ -37,3 +37,11 @@ stages:
   - template: jobs/build.yml
     parameters:
       buildTarget: android
+
+- stage: Emscripten
+  displayName: 'Emscripten'
+  dependsOn: []
+  jobs:
+  - template: jobs/build.yml
+    parameters:
+      buildTarget: emscripten

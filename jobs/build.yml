@@ -24,9 +24,24 @@ jobs:
       TO_REPLACE="/Users/linfel/Library/Android/sdk/ndk/25.1.8937393"
       NEW_STRING="$ANDROID_HOME/ndk/$(ndkVersion)"
       sed -ie "s#${TO_REPLACE}#${NEW_STRING}#g" *.txt
+      if [ "$(buildTarget)" == "emscripten" ]; then
+        git clone https://github.com/emscripten-core/emsdk.git
+        cd emsdk
+        ./emsdk install latest
+        ./emsdk activate latest
+        TO_REPLACE="/Users/linfel/Developer/Personal/Celestia/emsdk"
+        NEW_STRING=$(pwd)
+        cd ..
+        sed -ie "s#${TO_REPLACE}#${NEW_STRING}#g" emscripten.txt
+      fi
     displayName: 'Replace Strings'
 
   - script: |
+      if [ "$(buildTarget)" == "emscripten" ]; then
+        cd emsdk
+        source ./emsdk_env.sh
+        cd ..
+      fi
       export NDK=$ANDROID_HOME/ndk/$(ndkVersion)
       sudo xcode-select -s /Applications/Xcode_$(xcodeVersion).app
       sh ./prepare_icu.sh

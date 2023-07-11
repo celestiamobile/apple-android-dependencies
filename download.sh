@@ -33,3 +33,5 @@ wget "https://github.com/unicode-org/icu/releases/download/release-73-2/${ICU_DO
 wget "https://github.com/google/breakpad/tarball/7a1a190f4f68e8a3e06788498f50a4d5520a69f3" -O "${BREAKPAD_VERSION}.tar.gz"
 
 wget "https://github.com/nlohmann/json/releases/download/v3.11.2/json.hpp"
+
+wget "https://zlib.net/${ZLIB_VERSION}.tar.gz"
