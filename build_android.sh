@@ -11,7 +11,6 @@ source versions.sh
 mkdir -p $LIB_PATH
 mkdir -p $INCLUDE_PATH
 
-mkdir -p $LIB_PATH/x86
 mkdir -p $LIB_PATH/x86_64
 mkdir -p $LIB_PATH/armeabi-v7a
 mkdir -p $LIB_PATH/arm64-v8a
@@ -60,8 +59,6 @@ configure_armv7
 compile_breakpad "armeabi-v7a"
 configure_arm64
 compile_breakpad "arm64-v8a"
-configure_x86
-compile_breakpad "x86"
 configure_x86_64
 compile_breakpad "x86_64"
 
@@ -106,8 +103,6 @@ compile_cspice()
   rm -rf $CSPICE_VERSION
 }
 
-configure_x86
-compile_cspice "x86"
 configure_x86_64
 compile_cspice "x86_64"
 configure_armv7
@@ -144,8 +139,6 @@ compile_libpng()
   rm -rf $LIBPNG_VERSION
 }
 
-configure_x86
-compile_libpng "x86"
 configure_x86_64
 compile_libpng "x86_64"
 configure_armv7
@@ -182,8 +175,6 @@ compile_jpeg()
   rm -rf $JPEG_VERSION
 }
 
-configure_x86
-compile_jpeg "x86"
 configure_x86_64
 compile_jpeg "x86_64"
 configure_armv7
@@ -222,8 +213,6 @@ compile_freetype()
   rm -rf $FREETYPE_VERSION
 }
 
-configure_x86
-compile_freetype "x86"
 configure_x86_64
 compile_freetype "x86_64"
 configure_armv7
@@ -281,8 +270,6 @@ compile_gettext()
   rm -rf $GETTEXT_VERSION
 }
 
-configure_x86
-compile_gettext "x86"
 configure_x86_64
 compile_gettext "x86_64"
 configure_armv7
@@ -337,8 +324,6 @@ compile_lua()
   rm -rf $LUA_VERSION
 }
 
-configure_x86
-compile_lua "x86"
 configure_x86_64
 compile_lua "x86_64"
 configure_armv7
@@ -374,7 +359,6 @@ compile_libepoxy()
   rm -rf $LIBEPOXY_VERSION
 }
 
-compile_libepoxy "x86"
 compile_libepoxy "x86_64"
 compile_libepoxy "armeabi-v7a"
 compile_libepoxy "arm64-v8a"
@@ -430,8 +414,6 @@ configure_armv7
 compile_icu "armeabi-v7a"
 configure_arm64
 compile_icu "arm64-v8a"
-configure_x86
-compile_icu "x86"
 configure_x86_64
 compile_icu "x86_64"
 

@@ -178,7 +178,6 @@ build_with_cmake()
       fat_create_and_clean $5
     fi
   elif [ "$TARGET" == "Android" ]; then
-    build_with_cmake_arch "x86" ${@:2}
     build_with_cmake_arch "x86_64" ${@:2}
     build_with_cmake_arch "armeabi-v7a" ${@:2}
     build_with_cmake_arch "arm64-v8a" ${@:2}
