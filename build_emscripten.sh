@@ -270,3 +270,8 @@ compile_icu()
 
 configure_emscripten
 compile_icu
+
+unarchive_and_enter $OPENGL_VERSION ".tar.gz"
+mkdir -p $INCLUDE_PATH/angle
+cp -r api/* $INCLUDE_PATH/angle/
+cd ..

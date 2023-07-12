@@ -35,3 +35,5 @@ wget "https://github.com/google/breakpad/tarball/7a1a190f4f68e8a3e06788498f50a4d
 wget "https://github.com/nlohmann/json/releases/download/v3.11.2/json.hpp"
 
 wget "https://zlib.net/${ZLIB_VERSION}.tar.gz"
+
+wget "https://github.com/KhronosGroup/OpenGL-Registry/tarball/fbe417f909b6a0fb5e8ff7f9b506058a37f1e93c" -O "${OPENGL_VERSION}.tar.gz"

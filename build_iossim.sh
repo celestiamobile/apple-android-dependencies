@@ -50,3 +50,8 @@ compile_icu "x86_64" "${CC_X86_64}"
 fat_create_and_clean "libicudata"
 fat_create_and_clean "libicui18n"
 fat_create_and_clean "libicuuc"
+
+unarchive_and_enter $OPENGL_VERSION ".tar.gz"
+mkdir -p $INCLUDE_PATH/angle
+cp -r api/* $INCLUDE_PATH/angle/
+cd ..

@@ -437,3 +437,8 @@ compile_icu "x86_64"
 
 mkdir -p $INCLUDE_PATH/json
 mv json.hpp $INCLUDE_PATH/json/
+
+unarchive_and_enter $OPENGL_VERSION ".tar.gz"
+mkdir -p $INCLUDE_PATH/angle
+cp -r api/* $INCLUDE_PATH/angle/
+cd ..
