@@ -43,7 +43,11 @@ fat_create_and_clean "libicudata"
 fat_create_and_clean "libicui18n"
 fat_create_and_clean "libicuuc"
 
-unarchive_and_enter $OPENGL_VERSION ".tar.gz"
 mkdir -p $INCLUDE_PATH/angle
+unarchive_and_enter $OPENGL_VERSION ".tar.gz"
 cp -r api/* $INCLUDE_PATH/angle/
+cd ..
+
+unarchive_and_enter $EGL_VERSION ".tar.gz"
+cp -r api/KHR $INCLUDE_PATH/angle/
 cd ..

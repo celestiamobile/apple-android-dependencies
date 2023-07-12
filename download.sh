@@ -37,3 +37,5 @@ wget "https://github.com/nlohmann/json/releases/download/v3.11.2/json.hpp"
 wget "https://zlib.net/${ZLIB_VERSION}.tar.gz"
 
 wget "https://github.com/KhronosGroup/OpenGL-Registry/tarball/fbe417f909b6a0fb5e8ff7f9b506058a37f1e93c" -O "${OPENGL_VERSION}.tar.gz"
+
+wget "https://github.com/KhronosGroup/EGL-Registry/tarball/6550e9b12e0b4f11182bda30ae2a8dd56d0b02c8" -O "${EGL_VERSION}.tar.gz"
