@@ -11,6 +11,7 @@ source versions.sh
 mkdir -p $LIB_PATH
 mkdir -p $INCLUDE_PATH
 
+build_with_cmake "jpeg" $JPEG_TURBO_VERSION ".tar.gz" "jpeg" "libjpeg" ".." "-DENABLE_STATIC=ON" "-DENABLE_SHARED=OFF" "-DWITH_TURBOJPEG=OFF"
 build_with_cmake "zlib" $ZLIB_VERSION ".tar.gz" "zlib" "libz" ".."
 build_with_cmake "libpng" $LIBPNG_VERSION ".tar.xz" "libpng" "libpng" ".." "-DZLIB_LIBRARY=$LIB_PATH/libz.a" "-DZLIB_INCLUDE_DIR=$INCLUDE_PATH/zlib"
 build_with_cmake "freetype" $FREETYPE_VERSION ".tar.xz" "freetype" "libfreetype" ".." "-DZLIB_LIBRARY=$LIB_PATH/libz.a" "-DZLIB_INCLUDE_DIR=$INCLUDE_PATH/zlib" "-DFT_DISABLE_BROTLI=ON" "-DFT_DISABLE_HARFBUZZ=ON" "-DFT_DISABLE_PNG=ON"
@@ -60,37 +61,6 @@ compile_cspice()
 
 configure_emscripten
 compile_cspice
-
-# jpeg
-
-echo "Building jpeg"
-compile_jpeg()
-{
-  unarchive_and_enter $JPEG_VERSION ".tar.gz"
-
-  OUTPUT_PATH="$(pwd)/output"
-  ./configure --disable-dependency-tracking \
-              --disable-silent-rules \
-              --host=arm \
-              --prefix=${OUTPUT_PATH}
-  check_success
-
-  make -j4 install
-  check_success
-
-  echo "Copying products"
-  mkdir -p $INCLUDE_PATH/jpeg
-  cp -r output/include/* $INCLUDE_PATH/jpeg/
-  cp output/lib/libjpeg.a $LIB_PATH
-  check_success
-
-  echo "Cleaning"
-  cd ..
-  rm -rf $JPEG_VERSION
-}
-
-configure_emscripten
-compile_jpeg
 
 # gettext
 

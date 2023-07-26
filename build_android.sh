@@ -15,6 +15,7 @@ mkdir -p $LIB_PATH/x86_64
 mkdir -p $LIB_PATH/armeabi-v7a
 mkdir -p $LIB_PATH/arm64-v8a
 
+build_with_cmake "jpeg" $JPEG_TURBO_VERSION ".tar.gz" "jpeg" "libjpeg" ".." "-DENABLE_STATIC=ON" "-DENABLE_SHARED=OFF" "-DWITH_TURBOJPEG=OFF"
 build_with_cmake "fmt" $FMT_VERSION ".tar.gz" "dummy" "libfmt" ".." "-DFMT_TEST=OFF" "-DBUILD_SHARED_LIBS=OFF"
 build_with_cmake "eigen" $EIGEN_VERSION ".tar.gz"
 build_with_cmake "meshoptimizer" $MESHOPTIMIZER_VERSION ".tar.gz" "meshoptimizer" "libmeshoptimizer"
@@ -145,42 +146,6 @@ configure_armv7
 compile_libpng "armeabi-v7a"
 configure_arm64
 compile_libpng "arm64-v8a"
-
-# jpeg
-
-echo "Building jpeg"
-compile_jpeg()
-{
-  unarchive_and_enter $JPEG_VERSION ".tar.gz"
-
-  echo "Compiling for $1"
-  OUTPUT_PATH="$(pwd)/output"
-  ./configure --disable-dependency-tracking \
-              --disable-silent-rules \
-              --host=arm \
-              --prefix=${OUTPUT_PATH}
-  check_success
-
-  make -j4 install
-  check_success
-
-  echo "Copying products"
-  mkdir -p $INCLUDE_PATH/jpeg
-  cp -r output/include/* $INCLUDE_PATH/jpeg/
-  cp output/lib/libjpeg.a $LIB_PATH/${1}
-  check_success
-
-  echo "Cleaning"
-  cd ..
-  rm -rf $JPEG_VERSION
-}
-
-configure_x86_64
-compile_jpeg "x86_64"
-configure_armv7
-compile_jpeg "armeabi-v7a"
-configure_arm64
-compile_jpeg "arm64-v8a"
 
 # freetype
 
