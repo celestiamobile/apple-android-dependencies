@@ -41,3 +41,5 @@ wget "https://github.com/KhronosGroup/OpenGL-Registry/tarball/fbe417f909b6a0fb5e
 wget "https://github.com/KhronosGroup/EGL-Registry/tarball/6550e9b12e0b4f11182bda30ae2a8dd56d0b02c8" -O "${EGL_VERSION}.tar.gz"
 
 wget "https://downloads.sourceforge.net/project/libjpeg-turbo/3.0.0/${JPEG_TURBO_VERSION}.tar.gz"
+
+wget "https://codeload.github.com/mackron/miniaudio/tar.gz/refs/tags/0.11.17" -O "${MINIAUDIO_VERSION}.tar.gz"

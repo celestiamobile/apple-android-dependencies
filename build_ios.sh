@@ -49,3 +49,8 @@ cd ..
 unarchive_and_enter $EGL_VERSION ".tar.gz"
 cp -r api/KHR $INCLUDE_PATH/angle/
 cd ..
+
+unarchive_and_enter $MINIAUDIO_VERSION ".tar.gz"
+mkdir -p $INCLUDE_PATH/miniaudio
+cp miniaudio.h $INCLUDE_PATH/miniaudio/
+cd ..
