@@ -36,10 +36,10 @@ wget "https://github.com/nlohmann/json/releases/download/v3.11.2/json.hpp"
 
 wget "https://zlib.net/${ZLIB_VERSION}.tar.gz"
 
-wget "https://github.com/KhronosGroup/OpenGL-Registry/tarball/22ffb40aef5203367ad9a1431cabbba30d0230b9" -O "${OPENGL_VERSION}.tar.gz"
+wget "https://github.com/KhronosGroup/OpenGL-Registry/tarball/784b8b340e0429da3be2378bd5217d3c5530b9e5" -O "${OPENGL_VERSION}.tar.gz"
 
 wget "https://github.com/KhronosGroup/EGL-Registry/tarball/b055c9b483e70ecd57b3cf7204db21f5a06f9ffe" -O "${EGL_VERSION}.tar.gz"
 
-wget "https://downloads.sourceforge.net/project/libjpeg-turbo/3.0.0/${JPEG_TURBO_VERSION}.tar.gz"
+wget "https://downloads.sourceforge.net/project/libjpeg-turbo/3.0.1/${JPEG_TURBO_VERSION}.tar.gz"
 
 wget "https://codeload.github.com/mackron/miniaudio/tar.gz/refs/tags/0.11.18" -O "${MINIAUDIO_VERSION}.tar.gz"
