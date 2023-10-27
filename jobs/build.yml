@@ -7,8 +7,8 @@ jobs:
 
   variables:
     buildTarget: ${{ parameters.buildTarget }}
-    xcodeVersion: ${{ '15.0' }}
-    ndkVersion: ${{ '26.0.10792818' }}
+    xcodeVersion: ${{ '15.0.1' }}
+    ndkVersion: ${{ '26.1.10909125' }}
 
   steps:
   - script: brew install meson wget
