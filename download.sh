@@ -17,6 +17,8 @@ wget "https://ftp.gnu.org/gnu/gettext/${GETTEXT_VERSION}.tar.gz"
 
 wget "https://www.lua.org/ftp/${LUA_VERSION}.tar.gz"
 
+wget "https://github.com/LuaJIT/LuaJIT/archive/0afa1676b2d2aabf1f3101a2692eb0f1e291076a.tar.gz" -O "${LUAJIT_VERSION}.tar.gz"
+
 wget "https://download.gnome.org/sources/libepoxy/1.5/${LIBEPOXY_VERSION}.tar.xz"
 
 FMT_DOWNLOAD_NAME="10.1.1.tar.gz"

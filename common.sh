@@ -107,54 +107,71 @@ if [ "$TARGET" == "iOS" ]; then
   INCLUDE_PATH="$(pwd)/ios/include"
   CMAKE=cmake
   CMAKE_TOOLCHAIN_PATH="$(pwd)/ios.toolchain.cmake"
+  CC_EXECUTABLE=$(xcrun --sdk iphoneos --find clang)
   if [ "$LEGACY_SUPPORT" = true ]; then
-    CC_ARM64="$(xcrun --sdk iphoneos --find clang) -isysroot $(xcrun --sdk iphoneos --show-sdk-path) -arch arm64 -miphoneos-version-min=11.0"
+    CC_ARM64_FLAGS="-isysroot $(xcrun --sdk iphoneos --show-sdk-path) -arch arm64 -miphoneos-version-min=11.0"
   else
-    CC_ARM64="$(xcrun --sdk iphoneos --find clang) -isysroot $(xcrun --sdk iphoneos --show-sdk-path) -arch arm64 -miphoneos-version-min=13.1"
+    CC_ARM64_FLAGS="-isysroot $(xcrun --sdk iphoneos --show-sdk-path) -arch arm64 -miphoneos-version-min=13.1"
   fi
+  CC_ARM64="$CC_EXECUTABLE $CC_ARM64_FLAGS"
 elif [ "$TARGET" == "iOSSimulator" ]; then
   LIB_PATH="$(pwd)/iossim/libs"
   INCLUDE_PATH="$(pwd)/iossim/include"
   CMAKE=cmake
   CMAKE_TOOLCHAIN_PATH="$(pwd)/ios.toolchain.cmake"
+  CC_EXECUTABLE=$(xcrun --sdk iphonesimulator --find clang)
   if [ "$LEGACY_SUPPORT" = true ]; then
-    CC_X86_64="$(xcrun --sdk iphonesimulator --find clang) -isysroot $(xcrun --sdk iphonesimulator --show-sdk-path) -arch x86_64 -miphonesimulator-version-min=11.0"
-    CC_ARM64="$(xcrun --sdk iphonesimulator --find clang) -isysroot $(xcrun --sdk iphonesimulator --show-sdk-path) -arch arm64 -miphonesimulator-version-min=11.0"
+    CC_X86_64_FLAGS="-isysroot $(xcrun --sdk iphonesimulator --show-sdk-path) -arch x86_64 -miphonesimulator-version-min=11.0"
+    CC_ARM64_FLAGS="-isysroot $(xcrun --sdk iphonesimulator --show-sdk-path) -arch arm64 -miphonesimulator-version-min=11.0"
   else
-    CC_X86_64="$(xcrun --sdk iphonesimulator --find clang) -isysroot $(xcrun --sdk iphonesimulator --show-sdk-path) -arch x86_64 -miphonesimulator-version-min=13.1"
-    CC_ARM64="$(xcrun --sdk iphonesimulator --find clang) -isysroot $(xcrun --sdk iphonesimulator --show-sdk-path) -arch arm64 -miphonesimulator-version-min=13.1"
+    CC_X86_64_FLAGS="-isysroot $(xcrun --sdk iphonesimulator --show-sdk-path) -arch x86_64 -miphonesimulator-version-min=13.1"
+    CC_ARM64_FLAGS="-isysroot $(xcrun --sdk iphonesimulator --show-sdk-path) -arch arm64 -miphonesimulator-version-min=13.1"
   fi
+  CC_X86_64="$CC_EXECUTABLE $CC_X86_64_FLAGS"
+  CC_ARM64="$CC_EXECUTABLE $CC_ARM64_FLAGS"
 elif [ "$TARGET" == "visionOS" ]; then
   LIB_PATH="$(pwd)/visionos/libs"
   INCLUDE_PATH="$(pwd)/visionos/include"
   CMAKE=cmake
   CMAKE_TOOLCHAIN_PATH="$(pwd)/ios.toolchain.cmake"
-  CC_ARM64="$(xcrun --sdk xros --find clang) -isysroot $(xcrun --sdk xros --show-sdk-path) -target arm64-apple-xros1.0"
+  CC_EXECUTABLE=$(xcrun --sdk xros --find clang)
+  CC_ARM64_FLAGS="-isysroot $(xcrun --sdk xros --show-sdk-path) -target arm64-apple-xros1.0"
+  CC_ARM64="$CC_EXECUTABLE $CC_ARM64_FLAGS"
 elif [ "$TARGET" == "visionOSSimulator" ]; then
   LIB_PATH="$(pwd)/visionossim/libs"
   INCLUDE_PATH="$(pwd)/visionossim/include"
   CMAKE=cmake
   CMAKE_TOOLCHAIN_PATH="$(pwd)/ios.toolchain.cmake"
-  CC_X86_64="$(xcrun --sdk xrsimulator --find clang) -isysroot $(xcrun --sdk xrsimulator --show-sdk-path) -target x86_64-apple-xros1.0-simulator"
-  CC_ARM64="$(xcrun --sdk xrsimulator --find clang) -isysroot $(xcrun --sdk xrsimulator --show-sdk-path) -target arm64-apple-xros1.0-simulator"
+  CC_EXECUTABLE=$(xcrun --sdk xrsimulator --find clang)
+  CC_X86_64_FLAGS="-isysroot $(xcrun --sdk xrsimulator --show-sdk-path) -target x86_64-apple-xros1.0-simulator"
+  CC_ARM64_FLAGS="-isysroot $(xcrun --sdk xrsimulator --show-sdk-path) -target arm64-apple-xros1.0-simulator"
 elif [ "$TARGET" == "macOS" ]; then
   LIB_PATH="$(pwd)/mac/libs"
   INCLUDE_PATH="$(pwd)/mac/include"
   CMAKE=cmake
   CMAKE_TOOLCHAIN_PATH="$(pwd)/ios.toolchain.cmake"
+  CC_EXECUTABLE=$(xcrun --sdk macosx --find clang)
   if [ "$LEGACY_SUPPORT" = true ]; then
-    CC_X86_64="$(xcrun --sdk macosx --find clang) -isysroot $(xcrun --sdk macosx --show-sdk-path)  -arch x86_64 -mmacosx-version-min=10.12"
+    CC_X86_64_FLAGS="-isysroot $(xcrun --sdk macosx --show-sdk-path)  -arch x86_64 -mmacosx-version-min=10.12"
+    DEPLOYMENT_TARGET_X86_64="10.12"
   else
-    CC_X86_64="$(xcrun --sdk macosx --find clang) -isysroot $(xcrun --sdk macosx --show-sdk-path)  -arch x86_64 -mmacosx-version-min=10.15"
+    CC_X86_64_FLAGS="-isysroot $(xcrun --sdk macosx --show-sdk-path)  -arch x86_64 -mmacosx-version-min=10.15"
+    DEPLOYMENT_TARGET_X86_64="10.15"
   fi
-  CC_ARM64="$(xcrun --sdk macosx --find clang) -isysroot $(xcrun --sdk macosx --show-sdk-path)  -arch arm64 -mmacosx-version-min=11.0"
+  CC_ARM64_FLAGS="-isysroot $(xcrun --sdk macosx --show-sdk-path)  -arch arm64 -mmacosx-version-min=11.0"
+  DEPLOYMENT_TARGET_ARM64="11.0"
+  CC_X86_64="$CC_EXECUTABLE $CC_X86_64_FLAGS"
+  CC_ARM64="$CC_EXECUTABLE $CC_ARM64_FLAGS"
 elif [ "$TARGET" == "macCatalyst" ]; then
   LIB_PATH="$(pwd)/catalyst/libs"
   INCLUDE_PATH="$(pwd)/catalyst/include"
   CMAKE=cmake
   CMAKE_TOOLCHAIN_PATH="$(pwd)/ios.toolchain.cmake"
-  CC_X86_64="$(xcrun --sdk macosx --find clang) -isysroot $(xcrun --sdk macosx --show-sdk-path) -target x86_64-apple-ios-macabi -miphoneos-version-min=13.1"
-  CC_ARM64="$(xcrun --sdk macosx --find clang) -isysroot $(xcrun --sdk macosx --show-sdk-path) -target arm64-apple-ios-macabi -miphoneos-version-min=14.0"
+  CC_EXECUTABLE=$(xcrun --sdk macosx --find clang)
+  CC_X86_64_FLAGS="-isysroot $(xcrun --sdk macosx --show-sdk-path) -target x86_64-apple-ios-macabi -miphoneos-version-min=13.1"
+  CC_ARM64_FLAGS="-isysroot $(xcrun --sdk macosx --show-sdk-path) -target arm64-apple-ios-macabi -miphoneos-version-min=14.0"
+  CC_X86_64="$CC_EXECUTABLE $CC_X86_64_FLAGS"
+  CC_ARM64="$CC_EXECUTABLE $CC_ARM64_FLAGS"
 elif [ "$TARGET" == "Android" ]; then
   LIB_PATH="$(pwd)/android/libs"
   INCLUDE_PATH="$(pwd)/android/include"

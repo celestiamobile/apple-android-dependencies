@@ -128,6 +128,36 @@ compile_lua()
   rm -rf $LUA_VERSION
 }
 
+# luajit
+
+compile_luajit()
+{
+  unarchive_and_enter $LUAJIT_VERSION ".tar.gz"
+
+  echo "Compiling for $1"
+  if [ "$TARGET" == "macOS" ]; then
+    export MACOSX_DEPLOYMENT_TARGET=$4
+  else
+    export TARGET_SYS="iOS"
+  fi
+
+  OUTPUT_PATH="$(pwd)/output"
+
+  make install DEFAULT_CC=clang CROSS="$(dirname $2)/" \
+     TARGET_FLAGS="$3" PREFIX=$OUTPUT_PATH
+  check_success
+
+  echo "Copying products"
+  mkdir -p $INCLUDE_PATH/luajit
+  cp -r output/include/luajit-2.1/* $INCLUDE_PATH/luajit/
+  cp output/lib/libluajit-5.1.a $LIB_PATH/${1}_libluajit.a
+  check_success
+
+  echo "Cleaning"
+  cd ..
+  rm -rf $LUAJIT_VERSION
+}
+
 # freetype
 
 compile_freetype()

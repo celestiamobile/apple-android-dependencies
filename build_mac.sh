@@ -30,6 +30,10 @@ compile_lua "arm64"  "${CC_ARM64}"
 compile_lua "x86_64"  "${CC_X86_64}"
 fat_create_and_clean "liblua"
 
+compile_luajit "arm64" "$CC_EXECUTABLE" "$CC_ARM64_FLAGS" "${DEPLOYMENT_TARGET_ARM64}"
+compile_luajit "x86_64"  "$CC_EXECUTABLE" "$CC_X86_64_FLAGS" "${DEPLOYMENT_TARGET_X86_64}"
+fat_create_and_clean "libluajit"
+
 compile_freetype "arm64"  "${CC_ARM64}"
 compile_freetype "x86_64"  "${CC_X86_64}"
 fat_create_and_clean "libfreetype"
