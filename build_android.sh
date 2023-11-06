@@ -296,6 +296,40 @@ compile_lua "armeabi-v7a"
 configure_arm64
 compile_lua "arm64-v8a"
 
+# luajit
+
+echo "Building luajit"
+compile_luajit()
+{
+  unarchive_and_enter $LUAJIT_VERSION ".tar.gz"
+
+  echo "Compiling for $1"
+  OUTPUT_PATH="$(pwd)/output"
+
+  make install DEFAULT_CC=clang CROSS=$BIN_PREFIX \
+     STATIC_CC="$STATIC_CC" DYNAMIC_CC="$CC" \
+     TARGET_LD="$STATIC_CC" TARGET_AR="$AR rcus" \
+     TARGET_STRIP="$STRIP" TARGET_SYS=Linux PREFIX=$OUTPUT_PATH
+  check_success
+
+  echo "Copying products"
+  mkdir -p $INCLUDE_PATH/luajit
+  cp -r output/include/luajit-2.1/* $INCLUDE_PATH/luajit/
+  cp output/lib/libluajit-5.1.a $LIB_PATH/${1}/libluajit.a
+  check_success
+
+  echo "Cleaning"
+  cd ..
+  rm -rf $LUAJIT_VERSION
+}
+
+configure_x86_64
+compile_luajit "x86_64"
+#configure_armv7
+#compile_luajit "armeabi-v7a"
+configure_arm64
+compile_luajit "arm64-v8a"
+
 # libepoxy
 
 echo "Building libepoxy"

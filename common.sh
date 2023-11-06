@@ -53,44 +53,53 @@ configure_arm64()
 {
   export AR=$TOOLCHAIN/bin/llvm-ar
   export AS=$TOOLCHAIN/bin/llvm-as
-  export CC="$TOOLCHAIN/bin/aarch64-linux-android21-clang -fPIC"
-  export CXX="$TOOLCHAIN/bin/aarch64-linux-android21-clang++ -fPIC"
   export LD=$TOOLCHAIN/bin/llvm-ld
   export RANLIB=$TOOLCHAIN/bin/llvm-ranlib
   export STRIP=$TOOLCHAIN/bin/llvm-strip
+  export BIN_PREFIX="$TOOLCHAIN/bin/aarch64-linux-android21-"
+  export STATIC_CC="${BIN_PREFIX}clang"
+  export CC="$STATIC_CC -fPIC"
+  export CXX="${BIN_PREFIX}clang++ -fPIC"
 }
 
 configure_armv7()
 {
   export AR=$TOOLCHAIN/bin/llvm-ar
   export AS=$TOOLCHAIN/bin/llvm-as
-  export CC="$TOOLCHAIN/bin/armv7a-linux-androideabi21-clang -fPIC"
-  export CXX="$TOOLCHAIN/bin/armv7a-linux-androideabi21-clang++ -fPIC"
   export LD=$TOOLCHAIN/bin/llvm-ld
   export RANLIB=$TOOLCHAIN/bin/llvm-ranlib
   export STRIP=$TOOLCHAIN/bin/llvm-strip
+  export BIN_PREFIX="$TOOLCHAIN/bin/armv7a-linux-androideabi21-"
+  export STATIC_CC="${BIN_PREFIX}clang"
+  export CC="$STATIC_CC -fPIC"
+  export CXX="${BIN_PREFIX}clang++ -fPIC"
 }
 
 configure_x86()
 {
   export AR=$TOOLCHAIN/bin/llvm-ar
   export AS=$TOOLCHAIN/bin/llvm-as
-  export CC="$TOOLCHAIN/bin/i686-linux-android21-clang -fPIC"
-  export CXX="$TOOLCHAIN/bin/i686-linux-android21-clang++ -fPIC"
   export LD=$TOOLCHAIN/bin/llvm-ld
   export RANLIB=$TOOLCHAIN/bin/llvm-ranlib
   export STRIP=$TOOLCHAIN/bin/llvm-strip
+  export BIN_PREFIX="$TOOLCHAIN/bin/i686-linux-android21-"
+  export STATIC_CC="${BIN_PREFIX}clang"
+  export CC="$STATIC_CC -fPIC"
+  export CXX="${BIN_PREFIX}clang++ -fPIC"
 }
 
 configure_x86_64()
 {
   export AR=$TOOLCHAIN/bin/llvm-ar
   export AS=$TOOLCHAIN/bin/llvm-as
-  export CC="$TOOLCHAIN/bin/x86_64-linux-android21-clang -fPIC"
-  export CXX="$TOOLCHAIN/bin/x86_64-linux-android21-clang++ -fPIC"
+  export STATIC_CC=$TOOLCHAIN/bin/llvm-as
   export LD=$TOOLCHAIN/bin/llvm-ld
   export RANLIB=$TOOLCHAIN/bin/llvm-ranlib
   export STRIP=$TOOLCHAIN/bin/llvm-strip
+  export BIN_PREFIX="$TOOLCHAIN/bin/x86_64-linux-android21-"
+  export STATIC_CC="${BIN_PREFIX}clang"
+  export CC="$STATIC_CC -fPIC"
+  export CXX="${BIN_PREFIX}clang++ -fPIC"
 }
 
 configure_emscripten()
