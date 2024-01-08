@@ -7,7 +7,7 @@ jobs:
 
   variables:
     buildTarget: ${{ parameters.buildTarget }}
-    xcodeVersion: ${{ '15.0.1' }}
+    xcodeVersion: ${{ '15.1' }}
     ndkVersion: ${{ '26.1.10909125' }}
 
   steps:

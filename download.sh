@@ -17,31 +17,31 @@ wget "https://ftp.gnu.org/gnu/gettext/${GETTEXT_VERSION}.tar.gz"
 
 wget "https://www.lua.org/ftp/${LUA_VERSION}.tar.gz"
 
-wget "https://github.com/LuaJIT/LuaJIT/archive/0afa1676b2d2aabf1f3101a2692eb0f1e291076a.tar.gz" -O "${LUAJIT_VERSION}.tar.gz"
+wget "https://github.com/LuaJIT/LuaJIT/archive/c525bcb9024510cad9e170e12b6209aedb330f83.tar.gz" -O "${LUAJIT_VERSION}.tar.gz"
 
 wget "https://download.gnome.org/sources/libepoxy/1.5/${LIBEPOXY_VERSION}.tar.xz"
 
-FMT_DOWNLOAD_NAME="10.1.1.tar.gz"
+FMT_DOWNLOAD_NAME="10.2.1.tar.gz"
 wget "https://github.com/fmtlib/fmt/archive/${FMT_DOWNLOAD_NAME}" -O "${FMT_VERSION}.tar.gz"
 
-MESHOPTIMIZER_DOWNLOAD_NAME="v0.19.tar.gz"
+MESHOPTIMIZER_DOWNLOAD_NAME="v0.20.tar.gz"
 wget "https://github.com/zeux/meshoptimizer/archive/refs/tags/${MESHOPTIMIZER_DOWNLOAD_NAME}" -O "${MESHOPTIMIZER_VERSION}.tar.gz"
 
 wget "https://gitlab.com/libeigen/eigen/-/archive/3.4.0/${EIGEN_VERSION}.tar.gz"
 
-ICU_DOWNLOAD_NAME="icu4c-73_2-src.tgz"
-wget "https://github.com/unicode-org/icu/releases/download/release-73-2/${ICU_DOWNLOAD_NAME}" -O "${ICU_VERSION}.tgz"
+ICU_DOWNLOAD_NAME="icu4c-74_1-src.tgz"
+wget "https://github.com/unicode-org/icu/releases/download/release-74-1/${ICU_DOWNLOAD_NAME}" -O "${ICU_VERSION}.tgz"
 
-wget "https://github.com/google/breakpad/tarball/f49c2f1a2023da0cb055874fba050563dfea57db" -O "${BREAKPAD_VERSION}.tar.gz"
+wget "https://github.com/google/breakpad/tarball/22f54f197fe5be28abda6e00bdfaaed9e87f9851" -O "${BREAKPAD_VERSION}.tar.gz"
 
-wget "https://github.com/nlohmann/json/releases/download/v3.11.2/json.hpp"
+wget "https://github.com/nlohmann/json/releases/download/v3.11.3/json.hpp"
 
 wget "https://zlib.net/${ZLIB_VERSION}.tar.gz"
 
-wget "https://github.com/KhronosGroup/OpenGL-Registry/tarball/784b8b340e0429da3be2378bd5217d3c5530b9e5" -O "${OPENGL_VERSION}.tar.gz"
+wget "https://github.com/KhronosGroup/OpenGL-Registry/tarball/ca491a0576d5c026f06ebe29bfac7cbbcf1e8332" -O "${OPENGL_VERSION}.tar.gz"
 
-wget "https://github.com/KhronosGroup/EGL-Registry/tarball/b055c9b483e70ecd57b3cf7204db21f5a06f9ffe" -O "${EGL_VERSION}.tar.gz"
+wget "https://github.com/KhronosGroup/EGL-Registry/tarball/a03692eea13514d9aef01822b2bc6575fcabfac2" -O "${EGL_VERSION}.tar.gz"
 
 wget "https://downloads.sourceforge.net/project/libjpeg-turbo/3.0.1/${JPEG_TURBO_VERSION}.tar.gz"
 
-wget "https://codeload.github.com/mackron/miniaudio/tar.gz/refs/tags/0.11.18" -O "${MINIAUDIO_VERSION}.tar.gz"
+wget "https://codeload.github.com/mackron/miniaudio/tar.gz/refs/tags/0.11.21" -O "${MINIAUDIO_VERSION}.tar.gz"
