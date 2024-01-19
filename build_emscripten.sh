@@ -11,6 +11,7 @@ source versions.sh
 mkdir -p $LIB_PATH
 mkdir -p $INCLUDE_PATH
 
+build_with_cmake "SDL2" $SDL2_VERSION ".tar.gz" "SDL2" "libSDL2" ".." "-DSDL_STATIC=ON" "-DSDL_SHARED=OFF" "-DSDL_TEST=OFF"
 build_with_cmake "jpeg" $JPEG_TURBO_VERSION ".tar.gz" "jpeg" "libjpeg" ".." "-DENABLE_STATIC=ON" "-DENABLE_SHARED=OFF" "-DWITH_TURBOJPEG=OFF"
 build_with_cmake "zlib" $ZLIB_VERSION ".tar.gz" "zlib" "libz" ".."
 build_with_cmake "libpng" $LIBPNG_VERSION ".tar.xz" "libpng" "libpng" ".." "-DZLIB_LIBRARY=$LIB_PATH/libz.a" "-DZLIB_INCLUDE_DIR=$INCLUDE_PATH/zlib"

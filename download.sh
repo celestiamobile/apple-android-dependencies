@@ -45,3 +45,5 @@ wget "https://github.com/KhronosGroup/EGL-Registry/tarball/a03692eea13514d9aef01
 wget "https://downloads.sourceforge.net/project/libjpeg-turbo/3.0.1/${JPEG_TURBO_VERSION}.tar.gz"
 
 wget "https://codeload.github.com/mackron/miniaudio/tar.gz/refs/tags/0.11.21" -O "${MINIAUDIO_VERSION}.tar.gz"
+
+wget "https://github.com/libsdl-org/SDL/releases/download/release-2.28.5/${SDL2_VERSION}.tar.gz" --no-check-certificate
