@@ -11,7 +11,7 @@ jobs:
     ndkVersion: ${{ '26.1.10909125' }}
 
   steps:
-  - script: brew install meson wget
+  - script: brew install meson wget cmake
     displayName: 'Install Dependencies'
 
   - script: sh ./download.sh
@@ -33,6 +33,11 @@ jobs:
         NEW_STRING=$(pwd)
         cd ..
         sed -ie "s#${TO_REPLACE}#${NEW_STRING}#g" emscripten.txt
+      elif [ "$(buildTarget)" == "visionos" ] || [ "$(buildTarget)" == "visionossim" ]; then
+        APPLE_CLANG_MODULE_PATH=$(readlink -f $(brew --prefix cmake))/share/cmake/Modules/Platform/Apple-Clang.cmake
+        TO_REPLACE='set(CMAKE_${lang}_OSX_DEPLOYMENT_TARGET_FLAG "-mtargetos=xros")'
+        NEW_STRING=''
+        sed -ie "s#${TO_REPLACE}#${NEW_STRING}#g" $APPLE_CLANG_MODULE_PATH
       fi
     displayName: 'Replace Strings'
 

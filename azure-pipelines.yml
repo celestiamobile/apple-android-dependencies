@@ -21,7 +21,7 @@ stages:
   jobs:
   - template: jobs/build.yml
     parameters:
-      buildTarget: ios
+      buildTarget: visionos
 
 - stage: visionOSSimulator
   displayName: 'visionOS Simulator'

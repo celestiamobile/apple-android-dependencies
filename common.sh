@@ -154,6 +154,8 @@ elif [ "$TARGET" == "visionOSSimulator" ]; then
   CC_EXECUTABLE=$(xcrun --sdk xrsimulator --find clang)
   CC_X86_64_FLAGS="-isysroot $(xcrun --sdk xrsimulator --show-sdk-path) -target x86_64-apple-xros1.0-simulator"
   CC_ARM64_FLAGS="-isysroot $(xcrun --sdk xrsimulator --show-sdk-path) -target arm64-apple-xros1.0-simulator"
+  CC_X86_64="$CC_EXECUTABLE $CC_X86_64_FLAGS"
+  CC_ARM64="$CC_EXECUTABLE $CC_ARM64_FLAGS"
 elif [ "$TARGET" == "macOS" ]; then
   LIB_PATH="$(pwd)/mac/libs"
   INCLUDE_PATH="$(pwd)/mac/include"
