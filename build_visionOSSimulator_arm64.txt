@@ -1,24 +1,24 @@
 [binaries]
-c = '/Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang'
-cpp = '/Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++'
-objc = '/Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang'
-objcpp = '/Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++'
-ar = '/Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ar'
-as = '/Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/as'
-ld = '/Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ls'
-ranlib = '/Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib'
-strip = '/Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip'
+c = '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang'
+cpp = '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++'
+objc = '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang'
+objcpp = '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++'
+ar = '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ar'
+as = '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/as'
+ld = '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ls'
+ranlib = '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib'
+strip = '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip'
 
 [built-in options]
-c_args = ['-target', 'arm64-apple-xros1.0-simulator', '-isysroot', '/Applications/Xcode-beta.app/Contents/Developer/Platforms/XRSimulator.platform/Developer/SDKs/XRSimulator.sdk']
-cpp_args = ['-target', 'arm64-apple-xros1.0-simulator', '-isysroot', '/Applications/Xcode-beta.app/Contents/Developer/Platforms/XRSimulator.platform/Developer/SDKs/XRSimulator.sdk']
-c_link_args = ['-target', 'arm64-apple-xros1.0-simulator', '-isysroot', '/Applications/Xcode-beta.app/Contents/Developer/Platforms/XRSimulator.platform/Developer/SDKs/XRSimulator.sdk']
-cpp_link_args = ['-target', 'arm64-apple-xros1.0-simulator', '-isysroot', '/Applications/Xcode-beta.app/Contents/Developer/Platforms/XRSimulator.platform/Developer/SDKs/XRSimulator.sdk']
-objc_args = ['-target', 'arm64-apple-xros1.0-simulator', '-isysroot', '/Applications/Xcode-beta.app/Contents/Developer/Platforms/XRSimulator.platform/Developer/SDKs/XRSimulator.sdk']
-objcpp_args = ['-target', 'arm64-apple-xros1.0-simulator', '-isysroot', '/Applications/Xcode-beta.app/Contents/Developer/Platforms/XRSimulator.platform/Developer/SDKs/XRSimulator.sdk']
+c_args = ['-target', 'arm64-apple-xros1.0-simulator', '-isysroot', '/Applications/Xcode.app/Contents/Developer/Platforms/XRSimulator.platform/Developer/SDKs/XRSimulator.sdk']
+cpp_args = ['-target', 'arm64-apple-xros1.0-simulator', '-isysroot', '/Applications/Xcode.app/Contents/Developer/Platforms/XRSimulator.platform/Developer/SDKs/XRSimulator.sdk']
+c_link_args = ['-target', 'arm64-apple-xros1.0-simulator', '-isysroot', '/Applications/Xcode.app/Contents/Developer/Platforms/XRSimulator.platform/Developer/SDKs/XRSimulator.sdk']
+cpp_link_args = ['-target', 'arm64-apple-xros1.0-simulator', '-isysroot', '/Applications/Xcode.app/Contents/Developer/Platforms/XRSimulator.platform/Developer/SDKs/XRSimulator.sdk']
+objc_args = ['-target', 'arm64-apple-xros1.0-simulator', '-isysroot', '/Applications/Xcode.app/Contents/Developer/Platforms/XRSimulator.platform/Developer/SDKs/XRSimulator.sdk']
+objcpp_args = ['-target', 'arm64-apple-xros1.0-simulator', '-isysroot', '/Applications/Xcode.app/Contents/Developer/Platforms/XRSimulator.platform/Developer/SDKs/XRSimulator.sdk']
 
 [properties]
-root = '/Applications/Xcode-beta.app/Contents/Developer/Platforms/XRSimulator.platform/Developer'
+root = '/Applications/Xcode.app/Contents/Developer/Platforms/XRSimulator.platform/Developer'
 
 [host_machine]
 system = 'darwin'

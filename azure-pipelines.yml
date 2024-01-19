@@ -1,6 +1,7 @@
 stages:
 - stage: iOS
   displayName: 'iOS'
+  dependsOn: []
   jobs:
   - template: jobs/build.yml
     parameters:
@@ -13,6 +14,22 @@ stages:
   - template: jobs/build.yml
     parameters:
       buildTarget: iossim
+
+- stage: visionOS
+  displayName: 'visionOS'
+  dependsOn: []
+  jobs:
+  - template: jobs/build.yml
+    parameters:
+      buildTarget: ios
+
+- stage: visionOSSimulator
+  displayName: 'visionOS Simulator'
+  dependsOn: []
+  jobs:
+  - template: jobs/build.yml
+    parameters:
+      buildTarget: visionossim
 
 - stage: macOS
   displayName: 'macOS'
