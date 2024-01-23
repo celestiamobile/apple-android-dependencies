@@ -309,7 +309,7 @@ compile_icu()
               --disable-tests \
               --disable-extras \
               --enable-static \
-              --disable-tools \
+              --enable-tools \
               --disable-icuio \
               --disable-shared \
               --disable-dyload \
