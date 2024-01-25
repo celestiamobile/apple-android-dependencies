@@ -32,7 +32,7 @@ wget "https://gitlab.com/libeigen/eigen/-/archive/3.4.0/${EIGEN_VERSION}.tar.gz"
 ICU_DOWNLOAD_NAME="icu4c-74_1-src.tgz"
 wget "https://github.com/unicode-org/icu/releases/download/release-74-1/${ICU_DOWNLOAD_NAME}" -O "${ICU_VERSION}.tgz"
 
-wget "https://github.com/google/breakpad/tarball/22f54f197fe5be28abda6e00bdfaaed9e87f9851" -O "${BREAKPAD_VERSION}.tar.gz"
+wget "https://github.com/google/breakpad/tarball/38365ae4ec3a5fec5a1ead13bcaa0025b32cbb24" -O "${BREAKPAD_VERSION}.tar.gz"
 
 wget "https://github.com/nlohmann/json/releases/download/v3.11.3/json.hpp"
 
@@ -42,7 +42,7 @@ wget "https://github.com/KhronosGroup/OpenGL-Registry/tarball/ca491a0576d5c026f0
 
 wget "https://github.com/KhronosGroup/EGL-Registry/tarball/a03692eea13514d9aef01822b2bc6575fcabfac2" -O "${EGL_VERSION}.tar.gz"
 
-wget "https://downloads.sourceforge.net/project/libjpeg-turbo/3.0.1/${JPEG_TURBO_VERSION}.tar.gz"
+wget "https://github.com/libjpeg-turbo/libjpeg-turbo/releases/download/3.0.2/${JPEG_TURBO_VERSION}.tar.gz"
 
 wget "https://codeload.github.com/mackron/miniaudio/tar.gz/refs/tags/0.11.21" -O "${MINIAUDIO_VERSION}.tar.gz"
 
