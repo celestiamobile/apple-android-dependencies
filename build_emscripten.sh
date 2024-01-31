@@ -207,7 +207,6 @@ compile_icu()
   sed -ie "s#${TO_REPLACE}#${NEW_STRING}#g" source/tools/pkgdata/pkgdata.cpp
   check_success
 
-  export LDFLAGS="${LDFLAGS} -lc++"
   OUTPUT_PATH="$(pwd)/output"
   ./source/configure --disable-samples \
               --disable-tests \

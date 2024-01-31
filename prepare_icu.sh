@@ -17,10 +17,6 @@ compile_icu_prepare()
 {
   unarchive_and_enter $ICU_VERSION ".tgz"
 
-  if [ "$(uname)" = "Darwin" ]; then
-    export LDFLAGS="${LDFLAGS} -lc++"
-  fi
-
   ./source/runConfigureICU $ICU_HOST
   check_success
 
