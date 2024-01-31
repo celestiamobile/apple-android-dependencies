@@ -4,9 +4,9 @@ cd `dirname $0`
 
 TARGET="Emscripten"
 
-source common.sh
-source cmake.sh
-source versions.sh
+. `pwd`/common.sh
+. `pwd`/cmake.sh
+. `pwd`/versions.sh
 
 mkdir -p $LIB_PATH
 mkdir -p $INCLUDE_PATH
@@ -218,7 +218,7 @@ compile_icu()
               --disable-shared \
               --disable-dyload \
               --host=arm \
-              --with-cross-build=`pwd`/../icu-mac \
+              --with-cross-build=`pwd`/../icu-host \
               --prefix=${OUTPUT_PATH}
   check_success
 

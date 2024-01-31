@@ -4,9 +4,9 @@ cd `dirname $0`
 
 TARGET="Android"
 
-source common.sh
-source cmake.sh
-source versions.sh
+. `pwd`/common.sh
+. `pwd`/cmake.sh
+. `pwd`/versions.sh
 
 mkdir -p $LIB_PATH
 mkdir -p $INCLUDE_PATH
@@ -306,7 +306,13 @@ compile_luajit()
   echo "Compiling for $1"
   OUTPUT_PATH="$(pwd)/output"
 
-  make install DEFAULT_CC=clang CROSS=$BIN_PREFIX \
+  if [ "$1" = "armeabi-v7a" ]; then
+    HOST_CC="gcc -m32"
+  else
+    HOST_CC="gcc"
+  fi
+
+  make install DEFAULT_CC=clang HOST_CC=$HOST_CC CROSS=$BIN_PREFIX \
      STATIC_CC="$STATIC_CC" DYNAMIC_CC="$CC" \
      TARGET_LD="$STATIC_CC" TARGET_AR="$AR rcus" \
      TARGET_STRIP="$STRIP" TARGET_SYS=Linux PREFIX=$OUTPUT_PATH
@@ -325,8 +331,8 @@ compile_luajit()
 
 configure_x86_64
 compile_luajit "x86_64"
-#configure_armv7
-#compile_luajit "armeabi-v7a"
+configure_armv7
+compile_luajit "armeabi-v7a"
 configure_arm64
 compile_luajit "arm64-v8a"
 
@@ -388,7 +394,7 @@ compile_icu()
               --disable-shared \
               --disable-dyload \
               --host=arm \
-              --with-cross-build=`pwd`/../icu-mac \
+              --with-cross-build=`pwd`/../icu-host \
               --prefix=${OUTPUT_PATH}
   check_success
 

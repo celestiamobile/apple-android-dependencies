@@ -23,13 +23,13 @@ fat_create_and_clean()
 unarchive_and_enter()
 {
   echo "Unarchiving"
-  if [ "$2" == ".tar.gz" ] || [ "$2" == ".tgz" ]; then
+  if [ "$2" = ".tar.gz" ] || [ "$2" = ".tgz" ]; then
     tar -zxvf "${1}${2}" -C . >/dev/null 2>&1
     check_success
-  elif [ "$2" == ".tar.xz" ]; then
+  elif [ "$2" = ".tar.xz" ]; then
     tar -xvJf "${1}${2}" -C . >/dev/null 2>&1
     check_success
-  elif [ "$2" == ".tar.Z" ]; then
+  elif [ "$2" = ".tar.Z" ]; then
     tar -xZvf "${1}${2}" -C . >/dev/null 2>&1
     check_success
   else
@@ -46,7 +46,11 @@ unarchive_and_enter()
   fi
 }
 
-export HOST_TAG=darwin-x86_64
+if [ "$(uname)" = "Darwin" ]; then
+  export HOST_TAG=darwin-x86_64
+else
+  export HOST_TAG=linux-x86_64
+fi
 export TOOLCHAIN=$NDK/toolchains/llvm/prebuilt/$HOST_TAG
 
 configure_arm64()
@@ -111,7 +115,7 @@ configure_emscripten()
   export STRIP=emstrip
 }
 
-if [ "$TARGET" == "iOS" ]; then
+if [ "$TARGET" = "iOS" ]; then
   LIB_PATH="$(pwd)/ios/libs"
   INCLUDE_PATH="$(pwd)/ios/include"
   CMAKE=cmake
@@ -123,7 +127,7 @@ if [ "$TARGET" == "iOS" ]; then
     CC_ARM64_FLAGS="-isysroot $(xcrun --sdk iphoneos --show-sdk-path) -arch arm64 -miphoneos-version-min=13.1"
   fi
   CC_ARM64="$CC_EXECUTABLE $CC_ARM64_FLAGS"
-elif [ "$TARGET" == "iOSSimulator" ]; then
+elif [ "$TARGET" = "iOSSimulator" ]; then
   LIB_PATH="$(pwd)/iossim/libs"
   INCLUDE_PATH="$(pwd)/iossim/include"
   CMAKE=cmake
@@ -138,7 +142,7 @@ elif [ "$TARGET" == "iOSSimulator" ]; then
   fi
   CC_X86_64="$CC_EXECUTABLE $CC_X86_64_FLAGS"
   CC_ARM64="$CC_EXECUTABLE $CC_ARM64_FLAGS"
-elif [ "$TARGET" == "visionOS" ]; then
+elif [ "$TARGET" = "visionOS" ]; then
   LIB_PATH="$(pwd)/visionos/libs"
   INCLUDE_PATH="$(pwd)/visionos/include"
   CMAKE=cmake
@@ -146,7 +150,7 @@ elif [ "$TARGET" == "visionOS" ]; then
   CC_EXECUTABLE=$(xcrun --sdk xros --find clang)
   CC_ARM64_FLAGS="-isysroot $(xcrun --sdk xros --show-sdk-path) -target arm64-apple-xros1.0"
   CC_ARM64="$CC_EXECUTABLE $CC_ARM64_FLAGS"
-elif [ "$TARGET" == "visionOSSimulator" ]; then
+elif [ "$TARGET" = "visionOSSimulator" ]; then
   LIB_PATH="$(pwd)/visionossim/libs"
   INCLUDE_PATH="$(pwd)/visionossim/include"
   CMAKE=cmake
@@ -156,7 +160,7 @@ elif [ "$TARGET" == "visionOSSimulator" ]; then
   CC_ARM64_FLAGS="-isysroot $(xcrun --sdk xrsimulator --show-sdk-path) -target arm64-apple-xros1.0-simulator"
   CC_X86_64="$CC_EXECUTABLE $CC_X86_64_FLAGS"
   CC_ARM64="$CC_EXECUTABLE $CC_ARM64_FLAGS"
-elif [ "$TARGET" == "macOS" ]; then
+elif [ "$TARGET" = "macOS" ]; then
   LIB_PATH="$(pwd)/mac/libs"
   INCLUDE_PATH="$(pwd)/mac/include"
   CMAKE=cmake
@@ -173,7 +177,7 @@ elif [ "$TARGET" == "macOS" ]; then
   DEPLOYMENT_TARGET_ARM64="11.0"
   CC_X86_64="$CC_EXECUTABLE $CC_X86_64_FLAGS"
   CC_ARM64="$CC_EXECUTABLE $CC_ARM64_FLAGS"
-elif [ "$TARGET" == "macCatalyst" ]; then
+elif [ "$TARGET" = "macCatalyst" ]; then
   LIB_PATH="$(pwd)/catalyst/libs"
   INCLUDE_PATH="$(pwd)/catalyst/include"
   CMAKE=cmake
@@ -183,12 +187,16 @@ elif [ "$TARGET" == "macCatalyst" ]; then
   CC_ARM64_FLAGS="-isysroot $(xcrun --sdk macosx --show-sdk-path) -target arm64-apple-ios-macabi -miphoneos-version-min=14.0"
   CC_X86_64="$CC_EXECUTABLE $CC_X86_64_FLAGS"
   CC_ARM64="$CC_EXECUTABLE $CC_ARM64_FLAGS"
-elif [ "$TARGET" == "Android" ]; then
+elif [ "$TARGET" = "Android" ]; then
   LIB_PATH="$(pwd)/android/libs"
   INCLUDE_PATH="$(pwd)/android/include"
   CMAKE=$NDK/../../cmake/3.22.1/bin/cmake
   CMAKE_TOOLCHAIN_PATH=$NDK/build/cmake/android.toolchain.cmake
-elif [ "$TARGET" == "Emscripten" ]; then
+elif [ "$TARGET" = "Linux" ]; then
+  LIB_PATH="$(pwd)/linux/libs"
+  INCLUDE_PATH="$(pwd)/linux/include"
+  CMAKE=cmake
+elif [ "$TARGET" = "Emscripten" ]; then
   LIB_PATH="$(pwd)/emscripten/libs"
   INCLUDE_PATH="$(pwd)/emscripten/include"
   CMAKE=cmake

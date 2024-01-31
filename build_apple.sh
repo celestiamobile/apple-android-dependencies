@@ -135,7 +135,7 @@ compile_luajit()
   unarchive_and_enter $LUAJIT_VERSION ".tar.gz"
 
   echo "Compiling for $1"
-  if [ "$TARGET" == "macOS" ]; then
+  if [ "$TARGET" = "macOS" ]; then
     export MACOSX_DEPLOYMENT_TARGET=$4
   else
     export TARGET_SYS="iOS"
@@ -248,7 +248,7 @@ compile_libepoxy()
 {
   unarchive_and_enter $LIBEPOXY_VERSION ".tar.xz"
 
-  if [ "$TARGET" == "iOS" ] || [ "$TARGET" == "iOSSimulator" ]; then
+  if [ "$TARGET" = "iOS" ] || [ "$TARGET" = "iOSSimulator" ]; then
     echo "Applying patch 1"
     sed -ie 's/libGLESv2/OpenGLES/g' meson.build
     check_success
@@ -314,7 +314,7 @@ compile_icu()
               --disable-shared \
               --disable-dyload \
               --host=arm \
-              --with-cross-build=`pwd`/../icu-mac \
+              --with-cross-build=`pwd`/../icu-host \
               --prefix=${OUTPUT_PATH}
   check_success
 
@@ -333,25 +333,4 @@ compile_icu()
   echo "Cleaning"
   cd ..
   rm -rf $ICU_VERSION
-}
-
-# icu
-
-compile_icu_prepare()
-{
-  unarchive_and_enter $ICU_VERSION ".tgz"
-
-  cp source/config/mh-darwin source/config/mh-unknown
-
-  export LDFLAGS="-lc++"
-  ./source/runConfigureICU MacOSX
-  check_success
-
-  make -j4
-  check_success
-
-  cd ..
-
-  mv $ICU_VERSION icu-mac
-  check_success
 }

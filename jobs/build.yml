@@ -3,18 +3,26 @@ jobs:
   displayName: 'Build'
   timeoutInMinutes: 120
   pool:
-    vmImage: macos-13
+    vmImage: ${{ parameters.vmImage }}
 
   variables:
+    vmImage: ${{ parameters.vmImage }}
     buildTarget: ${{ parameters.buildTarget }}
     xcodeVersion: ${{ '15.2' }}
     ndkVersion: ${{ '26.1.10909125' }}
 
   steps:
-  - script: brew install meson wget cmake
-    displayName: 'Install Dependencies'
+  - script: brew install meson wget cmake zsh
+    displayName: 'Install Dependencies (Mac)'
+    condition: contains(variables['vmImage'], 'mac')
 
-  - script: sh ./download.sh
+  - script: sudo apt-get install meson wget cmake zsh ncompress csh gcc-multilib
+    displayName: 'Install Dependencies (Ubuntu)'
+    condition: contains(variables['vmImage'], 'ubuntu')
+
+  - script: |
+      chmod +x download.sh
+      ./download.sh
     displayName: 'Download'
 
   - script: |
@@ -24,6 +32,11 @@ jobs:
       TO_REPLACE="/Users/linfel/Library/Android/sdk/ndk/25.1.8937393"
       NEW_STRING="$ANDROID_HOME/ndk/$(ndkVersion)"
       sed -ie "s#${TO_REPLACE}#${NEW_STRING}#g" *.txt
+      if [[ $(vmImage) == *"ubuntu"* ]]; then
+        TO_REPLACE="darwin-x86_64"
+        NEW_STRING="linux-x86_64"
+        sed -ie "s#${TO_REPLACE}#${NEW_STRING}#g" *.txt
+      fi
       if [ "$(buildTarget)" == "emscripten" ]; then
         git clone https://github.com/emscripten-core/emsdk.git
         cd emsdk
@@ -44,14 +57,18 @@ jobs:
   - script: |
       if [ "$(buildTarget)" == "emscripten" ]; then
         cd emsdk
-        source ./emsdk_env.sh
+        . ./emsdk_env.sh
         cd ..
       fi
       export NDK=$ANDROID_HOME/ndk/$(ndkVersion)
-      sudo xcode-select -s /Applications/Xcode_$(xcodeVersion).app
-      xcodebuild -version
-      sh ./prepare_icu.sh
-      sh ./build_$(buildTarget).sh
+      if [[ $(vmImage) == *"mac"* ]]; then
+        sudo xcode-select -s /Applications/Xcode_$(xcodeVersion).app
+        xcodebuild -version
+      fi
+      chmod +x prepare_icu.sh
+      chmod +x build_$(buildTarget).sh
+      ./prepare_icu.sh
+      ./build_$(buildTarget).sh
     displayName: 'Build'
 
   - task: PublishBuildArtifacts@1

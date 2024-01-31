@@ -4,14 +4,14 @@ cd `dirname $0`
 
 TARGET="visionOS"
 
-source common.sh
-source cmake.sh
-source versions.sh
+. `pwd`/common.sh
+. `pwd`/cmake.sh
+. `pwd`/versions.sh
 
 mkdir -p $LIB_PATH
 mkdir -p $INCLUDE_PATH
 
-source build_apple.sh
+. `pwd`/build_apple.sh
 
 build_with_cmake "jpeg" $JPEG_TURBO_VERSION ".tar.gz" "jpeg" "libjpeg" ".." "-DENABLE_STATIC=ON" "-DENABLE_SHARED=OFF" "-DWITH_TURBOJPEG=OFF"
 build_with_cmake "fmt" $FMT_VERSION ".tar.gz" "dummy" "libfmt" ".." "-DFMT_TEST=OFF" "-DBUILD_SHARED_LIBS=OFF"

@@ -2,12 +2,35 @@
 
 cd `dirname $0`
 
-TARGET="macOS"
+if [ "$(uname)" = "Darwin" ]; then
+  TARGET="macOS"
+  ICU_HOST=MacOSX
+else
+  TARGET="Linux"
+  ICU_HOST=Linux
+fi
 
-source common.sh
-source cmake.sh
-source versions.sh
+. `pwd`/common.sh
+. `pwd`/versions.sh
 
-source build_apple.sh
+compile_icu_prepare()
+{
+  unarchive_and_enter $ICU_VERSION ".tgz"
+
+  if [ "$(uname)" = "Darwin" ]; then
+    export LDFLAGS="${LDFLAGS} -lc++"
+  fi
+
+  ./source/runConfigureICU $ICU_HOST
+  check_success
+
+  make -j4
+  check_success
+
+  cd ..
+
+  mv $ICU_VERSION icu-host
+  check_success
+}
 
 compile_icu_prepare

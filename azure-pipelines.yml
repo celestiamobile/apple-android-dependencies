@@ -6,6 +6,7 @@ stages:
   - template: jobs/build.yml
     parameters:
       buildTarget: ios
+      vmImage: macos-13
 
 - stage: iOSSimulator
   displayName: 'iOS Simulator'
@@ -14,6 +15,7 @@ stages:
   - template: jobs/build.yml
     parameters:
       buildTarget: iossim
+      vmImage: macos-13
 
 - stage: visionOS
   displayName: 'visionOS'
@@ -22,6 +24,7 @@ stages:
   - template: jobs/build.yml
     parameters:
       buildTarget: visionos
+      vmImage: macos-13
 
 - stage: visionOSSimulator
   displayName: 'visionOS Simulator'
@@ -30,6 +33,7 @@ stages:
   - template: jobs/build.yml
     parameters:
       buildTarget: visionossim
+      vmImage: macos-13
 
 - stage: macOS
   displayName: 'macOS'
@@ -38,6 +42,7 @@ stages:
   - template: jobs/build.yml
     parameters:
       buildTarget: mac
+      vmImage: macos-13
 
 - stage: macCatalyst
   displayName: 'macCatalyst'
@@ -46,6 +51,7 @@ stages:
   - template: jobs/build.yml
     parameters:
       buildTarget: catalyst
+      vmImage: macos-13
 
 - stage: Android
   displayName: 'Android'
@@ -54,6 +60,7 @@ stages:
   - template: jobs/build.yml
     parameters:
       buildTarget: android
+      vmImage: ubuntu-latest
 
 - stage: Emscripten
   displayName: 'Emscripten'
@@ -62,3 +69,4 @@ stages:
   - template: jobs/build.yml
     parameters:
       buildTarget: emscripten
+      vmImage: macos-13
