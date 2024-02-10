@@ -303,6 +303,7 @@ compile_icu()
   echo "Compiling for $1"
   export CC=$2
   export CXX=$2
+  export LDFLAGS="${LDFLAGS} -lc++"
   OUTPUT_PATH="$(pwd)/output"
   ./source/configure --disable-samples \
               --disable-tests \
