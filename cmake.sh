@@ -107,7 +107,7 @@ build_with_cmake_arch()
   if [ "$TARGET" = "Android" ]; then
     $CMAKE $CMAKE_FILE_PATH -DANDROID_ABI=$1 \
             -DANDROID_STL=c++_shared \
-            -DANDROID_NDK=$NDK \
+            -DANDROID_NDK=$NDK_ROOT \
             -DCMAKE_TOOLCHAIN_FILE=$CMAKE_TOOLCHAIN_PATH \
             -DANDROID_NATIVE_API_LEVEL=21 \
             -DANDROID_TOOLCHAIN=clang \

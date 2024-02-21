@@ -4,6 +4,18 @@ cd `dirname $0`
 
 TARGET="Android"
 
+if [ "$(uname)" = "Darwin" ]; then
+  HOST_TAG=darwin-x86_64
+else
+  HOST_TAG=linux-x86_64
+fi
+
+LIB_PATH="$1/libs"
+INCLUDE_PATH="$1/include"
+
+NDK_ROOT=$2
+NDK_TOOLCHAIN=$NDK_ROOT/toolchains/llvm/prebuilt/$HOST_TAG
+
 . `pwd`/common.sh
 . `pwd`/cmake.sh
 . `pwd`/versions.sh
@@ -347,8 +359,15 @@ compile_libepoxy()
   mkdir build
   cd build
 
+  OPTIONS_FILE="../../android_$1.txt"
+
+  echo "Replacing NDK"
+  TO_REPLACE="/Users/linfel/Library/Android/sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/darwin-x86_64"
+  NEW_STRING="$NDK_TOOLCHAIN"
+  sed -ie "s#${TO_REPLACE}#${NEW_STRING}#g" $OPTIONS_FILE
+
   echo "Compiling for $1"
-  meson --buildtype=release --default-library=static -Dtests=false --prefix=`pwd`/output --cross-file ../../android_$1.txt
+  meson --buildtype=release --default-library=static -Dtests=false --prefix=`pwd`/output --cross-file $OPTIONS_FILE
   ninja install
   check_success
 

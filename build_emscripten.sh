@@ -4,6 +4,11 @@ cd `dirname $0`
 
 TARGET="Emscripten"
 
+LIB_PATH="$1/libs"
+INCLUDE_PATH="$1/include"
+
+EMSDK_ROOT=$2
+
 . `pwd`/common.sh
 . `pwd`/cmake.sh
 . `pwd`/versions.sh
@@ -174,7 +179,14 @@ compile_libepoxy()
   mkdir build
   cd build
 
-  meson --buildtype=release --default-library=static -Dtests=false --prefix=`pwd`/output --cross-file ../../emscripten.txt
+  OPTIONS_FILE="../../emscripten.txt"
+
+  echo "Replacing SDK"
+  TO_REPLACE="/Users/linfel/Developer/Personal/Celestia/emsdk"
+  NEW_STRING="$EMSDK_ROOT"
+  sed -ie "s#${TO_REPLACE}#${NEW_STRING}#g" $OPTIONS_FILE
+
+  meson --buildtype=release --default-library=static -Dtests=false --prefix=`pwd`/output --cross-file $OPTIONS_FILE
   ninja install
   check_success
 

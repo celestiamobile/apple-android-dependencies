@@ -46,21 +46,14 @@ unarchive_and_enter()
   fi
 }
 
-if [ "$(uname)" = "Darwin" ]; then
-  export HOST_TAG=darwin-x86_64
-else
-  export HOST_TAG=linux-x86_64
-fi
-export TOOLCHAIN=$NDK/toolchains/llvm/prebuilt/$HOST_TAG
-
 configure_arm64()
 {
-  export AR=$TOOLCHAIN/bin/llvm-ar
-  export AS=$TOOLCHAIN/bin/llvm-as
-  export LD=$TOOLCHAIN/bin/llvm-ld
-  export RANLIB=$TOOLCHAIN/bin/llvm-ranlib
-  export STRIP=$TOOLCHAIN/bin/llvm-strip
-  export BIN_PREFIX="$TOOLCHAIN/bin/aarch64-linux-android21-"
+  export AR=$NDK_TOOLCHAIN/bin/llvm-ar
+  export AS=$NDK_TOOLCHAIN/bin/llvm-as
+  export LD=$NDK_TOOLCHAIN/bin/llvm-ld
+  export RANLIB=$NDK_TOOLCHAIN/bin/llvm-ranlib
+  export STRIP=$NDK_TOOLCHAIN/bin/llvm-strip
+  export BIN_PREFIX="$NDK_TOOLCHAIN/bin/aarch64-linux-android21-"
   export STATIC_CC="${BIN_PREFIX}clang"
   export CC="$STATIC_CC -fPIC"
   export CXX="${BIN_PREFIX}clang++ -fPIC"
@@ -68,12 +61,12 @@ configure_arm64()
 
 configure_armv7()
 {
-  export AR=$TOOLCHAIN/bin/llvm-ar
-  export AS=$TOOLCHAIN/bin/llvm-as
-  export LD=$TOOLCHAIN/bin/llvm-ld
-  export RANLIB=$TOOLCHAIN/bin/llvm-ranlib
-  export STRIP=$TOOLCHAIN/bin/llvm-strip
-  export BIN_PREFIX="$TOOLCHAIN/bin/armv7a-linux-androideabi21-"
+  export AR=$NDK_TOOLCHAIN/bin/llvm-ar
+  export AS=$NDK_TOOLCHAIN/bin/llvm-as
+  export LD=$NDK_TOOLCHAIN/bin/llvm-ld
+  export RANLIB=$NDK_TOOLCHAIN/bin/llvm-ranlib
+  export STRIP=$NDK_TOOLCHAIN/bin/llvm-strip
+  export BIN_PREFIX="$NDK_TOOLCHAIN/bin/armv7a-linux-androideabi21-"
   export STATIC_CC="${BIN_PREFIX}clang"
   export CC="$STATIC_CC -fPIC"
   export CXX="${BIN_PREFIX}clang++ -fPIC"
@@ -81,12 +74,12 @@ configure_armv7()
 
 configure_x86()
 {
-  export AR=$TOOLCHAIN/bin/llvm-ar
-  export AS=$TOOLCHAIN/bin/llvm-as
-  export LD=$TOOLCHAIN/bin/llvm-ld
-  export RANLIB=$TOOLCHAIN/bin/llvm-ranlib
-  export STRIP=$TOOLCHAIN/bin/llvm-strip
-  export BIN_PREFIX="$TOOLCHAIN/bin/i686-linux-android21-"
+  export AR=$NDK_TOOLCHAIN/bin/llvm-ar
+  export AS=$NDK_TOOLCHAIN/bin/llvm-as
+  export LD=$NDK_TOOLCHAIN/bin/llvm-ld
+  export RANLIB=$NDK_TOOLCHAIN/bin/llvm-ranlib
+  export STRIP=$NDK_TOOLCHAIN/bin/llvm-strip
+  export BIN_PREFIX="$NDK_TOOLCHAIN/bin/i686-linux-android21-"
   export STATIC_CC="${BIN_PREFIX}clang"
   export CC="$STATIC_CC -fPIC"
   export CXX="${BIN_PREFIX}clang++ -fPIC"
@@ -94,13 +87,13 @@ configure_x86()
 
 configure_x86_64()
 {
-  export AR=$TOOLCHAIN/bin/llvm-ar
-  export AS=$TOOLCHAIN/bin/llvm-as
-  export STATIC_CC=$TOOLCHAIN/bin/llvm-as
-  export LD=$TOOLCHAIN/bin/llvm-ld
-  export RANLIB=$TOOLCHAIN/bin/llvm-ranlib
-  export STRIP=$TOOLCHAIN/bin/llvm-strip
-  export BIN_PREFIX="$TOOLCHAIN/bin/x86_64-linux-android21-"
+  export AR=$NDK_TOOLCHAIN/bin/llvm-ar
+  export AS=$NDK_TOOLCHAIN/bin/llvm-as
+  export STATIC_CC=$NDK_TOOLCHAIN/bin/llvm-as
+  export LD=$NDK_TOOLCHAIN/bin/llvm-ld
+  export RANLIB=$NDK_TOOLCHAIN/bin/llvm-ranlib
+  export STRIP=$NDK_TOOLCHAIN/bin/llvm-strip
+  export BIN_PREFIX="$NDK_TOOLCHAIN/bin/x86_64-linux-android21-"
   export STATIC_CC="${BIN_PREFIX}clang"
   export CC="$STATIC_CC -fPIC"
   export CXX="${BIN_PREFIX}clang++ -fPIC"
@@ -116,8 +109,6 @@ configure_emscripten()
 }
 
 if [ "$TARGET" = "iOS" ]; then
-  LIB_PATH="$(pwd)/ios/libs"
-  INCLUDE_PATH="$(pwd)/ios/include"
   CMAKE=cmake
   CMAKE_TOOLCHAIN_PATH="$(pwd)/ios.toolchain.cmake"
   CC_EXECUTABLE=$(xcrun --sdk iphoneos --find clang)
@@ -128,8 +119,6 @@ if [ "$TARGET" = "iOS" ]; then
   fi
   CC_ARM64="$CC_EXECUTABLE $CC_ARM64_FLAGS"
 elif [ "$TARGET" = "iOSSimulator" ]; then
-  LIB_PATH="$(pwd)/iossim/libs"
-  INCLUDE_PATH="$(pwd)/iossim/include"
   CMAKE=cmake
   CMAKE_TOOLCHAIN_PATH="$(pwd)/ios.toolchain.cmake"
   CC_EXECUTABLE=$(xcrun --sdk iphonesimulator --find clang)
@@ -143,16 +132,12 @@ elif [ "$TARGET" = "iOSSimulator" ]; then
   CC_X86_64="$CC_EXECUTABLE $CC_X86_64_FLAGS"
   CC_ARM64="$CC_EXECUTABLE $CC_ARM64_FLAGS"
 elif [ "$TARGET" = "visionOS" ]; then
-  LIB_PATH="$(pwd)/visionos/libs"
-  INCLUDE_PATH="$(pwd)/visionos/include"
   CMAKE=cmake
   CMAKE_TOOLCHAIN_PATH="$(pwd)/ios.toolchain.cmake"
   CC_EXECUTABLE=$(xcrun --sdk xros --find clang)
   CC_ARM64_FLAGS="-isysroot $(xcrun --sdk xros --show-sdk-path) -target arm64-apple-xros1.0"
   CC_ARM64="$CC_EXECUTABLE $CC_ARM64_FLAGS"
 elif [ "$TARGET" = "visionOSSimulator" ]; then
-  LIB_PATH="$(pwd)/visionossim/libs"
-  INCLUDE_PATH="$(pwd)/visionossim/include"
   CMAKE=cmake
   CMAKE_TOOLCHAIN_PATH="$(pwd)/ios.toolchain.cmake"
   CC_EXECUTABLE=$(xcrun --sdk xrsimulator --find clang)
@@ -161,8 +146,6 @@ elif [ "$TARGET" = "visionOSSimulator" ]; then
   CC_X86_64="$CC_EXECUTABLE $CC_X86_64_FLAGS"
   CC_ARM64="$CC_EXECUTABLE $CC_ARM64_FLAGS"
 elif [ "$TARGET" = "macOS" ]; then
-  LIB_PATH="$(pwd)/mac/libs"
-  INCLUDE_PATH="$(pwd)/mac/include"
   CMAKE=cmake
   CMAKE_TOOLCHAIN_PATH="$(pwd)/ios.toolchain.cmake"
   CC_EXECUTABLE=$(xcrun --sdk macosx --find clang)
@@ -178,8 +161,6 @@ elif [ "$TARGET" = "macOS" ]; then
   CC_X86_64="$CC_EXECUTABLE $CC_X86_64_FLAGS"
   CC_ARM64="$CC_EXECUTABLE $CC_ARM64_FLAGS"
 elif [ "$TARGET" = "macCatalyst" ]; then
-  LIB_PATH="$(pwd)/catalyst/libs"
-  INCLUDE_PATH="$(pwd)/catalyst/include"
   CMAKE=cmake
   CMAKE_TOOLCHAIN_PATH="$(pwd)/ios.toolchain.cmake"
   CC_EXECUTABLE=$(xcrun --sdk macosx --find clang)
@@ -188,17 +169,11 @@ elif [ "$TARGET" = "macCatalyst" ]; then
   CC_X86_64="$CC_EXECUTABLE $CC_X86_64_FLAGS"
   CC_ARM64="$CC_EXECUTABLE $CC_ARM64_FLAGS"
 elif [ "$TARGET" = "Android" ]; then
-  LIB_PATH="$(pwd)/android/libs"
-  INCLUDE_PATH="$(pwd)/android/include"
-  CMAKE=$NDK/../../cmake/3.22.1/bin/cmake
-  CMAKE_TOOLCHAIN_PATH=$NDK/build/cmake/android.toolchain.cmake
+  CMAKE=cmake
+  CMAKE_TOOLCHAIN_PATH=$NDK_ROOT/build/cmake/android.toolchain.cmake
 elif [ "$TARGET" = "Linux" ]; then
-  LIB_PATH="$(pwd)/linux/libs"
-  INCLUDE_PATH="$(pwd)/linux/include"
   CMAKE=cmake
 elif [ "$TARGET" = "Emscripten" ]; then
-  LIB_PATH="$(pwd)/emscripten/libs"
-  INCLUDE_PATH="$(pwd)/emscripten/include"
   CMAKE=cmake
 else
   echo "Unknown target"

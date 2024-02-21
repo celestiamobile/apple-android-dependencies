@@ -9,14 +9,17 @@ jobs:
     vmImage: ${{ parameters.vmImage }}
     buildTarget: ${{ parameters.buildTarget }}
     xcodeVersion: ${{ '15.2' }}
-    ndkVersion: ${{ '26.1.10909125' }}
+    ndkVersion: ${{ '26.2.11394342' }}
 
   steps:
-  - script: brew install meson wget cmake zsh
+  - script: |
+      rm -rf /usr/local/bin/*3.12*
+      brew install meson wget cmake zsh
     displayName: 'Install Dependencies (Mac)'
     condition: contains(variables['vmImage'], 'mac')
 
-  - script: sudo apt-get install meson wget cmake zsh ncompress csh gcc-multilib
+  - script: |
+      sudo apt-get install meson wget cmake zsh ncompress csh gcc-multilib
     displayName: 'Install Dependencies (Ubuntu)'
     condition: contains(variables['vmImage'], 'ubuntu')
 
@@ -26,27 +29,12 @@ jobs:
     displayName: 'Download'
 
   - script: |
-      TO_REPLACE="Xcode.app"
-      NEW_STRING="Xcode_$(xcodeVersion).app"
-      sed -ie "s#${TO_REPLACE}#${NEW_STRING}#g" *.txt
-      TO_REPLACE="/Users/linfel/Library/Android/sdk/ndk/25.1.8937393"
-      NEW_STRING="$ANDROID_HOME/ndk/$(ndkVersion)"
-      sed -ie "s#${TO_REPLACE}#${NEW_STRING}#g" *.txt
-      if [[ $(vmImage) == *"ubuntu"* ]]; then
-        TO_REPLACE="darwin-x86_64"
-        NEW_STRING="linux-x86_64"
-        sed -ie "s#${TO_REPLACE}#${NEW_STRING}#g" *.txt
-      fi
-      if [ "$(buildTarget)" == "emscripten" ]; then
+      if [ "$(buildTarget)" = "emscripten" ]; then
         git clone https://github.com/emscripten-core/emsdk.git
         cd emsdk
         ./emsdk install latest
         ./emsdk activate latest
-        TO_REPLACE="/Users/linfel/Developer/Personal/Celestia/emsdk"
-        NEW_STRING=$(pwd)
-        cd ..
-        sed -ie "s#${TO_REPLACE}#${NEW_STRING}#g" emscripten.txt
-      elif [ "$(buildTarget)" == "visionos" ] || [ "$(buildTarget)" == "visionossim" ]; then
+      elif [ "$(buildTarget)" = "visionos" ] || [ "$(buildTarget)" = "visionossim" ]; then
         APPLE_CLANG_MODULE_PATH=$(readlink -f $(brew --prefix cmake))/share/cmake/Modules/Platform/Apple-Clang.cmake
         TO_REPLACE='set(CMAKE_${lang}_OSX_DEPLOYMENT_TARGET_FLAG "-mtargetos=xros")'
         NEW_STRING=''
@@ -55,20 +43,22 @@ jobs:
     displayName: 'Replace Strings'
 
   - script: |
-      if [ "$(buildTarget)" == "emscripten" ]; then
+      if [ "$(buildTarget)" = "emscripten" ]; then
         cd emsdk
+        SDK_PATH=$(pwd)
         . ./emsdk_env.sh
         cd ..
+      elif [ "$(buildTarget)" = "android" ]; then
+        SDK_PATH=$ANDROID_HOME/ndk/$(ndkVersion)
       fi
-      export NDK=$ANDROID_HOME/ndk/$(ndkVersion)
-      if [[ $(vmImage) == *"mac"* ]]; then
+      if [[ $(vmImage) = *"mac"* ]]; then
         sudo xcode-select -s /Applications/Xcode_$(xcodeVersion).app
         xcodebuild -version
       fi
       chmod +x prepare_icu.sh
       chmod +x build_$(buildTarget).sh
       ./prepare_icu.sh
-      ./build_$(buildTarget).sh
+      ./build_$(buildTarget).sh $(pwd)/$(buildTarget) $SDK_PATH
     displayName: 'Build'
 
   - task: PublishBuildArtifacts@1

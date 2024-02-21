@@ -269,8 +269,15 @@ compile_libepoxy()
   mkdir build
   cd build
 
+  OPTIONS_FILE="../../build_${TARGET}_$1.txt"
+
+  echo "Replacing Xcode.app"
+  TO_REPLACE="/Applications/Xcode.app/Contents/Developer"
+  NEW_STRING="$(xcode-select -p)"
+  sed -ie "s#${TO_REPLACE}#${NEW_STRING}#g" $OPTIONS_FILE
+
   echo "Compiling for $1"
-  meson --buildtype=release --default-library=static -Dtests=false --prefix=`pwd`/output --cross-file ../../build_${TARGET}_$1.txt
+  meson --buildtype=release --default-library=static -Dtests=false --prefix=`pwd`/output --cross-file $OPTIONS_FILE
   ninja install
   check_success
 

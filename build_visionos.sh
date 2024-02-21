@@ -4,6 +4,9 @@ cd `dirname $0`
 
 TARGET="visionOS"
 
+LIB_PATH="$1/libs"
+INCLUDE_PATH="$1/include"
+
 . `pwd`/common.sh
 . `pwd`/cmake.sh
 . `pwd`/versions.sh
