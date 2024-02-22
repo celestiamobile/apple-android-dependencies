@@ -6,7 +6,7 @@ cd `dirname $0`
 
 wget "https://naif.jpl.nasa.gov/pub/naif/toolkit/C/MacIntel_OSX_AppleC_64bit/packages/${CSPICE_VERSION}.tar.Z" --no-check-certificate
 
-wget "https://downloads.sourceforge.net/project/libpng/libpng16/1.6.40/${LIBPNG_VERSION}.tar.xz" --no-check-certificate
+wget "https://downloads.sourceforge.net/project/libpng/libpng16/1.6.42/${LIBPNG_VERSION}.tar.xz" --no-check-certificate
 
 #JPEG_DOWNLOAD_NAME="jpegsrc.v9e.tar.gz"
 #wget "https://www.ijg.org/files/${JPEG_DOWNLOAD_NAME}" -O "${JPEG_VERSION}.tar.gz" --no-check-certificate
@@ -29,18 +29,18 @@ wget "https://github.com/zeux/meshoptimizer/archive/refs/tags/${MESHOPTIMIZER_DO
 
 wget "https://gitlab.com/libeigen/eigen/-/archive/3.4.0/${EIGEN_VERSION}.tar.gz" --no-check-certificate
 
-ICU_DOWNLOAD_NAME="icu4c-74_1-src.tgz"
-wget "https://github.com/unicode-org/icu/releases/download/release-74-1/${ICU_DOWNLOAD_NAME}" -O "${ICU_VERSION}.tgz" --no-check-certificate
+ICU_DOWNLOAD_NAME="icu4c-74_2-src.tgz"
+wget "https://github.com/unicode-org/icu/releases/download/release-74-2/${ICU_DOWNLOAD_NAME}" -O "${ICU_VERSION}.tgz" --no-check-certificate
 
-wget "https://github.com/google/breakpad/tarball/38365ae4ec3a5fec5a1ead13bcaa0025b32cbb24" -O "${BREAKPAD_VERSION}.tar.gz" --no-check-certificate
+wget "https://github.com/google/breakpad/tarball/f032e4c3b4eaef64432482cb00eb0c3df33cde48" -O "${BREAKPAD_VERSION}.tar.gz" --no-check-certificate
 
 wget "https://github.com/nlohmann/json/releases/download/v3.11.3/json.hpp" --no-check-certificate
 
 wget "https://zlib.net/${ZLIB_VERSION}.tar.gz" --no-check-certificate
 
-wget "https://github.com/KhronosGroup/OpenGL-Registry/tarball/ca491a0576d5c026f06ebe29bfac7cbbcf1e8332" -O "${OPENGL_VERSION}.tar.gz" --no-check-certificate
+wget "https://github.com/KhronosGroup/OpenGL-Registry/tarball/3530768138c5ba3dfbb2c43c830493f632f7ea33" -O "${OPENGL_VERSION}.tar.gz" --no-check-certificate
 
-wget "https://github.com/KhronosGroup/EGL-Registry/tarball/a03692eea13514d9aef01822b2bc6575fcabfac2" -O "${EGL_VERSION}.tar.gz" --no-check-certificate
+wget "https://github.com/KhronosGroup/EGL-Registry/tarball/7db3005d4c2cb439f129a0adc931f3274f9019e6" -O "${EGL_VERSION}.tar.gz" --no-check-certificate
 
 wget "https://github.com/libjpeg-turbo/libjpeg-turbo/releases/download/3.0.2/${JPEG_TURBO_VERSION}.tar.gz" --no-check-certificate
 
