@@ -4,6 +4,13 @@
 
 compile_cspice()
 {
+  if [ "$1" = "arm64" ]; then
+    CSPICE_PATH_COMPONENT="MacM1_OSX_clang_64bit"
+  else
+    CSPICE_PATH_COMPONENT="MacIntel_OSX_AppleC_64bit"
+  fi
+  wget "https://naif.jpl.nasa.gov/pub/naif/toolkit/C/$CSPICE_PATH_COMPONENT/packages/$CSPICE_VERSION.tar.Z" --no-check-certificate
+
   unarchive_and_enter $CSPICE_VERSION ".tar.Z"
 
   echo "Applying patch 1"
@@ -28,6 +35,7 @@ compile_cspice()
   echo "Cleaning"
   cd ..
   rm -rf $CSPICE_VERSION
+  rm -rf "$CSPICE_VERSION.tar.Z"
 }
 
 # libpng

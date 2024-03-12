@@ -83,6 +83,13 @@ compile_breakpad "x86_64"
 echo "Building CSPICE"
 compile_cspice()
 {
+  if [ "$1" = "armeabi-v7a" ]; then
+    CSPICE_PATH_COMPONENT="PC_Linux_GCC_32bit"
+  else
+    CSPICE_PATH_COMPONENT="PC_Linux_GCC_64bit"
+  fi
+  wget "https://naif.jpl.nasa.gov/pub/naif/toolkit/C/$CSPICE_PATH_COMPONENT/packages/$CSPICE_VERSION.tar.Z" --no-check-certificate
+
   unarchive_and_enter $CSPICE_VERSION ".tar.Z"
 
   echo "Applying patch 1"
@@ -117,6 +124,7 @@ compile_cspice()
   echo "Cleaning"
   cd ..
   rm -rf $CSPICE_VERSION
+  rm -rf "$CSPICE_VERSION.tar.Z"
 }
 
 configure_x86_64

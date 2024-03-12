@@ -32,6 +32,7 @@ build_with_cmake "eigen" $EIGEN_VERSION ".tar.gz"
 echo "Building CSPICE"
 compile_cspice()
 {
+  wget "https://naif.jpl.nasa.gov/pub/naif/toolkit/C/MacIntel_OSX_AppleC_64bit/packages/$CSPICE_VERSION.tar.Z" --no-check-certificate
   unarchive_and_enter $CSPICE_VERSION ".tar.Z"
 
   echo "Applying patch 1"
@@ -65,6 +66,7 @@ compile_cspice()
   echo "Cleaning"
   cd ..
   rm -rf $CSPICE_VERSION
+  rm -rf "$CSPICE_VERSION.tar.Z"
 }
 
 configure_emscripten

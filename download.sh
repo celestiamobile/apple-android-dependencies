@@ -4,8 +4,6 @@ cd `dirname $0`
 
 . `pwd`/versions.sh
 
-wget "https://naif.jpl.nasa.gov/pub/naif/toolkit/C/MacIntel_OSX_AppleC_64bit/packages/${CSPICE_VERSION}.tar.Z" --no-check-certificate
-
 wget "https://downloads.sourceforge.net/project/libpng/libpng16/1.6.42/${LIBPNG_VERSION}.tar.xz" --no-check-certificate
 
 #JPEG_DOWNLOAD_NAME="jpegsrc.v9e.tar.gz"
