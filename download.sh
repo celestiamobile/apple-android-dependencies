@@ -49,3 +49,7 @@ wget "https://codeload.github.com/mackron/miniaudio/tar.gz/refs/tags/0.11.21" -O
 wget "https://github.com/libsdl-org/SDL/releases/download/release-2.30.0/${SDL2_VERSION}.tar.gz" --no-check-certificate
 
 wget "https://github.com/nih-at/libzip/releases/download/v1.10.1/${LIBZIP_VERSION}.tar.gz" --no-check-certificate
+
+wget "https://github.com/AOMediaCodec/libavif/archive/refs/tags/v1.0.4.tar.gz" -O "${LIBAVIF_VERSION}.tar.gz" --no-check-certificate
+
+wget "https://storage.googleapis.com/aom-releases/${AOM_VERSION}.tar.gz" -O "${AOM_VERSION}.tar.gz" --no-check-certificate
