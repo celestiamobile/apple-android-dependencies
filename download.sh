@@ -51,3 +51,5 @@ wget "https://github.com/nih-at/libzip/releases/download/v1.10.1/${LIBZIP_VERSIO
 # wget "https://github.com/AOMediaCodec/libavif/archive/refs/tags/v1.0.4.tar.gz" -O "${LIBAVIF_VERSION}.tar.gz" --no-check-certificate
 
 # wget "https://storage.googleapis.com/aom-releases/${AOM_VERSION}.tar.gz" -O "${AOM_VERSION}.tar.gz" --no-check-certificate
+
+wget "https://github.com/boostorg/boost/releases/download/boost-1.84.0/${BOOST_VERSION}.tar.xz" --no-check-certificate
