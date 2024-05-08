@@ -6,7 +6,7 @@ stages:
   - template: jobs/build.yml
     parameters:
       buildTarget: ios
-      vmImage: macos-13
+      vmImage: macos-14
 
 - stage: iOSSimulator
   displayName: 'iOS Simulator'
