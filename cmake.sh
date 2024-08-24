@@ -29,7 +29,7 @@ _build_with_cmake_arch()
     if [ "$LEGACY_SUPPORT" = true ]; then
       DEPLOYMENT_TARGET="11.0"
     else
-      DEPLOYMENT_TARGET="13.1"
+      DEPLOYMENT_TARGET="14.0"
     fi
   elif [ "$TARGET" = "iOSSimulator" ]; then
     echo "Building for iOS Simulator"
@@ -44,7 +44,7 @@ _build_with_cmake_arch()
     if [ "$LEGACY_SUPPORT" = true ]; then
       DEPLOYMENT_TARGET="11.0"
     else
-      DEPLOYMENT_TARGET="13.1"
+      DEPLOYMENT_TARGET="14.0"
     fi
   elif [ "$TARGET" = "macOS" ]; then
     echo "Building for macOS"
@@ -55,7 +55,7 @@ _build_with_cmake_arch()
       if [ "$LEGACY_SUPPORT" = true ]; then
         DEPLOYMENT_TARGET="10.12"
       else
-        DEPLOYMENT_TARGET="10.15"
+        DEPLOYMENT_TARGET="11.0"
       fi
       PLATFORM="MAC"
     else
@@ -68,7 +68,7 @@ _build_with_cmake_arch()
       DEPLOYMENT_TARGET="14.0"
       PLATFORM="MAC_CATALYST_ARM64"
     elif [ "$1" = "x86_64" ]; then
-      DEPLOYMENT_TARGET="13.1"
+      DEPLOYMENT_TARGET="14.0"
       PLATFORM="MAC_CATALYST"
     else
       echo "Unknown arch"
@@ -109,7 +109,7 @@ _build_with_cmake_arch()
             -DANDROID_STL=c++_shared \
             -DANDROID_NDK=$NDK_ROOT \
             -DCMAKE_TOOLCHAIN_FILE=$CMAKE_TOOLCHAIN_PATH \
-            -DANDROID_NATIVE_API_LEVEL=21 \
+            -DANDROID_NATIVE_API_LEVEL=23 \
             -DANDROID_TOOLCHAIN=clang \
             -DCMAKE_INSTALL_PREFIX=$OUTPUT_PATH \
             -DCMAKE_BUILD_TYPE=Release \

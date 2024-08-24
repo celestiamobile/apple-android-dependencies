@@ -53,7 +53,7 @@ configure_arm64()
   export LD=$NDK_TOOLCHAIN/bin/llvm-ld
   export RANLIB=$NDK_TOOLCHAIN/bin/llvm-ranlib
   export STRIP=$NDK_TOOLCHAIN/bin/llvm-strip
-  export BIN_PREFIX="$NDK_TOOLCHAIN/bin/aarch64-linux-android21-"
+  export BIN_PREFIX="$NDK_TOOLCHAIN/bin/aarch64-linux-android23-"
   export STATIC_CC="${BIN_PREFIX}clang"
   export CC="$STATIC_CC -fPIC"
   export CXX="${BIN_PREFIX}clang++ -fPIC"
@@ -66,7 +66,7 @@ configure_armv7()
   export LD=$NDK_TOOLCHAIN/bin/llvm-ld
   export RANLIB=$NDK_TOOLCHAIN/bin/llvm-ranlib
   export STRIP=$NDK_TOOLCHAIN/bin/llvm-strip
-  export BIN_PREFIX="$NDK_TOOLCHAIN/bin/armv7a-linux-androideabi21-"
+  export BIN_PREFIX="$NDK_TOOLCHAIN/bin/armv7a-linux-androideabi23-"
   export STATIC_CC="${BIN_PREFIX}clang"
   export CC="$STATIC_CC -fPIC"
   export CXX="${BIN_PREFIX}clang++ -fPIC"
@@ -79,7 +79,7 @@ configure_x86()
   export LD=$NDK_TOOLCHAIN/bin/llvm-ld
   export RANLIB=$NDK_TOOLCHAIN/bin/llvm-ranlib
   export STRIP=$NDK_TOOLCHAIN/bin/llvm-strip
-  export BIN_PREFIX="$NDK_TOOLCHAIN/bin/i686-linux-android21-"
+  export BIN_PREFIX="$NDK_TOOLCHAIN/bin/i686-linux-android23-"
   export STATIC_CC="${BIN_PREFIX}clang"
   export CC="$STATIC_CC -fPIC"
   export CXX="${BIN_PREFIX}clang++ -fPIC"
@@ -93,7 +93,7 @@ configure_x86_64()
   export LD=$NDK_TOOLCHAIN/bin/llvm-ld
   export RANLIB=$NDK_TOOLCHAIN/bin/llvm-ranlib
   export STRIP=$NDK_TOOLCHAIN/bin/llvm-strip
-  export BIN_PREFIX="$NDK_TOOLCHAIN/bin/x86_64-linux-android21-"
+  export BIN_PREFIX="$NDK_TOOLCHAIN/bin/x86_64-linux-android23-"
   export STATIC_CC="${BIN_PREFIX}clang"
   export CC="$STATIC_CC -fPIC"
   export CXX="${BIN_PREFIX}clang++ -fPIC"
@@ -115,7 +115,7 @@ if [ "$TARGET" = "iOS" ]; then
   if [ "$LEGACY_SUPPORT" = true ]; then
     CC_ARM64_FLAGS="-isysroot $(xcrun --sdk iphoneos --show-sdk-path) -arch arm64 -miphoneos-version-min=11.0"
   else
-    CC_ARM64_FLAGS="-isysroot $(xcrun --sdk iphoneos --show-sdk-path) -arch arm64 -miphoneos-version-min=13.1"
+    CC_ARM64_FLAGS="-isysroot $(xcrun --sdk iphoneos --show-sdk-path) -arch arm64 -miphoneos-version-min=14.0"
   fi
   CC_ARM64="$CC_EXECUTABLE $CC_ARM64_FLAGS"
 elif [ "$TARGET" = "iOSSimulator" ]; then
@@ -126,8 +126,8 @@ elif [ "$TARGET" = "iOSSimulator" ]; then
     CC_X86_64_FLAGS="-isysroot $(xcrun --sdk iphonesimulator --show-sdk-path) -arch x86_64 -miphonesimulator-version-min=11.0"
     CC_ARM64_FLAGS="-isysroot $(xcrun --sdk iphonesimulator --show-sdk-path) -arch arm64 -miphonesimulator-version-min=11.0"
   else
-    CC_X86_64_FLAGS="-isysroot $(xcrun --sdk iphonesimulator --show-sdk-path) -arch x86_64 -miphonesimulator-version-min=13.1"
-    CC_ARM64_FLAGS="-isysroot $(xcrun --sdk iphonesimulator --show-sdk-path) -arch arm64 -miphonesimulator-version-min=13.1"
+    CC_X86_64_FLAGS="-isysroot $(xcrun --sdk iphonesimulator --show-sdk-path) -arch x86_64 -miphonesimulator-version-min=14.0"
+    CC_ARM64_FLAGS="-isysroot $(xcrun --sdk iphonesimulator --show-sdk-path) -arch arm64 -miphonesimulator-version-min=14.0"
   fi
   CC_X86_64="$CC_EXECUTABLE $CC_X86_64_FLAGS"
   CC_ARM64="$CC_EXECUTABLE $CC_ARM64_FLAGS"
@@ -153,8 +153,8 @@ elif [ "$TARGET" = "macOS" ]; then
     CC_X86_64_FLAGS="-isysroot $(xcrun --sdk macosx --show-sdk-path)  -arch x86_64 -mmacosx-version-min=10.12"
     DEPLOYMENT_TARGET_X86_64="10.12"
   else
-    CC_X86_64_FLAGS="-isysroot $(xcrun --sdk macosx --show-sdk-path)  -arch x86_64 -mmacosx-version-min=10.15"
-    DEPLOYMENT_TARGET_X86_64="10.15"
+    CC_X86_64_FLAGS="-isysroot $(xcrun --sdk macosx --show-sdk-path)  -arch x86_64 -mmacosx-version-min=11.0"
+    DEPLOYMENT_TARGET_X86_64="11.0"
   fi
   CC_ARM64_FLAGS="-isysroot $(xcrun --sdk macosx --show-sdk-path)  -arch arm64 -mmacosx-version-min=11.0"
   DEPLOYMENT_TARGET_ARM64="11.0"
@@ -164,7 +164,7 @@ elif [ "$TARGET" = "macCatalyst" ]; then
   CMAKE=cmake
   CMAKE_TOOLCHAIN_PATH="$(pwd)/ios.toolchain.cmake"
   CC_EXECUTABLE=$(xcrun --sdk macosx --find clang)
-  CC_X86_64_FLAGS="-isysroot $(xcrun --sdk macosx --show-sdk-path) -target x86_64-apple-ios-macabi -miphoneos-version-min=13.1"
+  CC_X86_64_FLAGS="-isysroot $(xcrun --sdk macosx --show-sdk-path) -target x86_64-apple-ios-macabi -miphoneos-version-min=14.0"
   CC_ARM64_FLAGS="-isysroot $(xcrun --sdk macosx --show-sdk-path) -target arm64-apple-ios-macabi -miphoneos-version-min=14.0"
   CC_X86_64="$CC_EXECUTABLE $CC_X86_64_FLAGS"
   CC_ARM64="$CC_EXECUTABLE $CC_ARM64_FLAGS"
