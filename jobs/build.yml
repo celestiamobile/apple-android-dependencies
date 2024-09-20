@@ -8,7 +8,7 @@ jobs:
   variables:
     vmImage: ${{ parameters.vmImage }}
     buildTarget: ${{ parameters.buildTarget }}
-    xcodeVersion: ${{ '16_beta_6' }}
+    xcodeVersion: ${{ '16.0' }}
     ndkVersion: ${{ '27.1.12297006' }}
 
   steps:
