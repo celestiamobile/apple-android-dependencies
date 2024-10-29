@@ -35,49 +35,49 @@ build_with_cmake "eigen" $EIGEN_VERSION ".tar.gz"
 build_with_cmake "meshoptimizer" $MESHOPTIMIZER_VERSION ".tar.gz" "meshoptimizer" "libmeshoptimizer"
 # build_with_cmake "aom" $AOM_VERSION ".tar.gz" "aom" "libaom" ".." "-DCMAKE_CXX_STANDARD=17" "-DAOM_TARGET_CPU=CELESTIA_STANDARD_ARCH" "-DENABLE_DOCS=OFF" "-DBUILD_SHARED_LIBS=OFF" "-DENABLE_EXAMPLES=OFF"  "-DENABLE_TESTDATA=OFF" "-DENABLE_TESTS=OFF" "-DENABLE_TOOLS=OFF" "-DENABLE_NEON=CELESTIA_ARCH_IS_ARM64"
 # build_with_cmake "libavif" $LIBAVIF_VERSION ".tar.gz" "libavif" "libavif" ".." "-DAVIF_BUILD_APPS=OFF" "-DBUILD_SHARED_LIBS=OFF" "-DAOM_INCLUDE_DIR=$INCLUDE_PATH/aom" "-DAOM_LIBRARY=$LIB_PATH/CELESTIA_ARCH/libaom.a" "-DCMAKE_DISABLE_FIND_PACKAGE_libsharpyuv=TRUE"  "-DCMAKE_DISABLE_FIND_PACKAGE_libyuv=TRUE" "-DAVIF_CODEC_AOM=SYSTEM"
-
-# breakpad
-
-echo "Building breakpad"
-compile_breakpad()
-{
-  unarchive_and_enter $BREAKPAD_VERSION ".tar.gz"
-
-  mkdir -p src/third_party/lss
-  curl https://chromium.googlesource.com/linux-syscall-support/+/refs/heads/main/linux_syscall_support.h\?format\=TEXT | base64 --decode > src/third_party/lss/linux_syscall_support.h
-
-  echo "Compiling for $1"
-  OUTPUT_PATH="$(pwd)/output"
-  ./configure --disable-dependency-tracking \
-              --disable-silent-rules \
-              --disable-processor \
-              --disable-tools \
-              --host=arm-linux-androideabi \
-              --prefix=${OUTPUT_PATH}
-  check_success
-
-  rm -rf src/common/android/testing
-
-  make -j4 install
-  check_success
-
-  echo "Copying products"
-  mkdir -p $INCLUDE_PATH/breakpad
-  cp -r output/include/* $INCLUDE_PATH/breakpad/
-  cp output/lib/libbreakpad_client.a $LIB_PATH/${1}
-  check_success
-
-  echo "Cleaning"
-  cd ..
-  rm -rf $BREAKPAD_VERSION
-}
-
-configure_armv7
-compile_breakpad "armeabi-v7a"
-configure_arm64
-compile_breakpad "arm64-v8a"
-configure_x86_64
-compile_breakpad "x86_64"
+#
+## breakpad
+#
+#echo "Building breakpad"
+#compile_breakpad()
+#{
+#  unarchive_and_enter $BREAKPAD_VERSION ".tar.gz"
+#
+#  mkdir -p src/third_party/lss
+#  curl https://chromium.googlesource.com/linux-syscall-support/+/refs/heads/main/linux_syscall_support.h\?format\=TEXT | base64 --decode > src/third_party/lss/linux_syscall_support.h
+#
+#  echo "Compiling for $1"
+#  OUTPUT_PATH="$(pwd)/output"
+#  ./configure --disable-dependency-tracking \
+#              --disable-silent-rules \
+#              --disable-processor \
+#              --disable-tools \
+#              --host=arm-linux-androideabi \
+#              --prefix=${OUTPUT_PATH}
+#  check_success
+#
+#  rm -rf src/common/android/testing
+#
+#  make -j4 install
+#  check_success
+#
+#  echo "Copying products"
+#  mkdir -p $INCLUDE_PATH/breakpad
+#  cp -r output/include/* $INCLUDE_PATH/breakpad/
+#  cp output/lib/libbreakpad_client.a $LIB_PATH/${1}
+#  check_success
+#
+#  echo "Cleaning"
+#  cd ..
+#  rm -rf $BREAKPAD_VERSION
+#}
+#
+#configure_armv7
+#compile_breakpad "armeabi-v7a"
+#configure_arm64
+#compile_breakpad "arm64-v8a"
+#configure_x86_64
+#compile_breakpad "x86_64"
 
 # CSPICE
 
@@ -266,59 +266,59 @@ compile_gettext "armeabi-v7a"
 configure_arm64
 compile_gettext "arm64-v8a"
 
-# lua
+# # lua
 
-echo "Building lua"
-compile_lua()
-{
-  unarchive_and_enter $LUA_VERSION ".tar.gz"
+# echo "Building lua"
+# compile_lua()
+# {
+#   unarchive_and_enter $LUA_VERSION ".tar.gz"
 
-  echo "Applying patch 1"
-  sed -ie 's/#define LUA_USE_READLINE//g' src/luaconf.h
+#   echo "Applying patch 1"
+#   sed -ie 's/#define LUA_USE_READLINE//g' src/luaconf.h
 
-  echo "Applying patch 2"
-  TO_REPLACE="system(luaL_optstring(L, 1, NULL))"
-  NEW_STRING="0"
-  sed -ie "s#${TO_REPLACE}#${NEW_STRING}#g" src/loslib.c
+#   echo "Applying patch 2"
+#   TO_REPLACE="system(luaL_optstring(L, 1, NULL))"
+#   NEW_STRING="0"
+#   sed -ie "s#${TO_REPLACE}#${NEW_STRING}#g" src/loslib.c
 
-  echo "Applying patch 3"
-  TO_REPLACE="CC= gcc"
-  NEW_STRING="CC= ${CC}"
-  sed -ie "s#${TO_REPLACE}#${NEW_STRING}#g" src/Makefile
+#   echo "Applying patch 3"
+#   TO_REPLACE="CC= gcc"
+#   NEW_STRING="CC= ${CC}"
+#   sed -ie "s#${TO_REPLACE}#${NEW_STRING}#g" src/Makefile
 
-  echo "Applying patch 4"
-  TO_REPLACE="RANLIB= ranlib"
-  NEW_STRING="RANLIB= ${RANLIB}"
-  sed -ie "s#${TO_REPLACE}#${NEW_STRING}#g" src/Makefile
+#   echo "Applying patch 4"
+#   TO_REPLACE="RANLIB= ranlib"
+#   NEW_STRING="RANLIB= ${RANLIB}"
+#   sed -ie "s#${TO_REPLACE}#${NEW_STRING}#g" src/Makefile
 
-  echo "Applying patch 5"
-  TO_REPLACE="AR= ar rcu"
-  NEW_STRING="AR= ${AR} rcu"
-  sed -ie "s#${TO_REPLACE}#${NEW_STRING}#g" src/Makefile
+#   echo "Applying patch 5"
+#   TO_REPLACE="AR= ar rcu"
+#   NEW_STRING="AR= ${AR} rcu"
+#   sed -ie "s#${TO_REPLACE}#${NEW_STRING}#g" src/Makefile
 
-  echo "Compiling for $1"
-  OUTPUT_PATH="$(pwd)/output"
+#   echo "Compiling for $1"
+#   OUTPUT_PATH="$(pwd)/output"
 
-  make generic install INSTALL_TOP=${OUTPUT_PATH}
-  check_success
+#   make generic install INSTALL_TOP=${OUTPUT_PATH}
+#   check_success
 
-  echo "Copying products"
-  mkdir -p $INCLUDE_PATH/lua
-  cp -r output/include/* $INCLUDE_PATH/lua/
-  cp output/lib/liblua.a $LIB_PATH/${1}
-  check_success
+#   echo "Copying products"
+#   mkdir -p $INCLUDE_PATH/lua
+#   cp -r output/include/* $INCLUDE_PATH/lua/
+#   cp output/lib/liblua.a $LIB_PATH/${1}
+#   check_success
 
-  echo "Cleaning"
-  cd ..
-  rm -rf $LUA_VERSION
-}
+#   echo "Cleaning"
+#   cd ..
+#   rm -rf $LUA_VERSION
+# }
 
-configure_x86_64
-compile_lua "x86_64"
-configure_armv7
-compile_lua "armeabi-v7a"
-configure_arm64
-compile_lua "arm64-v8a"
+# configure_x86_64
+# compile_lua "x86_64"
+# configure_armv7
+# compile_lua "armeabi-v7a"
+# configure_arm64
+# compile_lua "arm64-v8a"
 
 # luajit
 

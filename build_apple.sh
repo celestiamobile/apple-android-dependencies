@@ -98,43 +98,43 @@ compile_jpeg()
   rm -rf $JPEG_VERSION
 }
 
-# lua
+# # lua
 
-compile_lua()
-{
-  unarchive_and_enter $LUA_VERSION ".tar.gz"
+# compile_lua()
+# {
+#   unarchive_and_enter $LUA_VERSION ".tar.gz"
 
-  echo "Applying patch 1"
-  TO_REPLACE="CC= gcc"
-  NEW_STRING="CC= ${2}"
-  sed -ie "s#${TO_REPLACE}#${NEW_STRING}#g" src/Makefile
+#   echo "Applying patch 1"
+#   TO_REPLACE="CC= gcc"
+#   NEW_STRING="CC= ${2}"
+#   sed -ie "s#${TO_REPLACE}#${NEW_STRING}#g" src/Makefile
 
-  echo "Applying patch 2"
-  sed -ie 's/#define LUA_USE_READLINE//g' src/luaconf.h
+#   echo "Applying patch 2"
+#   sed -ie 's/#define LUA_USE_READLINE//g' src/luaconf.h
 
-  echo "Applying patch 3"
-  TO_REPLACE="system(luaL_optstring(L, 1, NULL))"
-  NEW_STRING="0"
-  sed -ie "s#${TO_REPLACE}#${NEW_STRING}#g" src/loslib.c
+#   echo "Applying patch 3"
+#   TO_REPLACE="system(luaL_optstring(L, 1, NULL))"
+#   NEW_STRING="0"
+#   sed -ie "s#${TO_REPLACE}#${NEW_STRING}#g" src/loslib.c
 
-  echo "Compiling for $1"
-  export CC=$2
-  export CXX=$2
-  OUTPUT_PATH="$(pwd)/output"
+#   echo "Compiling for $1"
+#   export CC=$2
+#   export CXX=$2
+#   OUTPUT_PATH="$(pwd)/output"
 
-  make macosx install INSTALL_TOP=${OUTPUT_PATH}
-  check_success
+#   make macosx install INSTALL_TOP=${OUTPUT_PATH}
+#   check_success
 
-  echo "Copying products"
-  mkdir -p $INCLUDE_PATH/lua
-  cp -r output/include/* $INCLUDE_PATH/lua/
-  cp output/lib/liblua.a $LIB_PATH/${1}_liblua.a
-  check_success
+#   echo "Copying products"
+#   mkdir -p $INCLUDE_PATH/lua
+#   cp -r output/include/* $INCLUDE_PATH/lua/
+#   cp output/lib/liblua.a $LIB_PATH/${1}_liblua.a
+#   check_success
 
-  echo "Cleaning"
-  cd ..
-  rm -rf $LUA_VERSION
-}
+#   echo "Cleaning"
+#   cd ..
+#   rm -rf $LUA_VERSION
+# }
 
 # luajit
 

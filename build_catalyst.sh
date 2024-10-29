@@ -33,9 +33,9 @@ compile_libpng "arm64"  "${CC_ARM64}"
 compile_libpng "x86_64"  "${CC_X86_64}"
 fat_create_and_clean "libpng16"
 
-compile_lua "arm64"  "${CC_ARM64}"
-compile_lua "x86_64"  "${CC_X86_64}"
-fat_create_and_clean "liblua"
+# compile_lua "arm64"  "${CC_ARM64}"
+# compile_lua "x86_64"  "${CC_X86_64}"
+# fat_create_and_clean "liblua"
 
 compile_luajit "arm64" "$CC_EXECUTABLE" "$CC_ARM64_FLAGS"
 compile_luajit "x86_64" "$CC_EXECUTABLE" "$CC_X86_64_FLAGS"

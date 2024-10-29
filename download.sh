@@ -15,22 +15,22 @@ wget "https://ftp.gnu.org/gnu/gettext/${GETTEXT_VERSION}.tar.gz" --no-check-cert
 
 wget "https://www.lua.org/ftp/${LUA_VERSION}.tar.gz" --no-check-certificate
 
-wget "https://github.com/LuaJIT/LuaJIT/archive/87ae18af97fd4de790bb6c476b212e047689cc93.tar.gz" -O "${LUAJIT_VERSION}.tar.gz" --no-check-certificate
+wget "https://github.com/LuaJIT/LuaJIT/archive/97813fb924edf822455f91a5fbbdfdb349e5984f.tar.gz" -O "${LUAJIT_VERSION}.tar.gz" --no-check-certificate
 
 wget "https://download.gnome.org/sources/libepoxy/1.5/${LIBEPOXY_VERSION}.tar.xz" --no-check-certificate
 
 FMT_DOWNLOAD_NAME="11.0.2.tar.gz"
 wget "https://github.com/fmtlib/fmt/archive/${FMT_DOWNLOAD_NAME}" -O "${FMT_VERSION}.tar.gz" --no-check-certificate
 
-MESHOPTIMIZER_DOWNLOAD_NAME="v0.21.tar.gz"
+MESHOPTIMIZER_DOWNLOAD_NAME="v0.22.tar.gz"
 wget "https://github.com/zeux/meshoptimizer/archive/refs/tags/${MESHOPTIMIZER_DOWNLOAD_NAME}" -O "${MESHOPTIMIZER_VERSION}.tar.gz" --no-check-certificate
 
 wget "https://gitlab.com/libeigen/eigen/-/archive/3.4.0/${EIGEN_VERSION}.tar.gz" --no-check-certificate
 
-ICU_DOWNLOAD_NAME="icu4c-75_1-src.tgz"
-wget "https://github.com/unicode-org/icu/releases/download/release-75-1/${ICU_DOWNLOAD_NAME}" -O "${ICU_VERSION}.tgz" --no-check-certificate
+ICU_DOWNLOAD_NAME="icu4c-76_1-src.tgz"
+wget "https://github.com/unicode-org/icu/releases/download/release-76-1/${ICU_DOWNLOAD_NAME}" -O "${ICU_VERSION}.tgz" --no-check-certificate
 
-wget "https://github.com/google/breakpad/tarball/e92bea30759edbae08205bccd14dc25bf1806f93" -O "${BREAKPAD_VERSION}.tar.gz" --no-check-certificate
+# wget "https://github.com/google/breakpad/tarball/e92bea30759edbae08205bccd14dc25bf1806f93" -O "${BREAKPAD_VERSION}.tar.gz" --no-check-certificate
 
 wget "https://github.com/nlohmann/json/releases/download/v3.11.3/json.hpp" --no-check-certificate
 
@@ -44,7 +44,7 @@ wget "https://github.com/libjpeg-turbo/libjpeg-turbo/releases/download/3.0.4/${J
 
 wget "https://codeload.github.com/mackron/miniaudio/tar.gz/refs/tags/0.11.21" -O "${MINIAUDIO_VERSION}.tar.gz" --no-check-certificate
 
-wget "https://github.com/libsdl-org/SDL/releases/download/release-2.30.7/${SDL2_VERSION}.tar.gz" --no-check-certificate
+wget "https://github.com/libsdl-org/SDL/releases/download/release-2.30.8/${SDL2_VERSION}.tar.gz" --no-check-certificate
 
 wget "https://github.com/nih-at/libzip/releases/download/v1.11.1/${LIBZIP_VERSION}.tar.gz" --no-check-certificate
 

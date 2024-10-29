@@ -31,8 +31,8 @@ fat_create_and_clean "cspice"
 compile_libpng "arm64"  "${CC_ARM64}"
 fat_create_and_clean "libpng16"
 
-compile_lua "arm64"  "${CC_ARM64}"
-fat_create_and_clean "liblua"
+# compile_lua "arm64"  "${CC_ARM64}"
+# fat_create_and_clean "liblua"
 
 compile_luajit "arm64" "$CC_EXECUTABLE" "$CC_ARM64_FLAGS"
 fat_create_and_clean "libluajit"
