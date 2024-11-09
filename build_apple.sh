@@ -254,7 +254,7 @@ compile_gettext()
 
 compile_libepoxy()
 {
-  unarchive_and_enter $LIBEPOXY_VERSION ".tar.xz"
+  unarchive_and_enter $LIBEPOXY_VERSION ".tar.gz"
 
   if [ "$TARGET" = "iOS" ] || [ "$TARGET" = "iOSSimulator" ]; then
     echo "Applying patch 1"

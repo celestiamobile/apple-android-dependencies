@@ -17,7 +17,7 @@ wget "https://www.lua.org/ftp/${LUA_VERSION}.tar.gz" --no-check-certificate
 
 wget "https://github.com/LuaJIT/LuaJIT/archive/97813fb924edf822455f91a5fbbdfdb349e5984f.tar.gz" -O "${LUAJIT_VERSION}.tar.gz" --no-check-certificate
 
-wget "https://download.gnome.org/sources/libepoxy/1.5/${LIBEPOXY_VERSION}.tar.xz" --no-check-certificate
+wget "https://github.com/anholt/libepoxy/archive/refs/tags/1.5.10.tar.gz" -O "${LIBEPOXY_VERSION}.tar.gz" --no-check-certificate
 
 FMT_DOWNLOAD_NAME="11.0.2.tar.gz"
 wget "https://github.com/fmtlib/fmt/archive/${FMT_DOWNLOAD_NAME}" -O "${FMT_VERSION}.tar.gz" --no-check-certificate

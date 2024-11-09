@@ -365,7 +365,7 @@ compile_luajit "arm64-v8a"
 echo "Building libepoxy"
 compile_libepoxy()
 {
-  unarchive_and_enter $LIBEPOXY_VERSION ".tar.xz"
+  unarchive_and_enter $LIBEPOXY_VERSION ".tar.gz"
 
   mkdir build
   cd build
