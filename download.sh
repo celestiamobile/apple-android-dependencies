@@ -15,7 +15,7 @@ wget "https://ftp.gnu.org/gnu/gettext/${GETTEXT_VERSION}.tar.gz" --no-check-cert
 
 wget "https://www.lua.org/ftp/${LUA_VERSION}.tar.gz" --no-check-certificate
 
-wget "https://github.com/LuaJIT/LuaJIT/archive/97813fb924edf822455f91a5fbbdfdb349e5984f.tar.gz" -O "${LUAJIT_VERSION}.tar.gz" --no-check-certificate
+wget "https://github.com/LuaJIT/LuaJIT/archive/fe71d0fb54ceadfb5b5f3b6baf29e486d97f6059.tar.gz" -O "${LUAJIT_VERSION}.tar.gz" --no-check-certificate
 
 wget "https://github.com/anholt/libepoxy/archive/refs/tags/1.5.10.tar.gz" -O "${LIBEPOXY_VERSION}.tar.gz" --no-check-certificate
 
@@ -36,7 +36,7 @@ wget "https://github.com/nlohmann/json/releases/download/v3.11.3/json.hpp" --no-
 
 wget "https://zlib.net/${ZLIB_VERSION}.tar.gz" --no-check-certificate
 
-wget "https://github.com/KhronosGroup/OpenGL-Registry/tarball/9da96319b5180c55bab6f0231d384941f4d57200" -O "${OPENGL_VERSION}.tar.gz" --no-check-certificate
+wget "https://github.com/KhronosGroup/OpenGL-Registry/tarball/18d743912f6d5c91ef4923425253304bca06250b" -O "${OPENGL_VERSION}.tar.gz" --no-check-certificate
 
 wget "https://github.com/KhronosGroup/EGL-Registry/tarball/29c4314e0ef04c730992d295f91b76635019fbba" -O "${EGL_VERSION}.tar.gz" --no-check-certificate
 
@@ -44,9 +44,9 @@ wget "https://github.com/libjpeg-turbo/libjpeg-turbo/releases/download/3.0.4/${J
 
 wget "https://codeload.github.com/mackron/miniaudio/tar.gz/refs/tags/0.11.21" -O "${MINIAUDIO_VERSION}.tar.gz" --no-check-certificate
 
-wget "https://github.com/libsdl-org/SDL/releases/download/release-2.30.8/${SDL2_VERSION}.tar.gz" --no-check-certificate
+wget "https://github.com/libsdl-org/SDL/releases/download/release-2.30.9/${SDL2_VERSION}.tar.gz" --no-check-certificate
 
-wget "https://github.com/nih-at/libzip/releases/download/v1.11.1/${LIBZIP_VERSION}.tar.gz" --no-check-certificate
+wget "https://github.com/nih-at/libzip/releases/download/v1.11.2/${LIBZIP_VERSION}.tar.gz" --no-check-certificate
 
 # wget "https://github.com/AOMediaCodec/libavif/archive/refs/tags/v1.1.1.tar.gz" -O "${LIBAVIF_VERSION}.tar.gz" --no-check-certificate
 
