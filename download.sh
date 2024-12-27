@@ -15,11 +15,11 @@ wget "https://ftp.gnu.org/gnu/gettext/${GETTEXT_VERSION}.tar.gz" --no-check-cert
 
 wget "https://www.lua.org/ftp/${LUA_VERSION}.tar.gz" --no-check-certificate
 
-wget "https://github.com/LuaJIT/LuaJIT/archive/fe71d0fb54ceadfb5b5f3b6baf29e486d97f6059.tar.gz" -O "${LUAJIT_VERSION}.tar.gz" --no-check-certificate
+wget "https://github.com/LuaJIT/LuaJIT/archive/f73e649a954b599fc184726c376476e7a5c439ca.tar.gz" -O "${LUAJIT_VERSION}.tar.gz" --no-check-certificate
 
 wget "https://github.com/anholt/libepoxy/archive/refs/tags/1.5.10.tar.gz" -O "${LIBEPOXY_VERSION}.tar.gz" --no-check-certificate
 
-FMT_DOWNLOAD_NAME="11.0.2.tar.gz"
+FMT_DOWNLOAD_NAME="11.1.0.tar.gz"
 wget "https://github.com/fmtlib/fmt/archive/${FMT_DOWNLOAD_NAME}" -O "${FMT_VERSION}.tar.gz" --no-check-certificate
 
 MESHOPTIMIZER_DOWNLOAD_NAME="v0.22.tar.gz"
@@ -40,11 +40,11 @@ wget "https://github.com/KhronosGroup/OpenGL-Registry/tarball/18d743912f6d5c91ef
 
 wget "https://github.com/KhronosGroup/EGL-Registry/tarball/29c4314e0ef04c730992d295f91b76635019fbba" -O "${EGL_VERSION}.tar.gz" --no-check-certificate
 
-wget "https://github.com/libjpeg-turbo/libjpeg-turbo/releases/download/3.0.4/${JPEG_TURBO_VERSION}.tar.gz" --no-check-certificate
+wget "https://github.com/libjpeg-turbo/libjpeg-turbo/releases/download/3.1.0/${JPEG_TURBO_VERSION}.tar.gz" --no-check-certificate
 
 wget "https://codeload.github.com/mackron/miniaudio/tar.gz/refs/tags/0.11.21" -O "${MINIAUDIO_VERSION}.tar.gz" --no-check-certificate
 
-wget "https://github.com/libsdl-org/SDL/releases/download/release-2.30.9/${SDL2_VERSION}.tar.gz" --no-check-certificate
+wget "https://github.com/libsdl-org/SDL/releases/download/release-2.30.10/${SDL2_VERSION}.tar.gz" --no-check-certificate
 
 wget "https://github.com/nih-at/libzip/releases/download/v1.11.2/${LIBZIP_VERSION}.tar.gz" --no-check-certificate
 
@@ -52,5 +52,5 @@ wget "https://github.com/nih-at/libzip/releases/download/v1.11.2/${LIBZIP_VERSIO
 
 # wget "https://storage.googleapis.com/aom-releases/${AOM_VERSION}.tar.gz" -O "${AOM_VERSION}.tar.gz" --no-check-certificate
 
-BOOST_DOWNLOAD_NAME="boost-1.86.0-cmake"
-wget "https://github.com/boostorg/boost/releases/download/boost-1.86.0/${BOOST_DOWNLOAD_NAME}.tar.xz" -O "${BOOST_VERSION}.tar.xz" --no-check-certificate
+BOOST_DOWNLOAD_NAME="boost-1.87.0-cmake"
+wget "https://github.com/boostorg/boost/releases/download/boost-1.87.0/${BOOST_DOWNLOAD_NAME}.tar.xz" -O "${BOOST_VERSION}.tar.xz" --no-check-certificate
