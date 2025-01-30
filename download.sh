@@ -4,7 +4,7 @@ cd `dirname $0`
 
 . `pwd`/versions.sh
 
-wget "https://downloads.sourceforge.net/project/libpng/libpng16/1.6.44/${LIBPNG_VERSION}.tar.xz" --no-check-certificate
+wget "https://downloads.sourceforge.net/project/libpng/libpng16/1.6.46/${LIBPNG_VERSION}.tar.xz" --no-check-certificate
 
 #JPEG_DOWNLOAD_NAME="jpegsrc.v9e.tar.gz"
 #wget "https://www.ijg.org/files/${JPEG_DOWNLOAD_NAME}" -O "${JPEG_VERSION}.tar.gz" --no-check-certificate
@@ -15,11 +15,11 @@ wget "https://ftp.gnu.org/gnu/gettext/${GETTEXT_VERSION}.tar.gz" --no-check-cert
 
 wget "https://www.lua.org/ftp/${LUA_VERSION}.tar.gz" --no-check-certificate
 
-wget "https://github.com/LuaJIT/LuaJIT/archive/f73e649a954b599fc184726c376476e7a5c439ca.tar.gz" -O "${LUAJIT_VERSION}.tar.gz" --no-check-certificate
+wget "https://github.com/LuaJIT/LuaJIT/archive/a4f56a459a588ae768801074b46ba0adcfb49eb1.tar.gz" -O "${LUAJIT_VERSION}.tar.gz" --no-check-certificate
 
 wget "https://github.com/anholt/libepoxy/archive/refs/tags/1.5.10.tar.gz" -O "${LIBEPOXY_VERSION}.tar.gz" --no-check-certificate
 
-FMT_DOWNLOAD_NAME="11.1.0.tar.gz"
+FMT_DOWNLOAD_NAME="11.1.3.tar.gz"
 wget "https://github.com/fmtlib/fmt/archive/${FMT_DOWNLOAD_NAME}" -O "${FMT_VERSION}.tar.gz" --no-check-certificate
 
 MESHOPTIMIZER_DOWNLOAD_NAME="v0.22.tar.gz"
@@ -36,7 +36,7 @@ wget "https://github.com/nlohmann/json/releases/download/v3.11.3/json.hpp" --no-
 
 wget "https://zlib.net/${ZLIB_VERSION}.tar.gz" --no-check-certificate
 
-wget "https://github.com/KhronosGroup/OpenGL-Registry/tarball/18d743912f6d5c91ef4923425253304bca06250b" -O "${OPENGL_VERSION}.tar.gz" --no-check-certificate
+wget "https://github.com/KhronosGroup/OpenGL-Registry/tarball/b53ca669bea4715b6d5fa53c459f47a1fecd7944" -O "${OPENGL_VERSION}.tar.gz" --no-check-certificate
 
 wget "https://github.com/KhronosGroup/EGL-Registry/tarball/29c4314e0ef04c730992d295f91b76635019fbba" -O "${EGL_VERSION}.tar.gz" --no-check-certificate
 
@@ -44,9 +44,9 @@ wget "https://github.com/libjpeg-turbo/libjpeg-turbo/releases/download/3.1.0/${J
 
 wget "https://codeload.github.com/mackron/miniaudio/tar.gz/refs/tags/0.11.21" -O "${MINIAUDIO_VERSION}.tar.gz" --no-check-certificate
 
-wget "https://github.com/libsdl-org/SDL/releases/download/release-2.30.10/${SDL2_VERSION}.tar.gz" --no-check-certificate
+wget "https://github.com/libsdl-org/SDL/releases/download/release-2.30.11/${SDL2_VERSION}.tar.gz" --no-check-certificate
 
-wget "https://github.com/nih-at/libzip/releases/download/v1.11.2/${LIBZIP_VERSION}.tar.gz" --no-check-certificate
+wget "https://github.com/nih-at/libzip/releases/download/v1.11.3/${LIBZIP_VERSION}.tar.gz" --no-check-certificate
 
 # wget "https://github.com/AOMediaCodec/libavif/archive/refs/tags/v1.1.1.tar.gz" -O "${LIBAVIF_VERSION}.tar.gz" --no-check-certificate
 
