@@ -34,11 +34,6 @@ jobs:
         cd emsdk
         ./emsdk install latest
         ./emsdk activate latest
-      elif [ "$(buildTarget)" = "visionos" ] || [ "$(buildTarget)" = "visionossim" ]; then
-        APPLE_CLANG_MODULE_PATH=$(readlink -f $(brew --prefix cmake))/share/cmake/Modules/Platform/Apple-Clang.cmake
-        TO_REPLACE='set(CMAKE_${lang}_OSX_DEPLOYMENT_TARGET_FLAG "-mtargetos=xros")'
-        NEW_STRING=''
-        sed -ie "s#${TO_REPLACE}#${NEW_STRING}#g" $APPLE_CLANG_MODULE_PATH
       fi
     displayName: 'Replace Strings'
 
