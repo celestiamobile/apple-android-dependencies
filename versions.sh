@@ -4,6 +4,7 @@ LIBPNG_VERSION="libpng-1.6.47"
 #BREAKPAD_VERSION="google-breakpad-e92bea3"
 FREETYPE_VERSION="freetype-2.13.3"
 GETTEXT_VERSION="gettext-0.24"
+GETTEXT_LEGACY_VERSION="gettext-0.23.1" # Need for Emscripten
 LUA_VERSION="lua-5.1.5"
 LUAJIT_VERSION="LuaJIT-a4f56a459a588ae768801074b46ba0adcfb49eb1"
 LIBEPOXY_VERSION="libepoxy-1.5.10"

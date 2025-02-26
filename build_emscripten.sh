@@ -78,7 +78,7 @@ compile_cspice
 echo "Building gettext"
 compile_gettext()
 {
-  unarchive_and_enter $GETTEXT_VERSION ".tar.gz"
+  unarchive_and_enter $GETTEXT_LEGACY_VERSION ".tar.gz"
   cd gettext-runtime
 
   OUTPUT_PATH="$(pwd)/output"
@@ -119,7 +119,7 @@ compile_gettext()
 
   echo "Cleaning"
   cd ../..
-  rm -rf $GETTEXT_VERSION
+  rm -rf $GETTEXT_LEGACY_VERSION
 }
 
 configure_emscripten
