@@ -20,7 +20,7 @@ wget "https://github.com/LuaJIT/LuaJIT/archive/a4f56a459a588ae768801074b46ba0adc
 
 wget "https://github.com/anholt/libepoxy/archive/refs/tags/1.5.10.tar.gz" -O "${LIBEPOXY_VERSION}.tar.gz" --no-check-certificate
 
-FMT_DOWNLOAD_NAME="11.1.3.tar.gz"
+FMT_DOWNLOAD_NAME="11.1.4.tar.gz"
 wget "https://github.com/fmtlib/fmt/archive/${FMT_DOWNLOAD_NAME}" -O "${FMT_VERSION}.tar.gz" --no-check-certificate
 
 MESHOPTIMIZER_DOWNLOAD_NAME="v0.22.tar.gz"
