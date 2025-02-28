@@ -60,7 +60,7 @@ stages:
   - template: jobs/build.yml
     parameters:
       buildTarget: android
-      vmImage: ubuntu-latest
+      vmImage: ubuntu-24.04
 
 - stage: Emscripten
   displayName: 'Emscripten'
