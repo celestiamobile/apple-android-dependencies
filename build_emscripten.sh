@@ -54,7 +54,7 @@ compile_cspice()
   export TKCOMPILER=$CC
   export TKCOMPILEOPTIONS="-c -ansi -O2 -fPIC -DNON_UNIX_STDIO"
   export TKLINKOPTIONS="-lm"
-  csh mkprodct.csh
+  tcsh mkprodct.csh
   check_success
   cd ../..
 
