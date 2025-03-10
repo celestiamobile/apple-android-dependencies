@@ -189,7 +189,7 @@ compile_freetype()
 
   echo "Copying products"
   mkdir -p $INCLUDE_PATH/freetype
-  cp -r output/include/* $INCLUDE_PATH/freetype/
+  cp -r output/include/freetype2/* $INCLUDE_PATH/freetype/
   cp output/lib/libfreetype.a $LIB_PATH/${1}_libfreetype.a
   check_success
 
