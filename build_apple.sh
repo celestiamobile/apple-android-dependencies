@@ -339,9 +339,16 @@ compile_icu()
   echo "Copying products"
   mkdir -p $INCLUDE_PATH/icu
   cp -r output/include/* $INCLUDE_PATH/icu/
-  cp output/lib/libicudata.a $LIB_PATH/${1}_libicudata.a
-  cp output/lib/libicui18n.a $LIB_PATH/${1}_libicui18n.a
-  cp output/lib/libicuuc.a $LIB_PATH/${1}_libicuuc.a
+
+  echo "Merge static libraries"
+
+  mkdir -p temp
+  cd temp
+  ar -x ../output/lib/libicudata.a
+  ar -x ../output/lib/libicui18n.a
+  ar -x ../output/lib/libicuuc.a
+  ar rcs $LIB_PATH/${1}_libicu.a *.o *.ao
+  cd ..
 
   check_success
 

@@ -70,3 +70,18 @@ stages:
     parameters:
       buildTarget: emscripten
       vmImage: macos-15
+
+- stage: XCFramework
+  displayName: 'Generate XCFramework'
+  dependsOn:
+  - iOS
+  - iOSSimulator
+  - visionOS
+  - visionOSSimulator
+  - macOS
+  - macCatalyst
+  jobs:
+  - template: jobs/xcframework.yml
+    parameters:
+      buildTarget: mac
+      vmImage: macos-15
