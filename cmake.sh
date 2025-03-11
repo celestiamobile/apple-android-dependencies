@@ -253,6 +253,7 @@ build_with_cmake()
     if [ ! -z "$5" ] && [ "$5" != "none" ]; then
       fat_create_and_clean $5
     fi
+    create_xcframework $5 $4 $1
   elif [ "$TARGET" = "Android" ]; then
     build_with_cmake_arch "x86_64" ${@:2}
     build_with_cmake_arch "armeabi-v7a" ${@:2}
@@ -265,5 +266,6 @@ build_with_cmake()
     if [ ! -z "$5" ] && [ "$5" != "none" ]; then
       fat_create_and_clean $5
     fi
+    create_xcframework $5 $4 $1
   fi
 }

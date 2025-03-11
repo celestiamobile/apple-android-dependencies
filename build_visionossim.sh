@@ -6,9 +6,11 @@ TARGET="visionOSSimulator"
 
 LIB_PATH="$1/libs"
 INCLUDE_PATH="$1/include"
+XCFRAMEWORK_PATH="$1/xcframework"
 
 . `pwd`/common.sh
 . `pwd`/cmake.sh
+. `pwd`/xcframework.sh
 . `pwd`/versions.sh
 
 mkdir -p $LIB_PATH
@@ -28,10 +30,12 @@ build_with_cmake "meshoptimizer" $MESHOPTIMIZER_VERSION ".tar.gz" "meshoptimizer
 compile_cspice "arm64"  "${CC_ARM64}"
 compile_cspice "x86_64"  "${CC_X86_64}"
 fat_create_and_clean "cspice"
+create_xcframework "cspice" "cspice" "cspice"
 
 compile_libpng "arm64"  "${CC_ARM64}"
 compile_libpng "x86_64"  "${CC_X86_64}"
 fat_create_and_clean "libpng16"
+create_xcframework "libpng16" "libpng" "libpng"
 
 # compile_lua "arm64"  "${CC_ARM64}"
 # compile_lua "x86_64"  "${CC_X86_64}"
@@ -40,35 +44,43 @@ fat_create_and_clean "libpng16"
 compile_luajit "arm64" "$CC_EXECUTABLE" "$CC_ARM64_FLAGS"
 compile_luajit "x86_64" "$CC_EXECUTABLE" "$CC_X86_64_FLAGS"
 fat_create_and_clean "libluajit"
+create_xcframework "libluajit" "luajit" "luajit"
 
 compile_freetype "arm64"  "${CC_ARM64}"
 compile_freetype "x86_64"  "${CC_X86_64}"
 fat_create_and_clean "libfreetype"
+create_xcframework "libfreetype" "freetype" "freetype"
 
 compile_gettext "arm64"  "${CC_ARM64}"
 compile_gettext "x86_64"  "${CC_X86_64}"
 fat_create_and_clean "libintl"
+create_xcframework "libintl" "gettext" "libintl"
 
 compile_libepoxy "arm64"
 compile_libepoxy "x86_64"
 fat_create_and_clean "libGL"
+create_xcframework "libGL" "libepoxy" "libepoxy"
 
 compile_icu "arm64" "${CC_ARM64}"
 compile_icu "x86_64" "${CC_X86_64}"
 fat_create_and_clean "libicudata"
 fat_create_and_clean "libicui18n"
 fat_create_and_clean "libicuuc"
+create_xcframework "libicudata" "icu" "icudata"
+create_xcframework "libicui18n" "icu" "icui18n"
+create_xcframework "libicuuc" "icu" "icuuc"
 
 mkdir -p $INCLUDE_PATH/angle
 unarchive_and_enter $OPENGL_VERSION ".tar.gz"
 cp -r api/* $INCLUDE_PATH/angle/
 cd ..
-
 unarchive_and_enter $EGL_VERSION ".tar.gz"
 cp -r api/KHR $INCLUDE_PATH/angle/
 cd ..
+create_xcframework "libangle" "angle" "angle"
 
 unarchive_and_enter $MINIAUDIO_VERSION ".tar.gz"
 mkdir -p $INCLUDE_PATH/miniaudio
 cp miniaudio.h $INCLUDE_PATH/miniaudio/
 cd ..
+create_xcframework "libminiaudio" "miniaudio" "miniaudio"
