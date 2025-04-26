@@ -37,7 +37,7 @@ wget "https://github.com/nlohmann/json/releases/download/v3.12.0/json.hpp" --no-
 
 wget "https://zlib.net/${ZLIB_VERSION}.tar.gz" --no-check-certificate
 
-wget "https://github.com/KhronosGroup/OpenGL-Registry/tarball/ca62982097ebfc119678dc799261ca2ca7800798" -O "${OPENGL_VERSION}.tar.gz" --no-check-certificate
+wget "https://github.com/KhronosGroup/OpenGL-Registry/tarball/8e772a3b0c9e8a85ccb6f471b4cdbf94c8bcd71d" -O "${OPENGL_VERSION}.tar.gz" --no-check-certificate
 
 wget "https://github.com/KhronosGroup/EGL-Registry/tarball/a7fb4ec38a785cb5914b5a8ba5f264450677338d" -O "${EGL_VERSION}.tar.gz" --no-check-certificate
 
