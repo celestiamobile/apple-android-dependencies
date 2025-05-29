@@ -53,7 +53,7 @@ _build_with_cmake_arch()
       PLATFORM="MAC_ARM64"
     elif [ "$1" = "x86_64" ]; then
       if [ "$LEGACY_SUPPORT" = true ]; then
-        DEPLOYMENT_TARGET="10.12"
+        DEPLOYMENT_TARGET="10.15"
       else
         DEPLOYMENT_TARGET="11.0"
       fi

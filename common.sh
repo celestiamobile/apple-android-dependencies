@@ -55,8 +55,8 @@ configure_arm64()
   export STRIP=$NDK_TOOLCHAIN/bin/llvm-strip
   export BIN_PREFIX="$NDK_TOOLCHAIN/bin/aarch64-linux-android23-"
   export STATIC_CC="${BIN_PREFIX}clang"
-  export CC="$STATIC_CC -fPIC"
-  export CXX="${BIN_PREFIX}clang++ -fPIC"
+  export CC="$STATIC_CC -fPIC -O2"
+  export CXX="${BIN_PREFIX}clang++ -fPIC -O2"
   export HOST=aarch64-linux-android
 }
 
@@ -69,8 +69,8 @@ configure_armv7()
   export STRIP=$NDK_TOOLCHAIN/bin/llvm-strip
   export BIN_PREFIX="$NDK_TOOLCHAIN/bin/armv7a-linux-androideabi23-"
   export STATIC_CC="${BIN_PREFIX}clang"
-  export CC="$STATIC_CC -fPIC"
-  export CXX="${BIN_PREFIX}clang++ -fPIC"
+  export CC="$STATIC_CC -fPIC -O2"
+  export CXX="${BIN_PREFIX}clang++ -fPIC -O2"
   export HOST=armv7a-linux-androideabi
 }
 
@@ -83,8 +83,8 @@ configure_x86()
   export STRIP=$NDK_TOOLCHAIN/bin/llvm-strip
   export BIN_PREFIX="$NDK_TOOLCHAIN/bin/i686-linux-android23-"
   export STATIC_CC="${BIN_PREFIX}clang"
-  export CC="$STATIC_CC -fPIC"
-  export CXX="${BIN_PREFIX}clang++ -fPIC"
+  export CC="$STATIC_CC -fPIC -O2"
+  export CXX="${BIN_PREFIX}clang++ -fPIC -O2"
   export HOST=i686-linux-android
 }
 
@@ -98,16 +98,16 @@ configure_x86_64()
   export STRIP=$NDK_TOOLCHAIN/bin/llvm-strip
   export BIN_PREFIX="$NDK_TOOLCHAIN/bin/x86_64-linux-android23-"
   export STATIC_CC="${BIN_PREFIX}clang"
-  export CC="$STATIC_CC -fPIC"
-  export CXX="${BIN_PREFIX}clang++ -fPIC"
+  export CC="$STATIC_CC -fPIC -O2"
+  export CXX="${BIN_PREFIX}clang++ -fPIC -O2"
   export HOST=x86_64-linux-android
 }
 
 configure_emscripten()
 {
   export AR=emar
-  export CC="emcc -fPIC"
-  export CXX="em++ -fPIC"
+  export CC="emcc -fPIC -O2"
+  export CXX="em++ -fPIC -O2"
   export RANLIB=emranlib
   export STRIP=emstrip
 }
@@ -117,9 +117,9 @@ if [ "$TARGET" = "iOS" ]; then
   CMAKE_TOOLCHAIN_PATH="$(pwd)/ios.toolchain.cmake"
   CC_EXECUTABLE=$(xcrun --sdk iphoneos --find clang)
   if [ "$LEGACY_SUPPORT" = true ]; then
-    CC_ARM64_FLAGS="-isysroot $(xcrun --sdk iphoneos --show-sdk-path) -arch arm64 -miphoneos-version-min=11.0"
+    CC_ARM64_FLAGS="-isysroot $(xcrun --sdk iphoneos --show-sdk-path) -arch arm64 -miphoneos-version-min=11.0 -O2"
   else
-    CC_ARM64_FLAGS="-isysroot $(xcrun --sdk iphoneos --show-sdk-path) -arch arm64 -miphoneos-version-min=14.0"
+    CC_ARM64_FLAGS="-isysroot $(xcrun --sdk iphoneos --show-sdk-path) -arch arm64 -miphoneos-version-min=14.0 -O2"
   fi
   CC_ARM64="$CC_EXECUTABLE $CC_ARM64_FLAGS"
   HOST_ARM64=aarch64-apple-ios
@@ -128,11 +128,11 @@ elif [ "$TARGET" = "iOSSimulator" ]; then
   CMAKE_TOOLCHAIN_PATH="$(pwd)/ios.toolchain.cmake"
   CC_EXECUTABLE=$(xcrun --sdk iphonesimulator --find clang)
   if [ "$LEGACY_SUPPORT" = true ]; then
-    CC_X86_64_FLAGS="-isysroot $(xcrun --sdk iphonesimulator --show-sdk-path) -arch x86_64 -miphonesimulator-version-min=11.0"
-    CC_ARM64_FLAGS="-isysroot $(xcrun --sdk iphonesimulator --show-sdk-path) -arch arm64 -miphonesimulator-version-min=11.0"
+    CC_X86_64_FLAGS="-isysroot $(xcrun --sdk iphonesimulator --show-sdk-path) -arch x86_64 -miphonesimulator-version-min=11.0 -O2"
+    CC_ARM64_FLAGS="-isysroot $(xcrun --sdk iphonesimulator --show-sdk-path) -arch arm64 -miphonesimulator-version-min=11.0 -O2"
   else
-    CC_X86_64_FLAGS="-isysroot $(xcrun --sdk iphonesimulator --show-sdk-path) -arch x86_64 -miphonesimulator-version-min=14.0"
-    CC_ARM64_FLAGS="-isysroot $(xcrun --sdk iphonesimulator --show-sdk-path) -arch arm64 -miphonesimulator-version-min=14.0"
+    CC_X86_64_FLAGS="-isysroot $(xcrun --sdk iphonesimulator --show-sdk-path) -arch x86_64 -miphonesimulator-version-min=14.0 -O2"
+    CC_ARM64_FLAGS="-isysroot $(xcrun --sdk iphonesimulator --show-sdk-path) -arch arm64 -miphonesimulator-version-min=14.0 -O2"
   fi
   CC_X86_64="$CC_EXECUTABLE $CC_X86_64_FLAGS"
   CC_ARM64="$CC_EXECUTABLE $CC_ARM64_FLAGS"
@@ -142,15 +142,15 @@ elif [ "$TARGET" = "visionOS" ]; then
   CMAKE=cmake
   CMAKE_TOOLCHAIN_PATH="$(pwd)/ios.toolchain.cmake"
   CC_EXECUTABLE=$(xcrun --sdk xros --find clang)
-  CC_ARM64_FLAGS="-isysroot $(xcrun --sdk xros --show-sdk-path) -target arm64-apple-xros1.0"
+  CC_ARM64_FLAGS="-isysroot $(xcrun --sdk xros --show-sdk-path) -target arm64-apple-xros1.0 -O2"
   CC_ARM64="$CC_EXECUTABLE $CC_ARM64_FLAGS"
   HOST_ARM64=aarch64-apple-ios
 elif [ "$TARGET" = "visionOSSimulator" ]; then
   CMAKE=cmake
   CMAKE_TOOLCHAIN_PATH="$(pwd)/ios.toolchain.cmake"
   CC_EXECUTABLE=$(xcrun --sdk xrsimulator --find clang)
-  CC_X86_64_FLAGS="-isysroot $(xcrun --sdk xrsimulator --show-sdk-path) -target x86_64-apple-xros1.0-simulator"
-  CC_ARM64_FLAGS="-isysroot $(xcrun --sdk xrsimulator --show-sdk-path) -target arm64-apple-xros1.0-simulator"
+  CC_X86_64_FLAGS="-isysroot $(xcrun --sdk xrsimulator --show-sdk-path) -target x86_64-apple-xros1.0-simulator -O2"
+  CC_ARM64_FLAGS="-isysroot $(xcrun --sdk xrsimulator --show-sdk-path) -target arm64-apple-xros1.0-simulator -O2"
   CC_X86_64="$CC_EXECUTABLE $CC_X86_64_FLAGS"
   CC_ARM64="$CC_EXECUTABLE $CC_ARM64_FLAGS"
   HOST_X86_64=x86_64-apple-ios
@@ -160,13 +160,13 @@ elif [ "$TARGET" = "macOS" ]; then
   CMAKE_TOOLCHAIN_PATH="$(pwd)/ios.toolchain.cmake"
   CC_EXECUTABLE=$(xcrun --sdk macosx --find clang)
   if [ "$LEGACY_SUPPORT" = true ]; then
-    CC_X86_64_FLAGS="-isysroot $(xcrun --sdk macosx --show-sdk-path)  -arch x86_64 -mmacosx-version-min=10.12"
-    DEPLOYMENT_TARGET_X86_64="10.12"
+    CC_X86_64_FLAGS="-isysroot $(xcrun --sdk macosx --show-sdk-path)  -arch x86_64 -mmacosx-version-min=10.15 -O2"
+    DEPLOYMENT_TARGET_X86_64="10.15"
   else
-    CC_X86_64_FLAGS="-isysroot $(xcrun --sdk macosx --show-sdk-path)  -arch x86_64 -mmacosx-version-min=11.0"
+    CC_X86_64_FLAGS="-isysroot $(xcrun --sdk macosx --show-sdk-path)  -arch x86_64 -mmacosx-version-min=11.0 -O2"
     DEPLOYMENT_TARGET_X86_64="11.0"
   fi
-  CC_ARM64_FLAGS="-isysroot $(xcrun --sdk macosx --show-sdk-path)  -arch arm64 -mmacosx-version-min=11.0"
+  CC_ARM64_FLAGS="-isysroot $(xcrun --sdk macosx --show-sdk-path)  -arch arm64 -mmacosx-version-min=11.0 -O2"
   DEPLOYMENT_TARGET_ARM64="11.0"
   CC_X86_64="$CC_EXECUTABLE $CC_X86_64_FLAGS"
   CC_ARM64="$CC_EXECUTABLE $CC_ARM64_FLAGS"
@@ -176,8 +176,8 @@ elif [ "$TARGET" = "macCatalyst" ]; then
   CMAKE=cmake
   CMAKE_TOOLCHAIN_PATH="$(pwd)/ios.toolchain.cmake"
   CC_EXECUTABLE=$(xcrun --sdk macosx --find clang)
-  CC_X86_64_FLAGS="-isysroot $(xcrun --sdk macosx --show-sdk-path) -target x86_64-apple-ios-macabi -miphoneos-version-min=14.0"
-  CC_ARM64_FLAGS="-isysroot $(xcrun --sdk macosx --show-sdk-path) -target arm64-apple-ios-macabi -miphoneos-version-min=14.0"
+  CC_X86_64_FLAGS="-isysroot $(xcrun --sdk macosx --show-sdk-path) -target x86_64-apple-ios-macabi -miphoneos-version-min=14.0 -O2"
+  CC_ARM64_FLAGS="-isysroot $(xcrun --sdk macosx --show-sdk-path) -target arm64-apple-ios-macabi -miphoneos-version-min=14.0 -O2"
   CC_X86_64="$CC_EXECUTABLE $CC_X86_64_FLAGS"
   CC_ARM64="$CC_EXECUTABLE $CC_ARM64_FLAGS"
   HOST_X86_64=x86_64-apple-ios
