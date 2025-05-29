@@ -37,36 +37,6 @@ compile_cspice()
   rm -rf $CSPICE_VERSION
   rm -rf "$CSPICE_VERSION.tar.Z"
 }
-
-# libpng
-
-compile_libpng()
-{
-  unarchive_and_enter $LIBPNG_VERSION ".tar.xz"
-
-  echo "Compiling for $1"
-  export CC=$2
-  export CXX=$2
-  OUTPUT_PATH="$(pwd)/output"
-  ./configure --disable-dependency-tracking \
-              --disable-silent-rules \
-              --host=$3 \
-              --prefix=${OUTPUT_PATH}
-  check_success
-
-  make -j4 install
-  check_success
-
-  echo "Copying products"
-  mkdir -p $INCLUDE_PATH/libpng
-  cp -r output/include/* $INCLUDE_PATH/libpng/
-  cp output/lib/libpng16.a $LIB_PATH/${1}_libpng16.a
-  check_success
-
-  echo "Cleaning"
-  cd ..
-  rm -rf $LIBPNG_VERSION
-}
 #
 ## jpeg
 #
@@ -164,38 +134,6 @@ compile_luajit()
   echo "Cleaning"
   cd ..
   rm -rf $LUAJIT_VERSION
-}
-
-# freetype
-
-compile_freetype()
-{
-  unarchive_and_enter $FREETYPE_VERSION ".tar.xz"
-
-  echo "Compiling for $1"
-  export CC=$2
-  export CXX=$2
-  OUTPUT_PATH="$(pwd)/output"
-  ./configure --enable-freetype-config \
-              --with-harfbuzz=no \
-              --with-brotli=no \
-              --with-png=no \
-              --host=$3 \
-              --prefix=${OUTPUT_PATH}
-  check_success
-
-  make -j4 install
-  check_success
-
-  echo "Copying products"
-  mkdir -p $INCLUDE_PATH/freetype
-  cp -r output/include/freetype2/* $INCLUDE_PATH/freetype/
-  cp output/lib/libfreetype.a $LIB_PATH/${1}_libfreetype.a
-  check_success
-
-  echo "Cleaning"
-  cd ..
-  rm -rf $FREETYPE_VERSION
 }
 
 # gettext

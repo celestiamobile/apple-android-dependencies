@@ -23,6 +23,8 @@ TIMESTAMP=`git show --no-patch --format=%cd --date=format-local:'%Y%m%d'`
 build_with_cmake "boost" $BOOST_VERSION ".tar.xz" "boost" "libboost_container" ".." "-DBOOST_INCLUDE_LIBRARIES='container;smart_ptr'" "-DBUILD_SHARED_LIBS=OFF"
 build_with_cmake "libzip" $LIBZIP_VERSION ".tar.gz" "libzip" "libzip" ".." "-DENABLE_COMMONCRYPTO=OFF" "-DENABLE_GNUTLS=OFF" "-DENABLE_MBEDTLS=OFF" "-DENABLE_OPENSSL=OFF" "-DENABLE_WINDOWS_CRYPTO=OFF" "-DENABLE_BZIP2=OFF" "-DENABLE_LZMA=OFF" "-DENABLE_ZSTD=OFF" "-DENABLE_FDOPEN=OFF" "-DBUILD_TOOLS=OFF" "-DBUILD_REGRESS=OFF" "-DBUILD_EXAMPLES=OFF" "-DBUILD_DOC=OFF" "-DBUILD_SHARED_LIBS=OFF" "-DHAVE_MEMCPY_S=OFF" "-DHAVE_STRNCPY_S=OFF" "-DHAVE_STRERRORLEN_S=OFF" "-DHAVE_STRERROR_S=OFF"
 build_with_cmake "jpeg" $JPEG_TURBO_VERSION ".tar.gz" "jpeg" "libjpeg" ".." "-DENABLE_STATIC=ON" "-DENABLE_SHARED=OFF" "-DWITH_TURBOJPEG=OFF" "-DBUILD=$TIMESTAMP"
+build_with_cmake "libpng" $LIBPNG_VERSION ".tar.xz" "libpng" "libpng" ".." "-DPNG_SHARED=OFF"
+build_with_cmake "freetype" $FREETYPE_VERSION ".tar.xz" "freetype" "libfreetype" ".." "-DFT_DISABLE_BROTLI=ON" "-DFT_DISABLE_HARFBUZZ=ON" "-DFT_DISABLE_PNG=ON"
 build_with_cmake "fmt" $FMT_VERSION ".tar.gz" "fmt" "libfmt" ".." "-DFMT_TEST=OFF" "-DBUILD_SHARED_LIBS=OFF"
 build_with_cmake "eigen3" $EIGEN_VERSION ".tar.gz"
 build_with_cmake "meshoptimizer" $MESHOPTIMIZER_VERSION ".tar.gz" "meshoptimizer" "libmeshoptimizer"
@@ -33,20 +35,12 @@ compile_cspice "arm64"  "${CC_ARM64}"
 fat_create_and_clean "cspice"
 create_xcframework "cspice" "cspice" "cspice"
 
-compile_libpng "arm64"  "${CC_ARM64}" "${HOST_ARM64}"
-fat_create_and_clean "libpng16"
-create_xcframework "libpng16" "libpng" "libpng"
-
 # compile_lua "arm64"  "${CC_ARM64}"
 # fat_create_and_clean "liblua"
 
 compile_luajit "arm64" "$CC_EXECUTABLE" "$CC_ARM64_FLAGS"
 fat_create_and_clean "libluajit"
 create_xcframework "libluajit" "luajit" "luajit"
-
-compile_freetype "arm64"  "${CC_ARM64}" "${HOST_ARM64}"
-fat_create_and_clean "libfreetype"
-create_xcframework "libfreetype" "freetype" "freetype"
 
 compile_gettext "arm64"  "${CC_ARM64}" "${HOST_ARM64}"
 fat_create_and_clean "libintl"

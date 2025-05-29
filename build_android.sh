@@ -32,6 +32,8 @@ TIMESTAMP=`git show --no-patch --format=%cd --date=format-local:'%Y%m%d'`
 build_with_cmake "boost" $BOOST_VERSION ".tar.xz" "boost" "libboost_container" ".." "-DBOOST_INCLUDE_LIBRARIES='container;smart_ptr'" "-DBUILD_SHARED_LIBS=OFF"
 build_with_cmake "libzip" $LIBZIP_VERSION ".tar.gz" "libzip" "libzip" ".." "-DENABLE_COMMONCRYPTO=OFF" "-DENABLE_GNUTLS=OFF" "-DENABLE_MBEDTLS=OFF" "-DENABLE_OPENSSL=OFF" "-DENABLE_WINDOWS_CRYPTO=OFF" "-DENABLE_BZIP2=OFF" "-DENABLE_LZMA=OFF" "-DENABLE_ZSTD=OFF" "-DENABLE_FDOPEN=OFF" "-DBUILD_TOOLS=OFF" "-DBUILD_REGRESS=OFF" "-DBUILD_EXAMPLES=OFF" "-DBUILD_DOC=OFF" "-DBUILD_SHARED_LIBS=OFF" "-DHAVE_MEMCPY_S=OFF" "-DHAVE_STRNCPY_S=OFF" "-DHAVE_STRERRORLEN_S=OFF" "-DHAVE_STRERROR_S=OFF"
 build_with_cmake "jpeg" $JPEG_TURBO_VERSION ".tar.gz" "jpeg" "libjpeg" ".." "-DENABLE_STATIC=ON" "-DENABLE_SHARED=OFF" "-DWITH_TURBOJPEG=OFF" "-DBUILD=$TIMESTAMP"
+build_with_cmake "libpng" $LIBPNG_VERSION ".tar.xz" "libpng" "libpng" ".." "-DPNG_SHARED=OFF"
+build_with_cmake "freetype" $FREETYPE_VERSION ".tar.xz" "freetype" "libfreetype" ".." "-DFT_DISABLE_BROTLI=ON" "-DFT_DISABLE_HARFBUZZ=ON" "-DFT_DISABLE_PNG=ON"
 build_with_cmake "fmt" $FMT_VERSION ".tar.gz" "fmt" "libfmt" ".." "-DFMT_TEST=OFF" "-DBUILD_SHARED_LIBS=OFF"
 build_with_cmake "eigen3" $EIGEN_VERSION ".tar.gz"
 build_with_cmake "meshoptimizer" $MESHOPTIMIZER_VERSION ".tar.gz" "meshoptimizer" "libmeshoptimizer"
@@ -136,80 +138,6 @@ configure_armv7
 compile_cspice "armeabi-v7a"
 configure_arm64
 compile_cspice "arm64-v8a"
-
-# libpng
-
-echo "Building libpng"
-compile_libpng()
-{
-  unarchive_and_enter $LIBPNG_VERSION ".tar.xz"
-
-  echo "Compiling for $1"
-  OUTPUT_PATH="$(pwd)/output"
-  ./configure --disable-dependency-tracking \
-              --disable-silent-rules \
-              --host=$HOST \
-              --prefix=${OUTPUT_PATH}
-  check_success
-
-  make -j4 install
-  check_success
-
-  echo "Copying products"
-  mkdir -p $INCLUDE_PATH/libpng
-  cp -r output/include/* $INCLUDE_PATH/libpng/
-  cp output/lib/libpng16.a $LIB_PATH/${1}
-  check_success
-
-  echo "Cleaning"
-  cd ..
-  rm -rf $LIBPNG_VERSION
-}
-
-configure_x86_64
-compile_libpng "x86_64"
-configure_armv7
-compile_libpng "armeabi-v7a"
-configure_arm64
-compile_libpng "arm64-v8a"
-
-# freetype
-
-echo "Building freetype"
-compile_freetype()
-{
-  unarchive_and_enter $FREETYPE_VERSION ".tar.xz"
-
-  echo "Compiling for $1"
-  OUTPUT_PATH="$(pwd)/output"
-  ./configure --enable-freetype-config \
-              --with-harfbuzz=no \
-              --with-brotli=no \
-              --with-png=no \
-              --host=$HOST \
-              --prefix=${OUTPUT_PATH}
-  check_success
-
-  make -j4 install
-  check_success
-
-  echo "Copying products"
-  mkdir -p $INCLUDE_PATH/freetype
-  cp -r output/include/freetype2/* $INCLUDE_PATH/freetype/
-  cp output/lib/libfreetype.a $LIB_PATH/${1}
-  check_success
-
-  echo "Cleaning"
-  cd ..
-  rm -rf $FREETYPE_VERSION
-}
-
-configure_x86_64
-compile_freetype "x86_64"
-configure_armv7
-compile_freetype "armeabi-v7a"
-configure_arm64
-compile_freetype "arm64-v8a"
 
 # gettext
 
