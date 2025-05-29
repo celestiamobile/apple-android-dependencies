@@ -57,6 +57,7 @@ configure_arm64()
   export STATIC_CC="${BIN_PREFIX}clang"
   export CC="$STATIC_CC -fPIC"
   export CXX="${BIN_PREFIX}clang++ -fPIC"
+  export HOST=aarch64-linux-android
 }
 
 configure_armv7()
@@ -70,6 +71,7 @@ configure_armv7()
   export STATIC_CC="${BIN_PREFIX}clang"
   export CC="$STATIC_CC -fPIC"
   export CXX="${BIN_PREFIX}clang++ -fPIC"
+  export HOST=armv7a-linux-androideabi
 }
 
 configure_x86()
@@ -83,6 +85,7 @@ configure_x86()
   export STATIC_CC="${BIN_PREFIX}clang"
   export CC="$STATIC_CC -fPIC"
   export CXX="${BIN_PREFIX}clang++ -fPIC"
+  export HOST=i686-linux-android
 }
 
 configure_x86_64()
@@ -97,6 +100,7 @@ configure_x86_64()
   export STATIC_CC="${BIN_PREFIX}clang"
   export CC="$STATIC_CC -fPIC"
   export CXX="${BIN_PREFIX}clang++ -fPIC"
+  export HOST=x86_64-linux-android
 }
 
 configure_emscripten()

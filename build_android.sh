@@ -148,7 +148,7 @@ compile_libpng()
   OUTPUT_PATH="$(pwd)/output"
   ./configure --disable-dependency-tracking \
               --disable-silent-rules \
-              --host=arm \
+              --host=$HOST \
               --prefix=${OUTPUT_PATH}
   check_success
 
@@ -186,7 +186,7 @@ compile_freetype()
               --with-harfbuzz=no \
               --with-brotli=no \
               --with-png=no \
-              --host=arm \
+              --host=$HOST \
               --prefix=${OUTPUT_PATH}
   check_success
 
@@ -224,6 +224,7 @@ compile_gettext()
   ./configure --disable-dependency-tracking \
               --disable-silent-rules \
               --disable-debug \
+              --disable-shared \
               --prefix=${OUTPUT_PATH} \
               --with-included-gettext \
               gl_cv_func_ftello_works=yes \
@@ -237,7 +238,7 @@ compile_gettext()
               --without-cvs \
               --without-xz \
               --without-iconv \
-              --host=arm
+              --host=$HOST
   check_success
 
   echo "Applying patch 1"
@@ -425,7 +426,7 @@ compile_icu()
               --disable-icuio \
               --disable-shared \
               --disable-dyload \
-              --host=arm \
+              --host=$HOST \
               --with-cross-build=`pwd`/../icu-host \
               --prefix=${OUTPUT_PATH}
   check_success
