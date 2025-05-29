@@ -17,7 +17,7 @@ create_xcframework_from_xcframework "libicu" "icu" "$SOURCE_XCFRAMEWOKR_PARENT_P
 create_xcframework_from_xcframework "libjpeg" "jpeg" "$SOURCE_XCFRAMEWOKR_PARENT_PATH" "$TARGET_XCFRAMEWORK_PATH"
 create_xcframework_from_xcframework "libGL" "libepoxy" "$SOURCE_XCFRAMEWOKR_PARENT_PATH" "$TARGET_XCFRAMEWORK_PATH"
 create_xcframework_from_xcframework "libintl" "libintl" "$SOURCE_XCFRAMEWOKR_PARENT_PATH" "$TARGET_XCFRAMEWORK_PATH"
-create_xcframework_from_xcframework "libpng16" "libpng" "$SOURCE_XCFRAMEWOKR_PARENT_PATH" "$TARGET_XCFRAMEWORK_PATH"
+create_xcframework_from_xcframework "libpng" "libpng" "$SOURCE_XCFRAMEWOKR_PARENT_PATH" "$TARGET_XCFRAMEWORK_PATH"
 create_xcframework_from_xcframework "libzip" "libzip" "$SOURCE_XCFRAMEWOKR_PARENT_PATH" "$TARGET_XCFRAMEWORK_PATH"
 create_xcframework_from_xcframework "libluajit" "luajit" "$SOURCE_XCFRAMEWOKR_PARENT_PATH" "$TARGET_XCFRAMEWORK_PATH"
 create_xcframework_from_xcframework "libmeshoptimizer" "meshoptimizer" "$SOURCE_XCFRAMEWOKR_PARENT_PATH" "$TARGET_XCFRAMEWORK_PATH"
