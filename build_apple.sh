@@ -50,7 +50,7 @@ compile_libpng()
   OUTPUT_PATH="$(pwd)/output"
   ./configure --disable-dependency-tracking \
               --disable-silent-rules \
-              --host=arm \
+              --host=$3 \
               --prefix=${OUTPUT_PATH}
   check_success
 
@@ -67,39 +67,39 @@ compile_libpng()
   cd ..
   rm -rf $LIBPNG_VERSION
 }
-
-# jpeg
-
-compile_jpeg()
-{
-  unarchive_and_enter $JPEG_VERSION ".tar.gz"
-
-  echo "Compiling for $1"
-  export CC=$2
-  export CXX=$2
-  OUTPUT_PATH="$(pwd)/output"
-  ./configure --disable-dependency-tracking \
-              --disable-silent-rules \
-              --host=arm \
-              --prefix=${OUTPUT_PATH}
-  check_success
-
-  make -j4 install
-  check_success
-
-  echo "Copying products"
-  mkdir -p $INCLUDE_PATH/jpeg
-  cp -r output/include/* $INCLUDE_PATH/jpeg/
-  cp output/lib/libjpeg.a $LIB_PATH/${1}_libjpeg.a
-  check_success
-
-  echo "Cleaning"
-  cd ..
-  rm -rf $JPEG_VERSION
-}
-
+#
+## jpeg
+#
+#compile_jpeg()
+#{
+#  unarchive_and_enter $JPEG_VERSION ".tar.gz"
+#
+#  echo "Compiling for $1"
+#  export CC=$2
+#  export CXX=$2
+#  OUTPUT_PATH="$(pwd)/output"
+#  ./configure --disable-dependency-tracking \
+#              --disable-silent-rules \
+#              --host=$3 \
+#              --prefix=${OUTPUT_PATH}
+#  check_success
+#
+#  make -j4 install
+#  check_success
+#
+#  echo "Copying products"
+#  mkdir -p $INCLUDE_PATH/jpeg
+#  cp -r output/include/* $INCLUDE_PATH/jpeg/
+#  cp output/lib/libjpeg.a $LIB_PATH/${1}_libjpeg.a
+#  check_success
+#
+#  echo "Cleaning"
+#  cd ..
+#  rm -rf $JPEG_VERSION
+#}
+#
 # # lua
-
+#
 # compile_lua()
 # {
 #   unarchive_and_enter $LUA_VERSION ".tar.gz"
@@ -180,7 +180,7 @@ compile_freetype()
               --with-harfbuzz=no \
               --with-brotli=no \
               --with-png=no \
-              --host=arm \
+              --host=$3 \
               --prefix=${OUTPUT_PATH}
   check_success
 
@@ -226,7 +226,7 @@ compile_gettext()
               --without-cvs \
               --without-xz \
               --without-iconv \
-              --host=arm
+              --host=$3
   check_success
 
   echo "Applying patch 1"
@@ -328,7 +328,7 @@ compile_icu()
               --disable-icuio \
               --disable-shared \
               --disable-dyload \
-              --host=arm \
+              --host=$3 \
               --with-cross-build=`pwd`/../icu-host \
               --prefix=${OUTPUT_PATH}
   check_success

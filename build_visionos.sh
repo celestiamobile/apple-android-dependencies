@@ -33,7 +33,7 @@ compile_cspice "arm64"  "${CC_ARM64}"
 fat_create_and_clean "cspice"
 create_xcframework "cspice" "cspice" "cspice"
 
-compile_libpng "arm64"  "${CC_ARM64}"
+compile_libpng "arm64"  "${CC_ARM64}" "${HOST_ARM64}"
 fat_create_and_clean "libpng16"
 create_xcframework "libpng16" "libpng" "libpng"
 
@@ -44,11 +44,11 @@ compile_luajit "arm64" "$CC_EXECUTABLE" "$CC_ARM64_FLAGS"
 fat_create_and_clean "libluajit"
 create_xcframework "libluajit" "luajit" "luajit"
 
-compile_freetype "arm64"  "${CC_ARM64}"
+compile_freetype "arm64"  "${CC_ARM64}" "${HOST_ARM64}"
 fat_create_and_clean "libfreetype"
 create_xcframework "libfreetype" "freetype" "freetype"
 
-compile_gettext "arm64"  "${CC_ARM64}"
+compile_gettext "arm64"  "${CC_ARM64}" "${HOST_ARM64}"
 fat_create_and_clean "libintl"
 create_xcframework "libintl" "gettext" "libintl"
 
@@ -56,7 +56,7 @@ compile_libepoxy "arm64"
 fat_create_and_clean "libGL"
 create_xcframework "libGL" "libepoxy" "libepoxy"
 
-compile_icu "arm64" "${CC_ARM64}"
+compile_icu "arm64" "${CC_ARM64}" "${HOST_ARM64}"
 fat_create_and_clean "libicu"
 create_xcframework "libicu" "icu" "icu"
 

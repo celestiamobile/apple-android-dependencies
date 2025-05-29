@@ -122,6 +122,7 @@ if [ "$TARGET" = "iOS" ]; then
     CC_ARM64_FLAGS="-isysroot $(xcrun --sdk iphoneos --show-sdk-path) -arch arm64 -miphoneos-version-min=14.0"
   fi
   CC_ARM64="$CC_EXECUTABLE $CC_ARM64_FLAGS"
+  HOST_ARM64=aarch64-apple-ios
 elif [ "$TARGET" = "iOSSimulator" ]; then
   CMAKE=cmake
   CMAKE_TOOLCHAIN_PATH="$(pwd)/ios.toolchain.cmake"
@@ -135,12 +136,15 @@ elif [ "$TARGET" = "iOSSimulator" ]; then
   fi
   CC_X86_64="$CC_EXECUTABLE $CC_X86_64_FLAGS"
   CC_ARM64="$CC_EXECUTABLE $CC_ARM64_FLAGS"
+  HOST_X86_64=x86_64-apple-ios-sim
+  HOST_ARM64=aarch64-apple-ios-sim
 elif [ "$TARGET" = "visionOS" ]; then
   CMAKE=cmake
   CMAKE_TOOLCHAIN_PATH="$(pwd)/ios.toolchain.cmake"
   CC_EXECUTABLE=$(xcrun --sdk xros --find clang)
   CC_ARM64_FLAGS="-isysroot $(xcrun --sdk xros --show-sdk-path) -target arm64-apple-xros1.0"
   CC_ARM64="$CC_EXECUTABLE $CC_ARM64_FLAGS"
+  HOST_ARM64=aarch64-apple-visionos
 elif [ "$TARGET" = "visionOSSimulator" ]; then
   CMAKE=cmake
   CMAKE_TOOLCHAIN_PATH="$(pwd)/ios.toolchain.cmake"
@@ -149,6 +153,8 @@ elif [ "$TARGET" = "visionOSSimulator" ]; then
   CC_ARM64_FLAGS="-isysroot $(xcrun --sdk xrsimulator --show-sdk-path) -target arm64-apple-xros1.0-simulator"
   CC_X86_64="$CC_EXECUTABLE $CC_X86_64_FLAGS"
   CC_ARM64="$CC_EXECUTABLE $CC_ARM64_FLAGS"
+  HOST_X86_64=x86_64-apple-visionos-sim
+  HOST_ARM64=aarch64-apple-visionos-sim
 elif [ "$TARGET" = "macOS" ]; then
   CMAKE=cmake
   CMAKE_TOOLCHAIN_PATH="$(pwd)/ios.toolchain.cmake"
@@ -164,6 +170,8 @@ elif [ "$TARGET" = "macOS" ]; then
   DEPLOYMENT_TARGET_ARM64="11.0"
   CC_X86_64="$CC_EXECUTABLE $CC_X86_64_FLAGS"
   CC_ARM64="$CC_EXECUTABLE $CC_ARM64_FLAGS"
+  HOST_X86_64=x86_64-apple-darwin
+  HOST_ARM64=aarch64-apple-darwin
 elif [ "$TARGET" = "macCatalyst" ]; then
   CMAKE=cmake
   CMAKE_TOOLCHAIN_PATH="$(pwd)/ios.toolchain.cmake"
@@ -172,6 +180,8 @@ elif [ "$TARGET" = "macCatalyst" ]; then
   CC_ARM64_FLAGS="-isysroot $(xcrun --sdk macosx --show-sdk-path) -target arm64-apple-ios-macabi -miphoneos-version-min=14.0"
   CC_X86_64="$CC_EXECUTABLE $CC_X86_64_FLAGS"
   CC_ARM64="$CC_EXECUTABLE $CC_ARM64_FLAGS"
+  HOST_X86_64=x86_64-apple-ios-macabi
+  HOST_ARM64=aarch64-apple-ios-macabi
 elif [ "$TARGET" = "Android" ]; then
   CMAKE=cmake
   CMAKE_TOOLCHAIN_PATH=$NDK_ROOT/build/cmake/android.toolchain.cmake
@@ -179,6 +189,7 @@ elif [ "$TARGET" = "Linux" ]; then
   CMAKE=cmake
 elif [ "$TARGET" = "Emscripten" ]; then
   CMAKE=cmake
+  HOST=wasm32-unknown-emscripten
 else
   echo "Unknown target"
   exit

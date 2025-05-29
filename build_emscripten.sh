@@ -100,7 +100,7 @@ compile_gettext()
               --without-cvs \
               --without-xz \
               --without-iconv \
-              --host=arm
+              --host=$HOST
   check_success
 
   echo "Applying patch 1"
@@ -235,7 +235,7 @@ compile_icu()
               --disable-icuio \
               --disable-shared \
               --disable-dyload \
-              --host=arm \
+              --host=$HOST \
               --with-cross-build=`pwd`/../icu-host \
               --prefix=${OUTPUT_PATH}
   check_success
