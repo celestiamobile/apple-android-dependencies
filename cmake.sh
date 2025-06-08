@@ -16,7 +16,11 @@ _build_with_cmake_arch()
   mkdir build
   cd build
 
-  OUTPUT_PATH=$(pwd)/output
+  if [ "$TARGET" = "Emscripten" ] ; then
+    OUTPUT_PATH=$RESULT_PATH
+  else
+    OUTPUT_PATH=$(pwd)/output
+  fi
 
   if [ "$TARGET" = "iOS" ]; then
     echo "Building for iOS"
@@ -137,26 +141,25 @@ _build_with_cmake_arch()
 
   cd ..
 
-  if [ -z "$4" ] || [ "$4" = "none" ]; then
-    HEADER_PATH=$INCLUDE_PATH
-  else
-    HEADER_PATH=$INCLUDE_PATH/$4
-  fi
-
-  echo "Copying products"
-  mkdir -p $HEADER_PATH
-  cp -r $OUTPUT_PATH/include/* $HEADER_PATH
-  check_success
-  if [ ! -z "$5" ] && [ "$5" != "none" ]; then
-    if [ "$TARGET" = "Android" ]; then
-      cp $OUTPUT_PATH/lib/$5.a $LIB_PATH/$1/$5.a
-      check_success
-    elif [ "$TARGET" = "Emscripten" ]; then
-      cp $OUTPUT_PATH/lib/$5.a $LIB_PATH/$5.a
-      check_success
+  if [ "$TARGET" != "Emscripten" ]; then
+    echo "Copying products"
+    if [ -z "$4" ] || [ "$4" = "none" ]; then
+      HEADER_PATH=$INCLUDE_PATH
     else
-      cp $OUTPUT_PATH/lib/$5.a $LIB_PATH/${1}_$5.a
-      check_success
+      HEADER_PATH=$INCLUDE_PATH/$4
+    fi
+    mkdir -p $HEADER_PATH
+
+    cp -r $OUTPUT_PATH/include/* $HEADER_PATH
+    check_success
+    if [ ! -z "$5" ] && [ "$5" != "none" ]; then
+      if [ "$TARGET" = "Android" ]; then
+        cp $OUTPUT_PATH/lib/$5.a $LIB_PATH/$1/$5.a
+        check_success
+      else
+        cp $OUTPUT_PATH/lib/$5.a $LIB_PATH/${1}_$5.a
+        check_success
+      fi
     fi
   fi
 
