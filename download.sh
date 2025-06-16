@@ -4,7 +4,7 @@ cd `dirname $0`
 
 . `pwd`/versions.sh
 
-wget "https://downloads.sourceforge.net/project/libpng/libpng16/1.6.48/${LIBPNG_VERSION}.tar.xz" --no-check-certificate
+wget "https://downloads.sourceforge.net/project/libpng/libpng16/1.6.49/${LIBPNG_VERSION}.tar.xz" --no-check-certificate
 
 #JPEG_DOWNLOAD_NAME="jpegsrc.v9e.tar.gz"
 #wget "https://www.ijg.org/files/${JPEG_DOWNLOAD_NAME}" -O "${JPEG_VERSION}.tar.gz" --no-check-certificate
@@ -23,7 +23,7 @@ wget "https://github.com/anholt/libepoxy/archive/refs/tags/1.5.10.tar.gz" -O "${
 FMT_DOWNLOAD_NAME="11.2.0.tar.gz"
 wget "https://github.com/fmtlib/fmt/archive/${FMT_DOWNLOAD_NAME}" -O "${FMT_VERSION}.tar.gz" --no-check-certificate
 
-MESHOPTIMIZER_DOWNLOAD_NAME="v0.23.tar.gz"
+MESHOPTIMIZER_DOWNLOAD_NAME="v0.24.tar.gz"
 wget "https://github.com/zeux/meshoptimizer/archive/refs/tags/${MESHOPTIMIZER_DOWNLOAD_NAME}" -O "${MESHOPTIMIZER_VERSION}.tar.gz" --no-check-certificate
 
 wget "https://gitlab.com/libeigen/eigen/-/archive/3.4.0/${EIGEN_VERSION}.tar.gz" --no-check-certificate
@@ -37,15 +37,15 @@ wget "https://github.com/nlohmann/json/releases/download/v3.12.0/json.hpp" --no-
 
 wget "https://zlib.net/${ZLIB_VERSION}.tar.gz" --no-check-certificate
 
-wget "https://github.com/KhronosGroup/OpenGL-Registry/tarball/200cea4030cb49d3e40677379e6368a5f0e8c27b" -O "${OPENGL_VERSION}.tar.gz" --no-check-certificate
+wget "https://github.com/KhronosGroup/OpenGL-Registry/tarball/7fc154cefa5a57702ff401ce2f9256178c7525dd" -O "${OPENGL_VERSION}.tar.gz" --no-check-certificate
 
 wget "https://github.com/KhronosGroup/EGL-Registry/tarball/3ae2b7c48690d2ce13cc6db3db02dfc0572be65e" -O "${EGL_VERSION}.tar.gz" --no-check-certificate
 
-wget "https://github.com/libjpeg-turbo/libjpeg-turbo/releases/download/3.1.0/${JPEG_TURBO_VERSION}.tar.gz" --no-check-certificate
+wget "https://github.com/libjpeg-turbo/libjpeg-turbo/releases/download/3.1.1/${JPEG_TURBO_VERSION}.tar.gz" --no-check-certificate
 
 wget "https://codeload.github.com/mackron/miniaudio/tar.gz/refs/tags/0.11.22" -O "${MINIAUDIO_VERSION}.tar.gz" --no-check-certificate
 
-wget "https://github.com/libsdl-org/SDL/releases/download/release-2.32.6/${SDL2_VERSION}.tar.gz" --no-check-certificate
+wget "https://github.com/libsdl-org/SDL/releases/download/release-2.32.8/${SDL2_VERSION}.tar.gz" --no-check-certificate
 
 wget "https://github.com/nih-at/libzip/releases/download/v1.11.4/${LIBZIP_VERSION}.tar.gz" --no-check-certificate
 
