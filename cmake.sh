@@ -4,7 +4,8 @@
 # $4 lib directory name
 # $5 lib name
 # $6 cmake file path
-# $7 extra params
+# $7 source include path
+# $8 extra params
 _build_with_cmake_arch()
 {
   if [ "$TARGET" != "Emscripten" ] ; then
@@ -117,14 +118,14 @@ _build_with_cmake_arch()
             -DANDROID_TOOLCHAIN=clang \
             -DCMAKE_INSTALL_PREFIX=$OUTPUT_PATH \
             -DCMAKE_BUILD_TYPE=Release \
-            ${@:7}
+            ${@:8}
     check_success
   elif [ "$TARGET" = "Emscripten" ]; then
     emcmake $CMAKE $CMAKE_FILE_PATH \
             -DCMAKE_POSITION_INDEPENDENT_CODE=ON \
             -DCMAKE_INSTALL_PREFIX=$OUTPUT_PATH \
             -DCMAKE_BUILD_TYPE=Release \
-            ${@:7}
+            ${@:8}
     check_success
   else
     $CMAKE $CMAKE_FILE_PATH \
@@ -133,7 +134,7 @@ _build_with_cmake_arch()
            -DDEPLOYMENT_TARGET=$DEPLOYMENT_TARGET \
            -DCMAKE_INSTALL_PREFIX=$OUTPUT_PATH \
            -DCMAKE_BUILD_TYPE=Release \
-           ${@:7}
+           ${@:8}
     check_success
   fi
   $CMAKE --build . --config Release --target install
@@ -150,7 +151,13 @@ _build_with_cmake_arch()
     fi
     mkdir -p $HEADER_PATH
 
-    cp -r $OUTPUT_PATH/include/* $HEADER_PATH
+    if [ -z "$7" ] || [ "$7" = "none" ]; then
+      SOURCE_INCLUDE_PATH="$OUTPUT_PATH/include"
+    else
+      SOURCE_INCLUDE_PATH="$OUTPUT_PATH/include/$7"
+    fi
+
+    cp -r $SOURCE_INCLUDE_PATH/* $HEADER_PATH
     check_success
     if [ ! -z "$5" ] && [ "$5" != "none" ]; then
       if [ "$TARGET" = "Android" ]; then
@@ -247,7 +254,8 @@ build_with_cmake_arch()
 # $4 lib directory name
 # $5 lib name
 # $6 cmake file path
-# $7 extra params
+# $7 source include path
+# $8 extra params
 build_with_cmake()
 {
   echo "Building $1"
