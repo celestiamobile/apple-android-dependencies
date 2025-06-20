@@ -16,6 +16,7 @@ create_xcframework_from_xcframework "libfreetype" "freetype" "$SOURCE_XCFRAMEWOK
 create_xcframework_from_xcframework "libicu" "icu" "$SOURCE_XCFRAMEWOKR_PARENT_PATH" "$TARGET_XCFRAMEWORK_PATH"
 create_xcframework_from_xcframework "libjpeg" "jpeg" "$SOURCE_XCFRAMEWOKR_PARENT_PATH" "$TARGET_XCFRAMEWORK_PATH"
 create_xcframework_from_xcframework "libGL" "libepoxy" "$SOURCE_XCFRAMEWOKR_PARENT_PATH" "$TARGET_XCFRAMEWORK_PATH"
+create_xcframework_from_xcframework "libGL_angle" "libepoxy_angle" "$SOURCE_XCFRAMEWOKR_PARENT_PATH" "$TARGET_XCFRAMEWORK_PATH"
 create_xcframework_from_xcframework "libintl" "libintl" "$SOURCE_XCFRAMEWOKR_PARENT_PATH" "$TARGET_XCFRAMEWORK_PATH"
 create_xcframework_from_xcframework "libpng" "libpng" "$SOURCE_XCFRAMEWOKR_PARENT_PATH" "$TARGET_XCFRAMEWORK_PATH"
 create_xcframework_from_xcframework "libzip" "libzip" "$SOURCE_XCFRAMEWOKR_PARENT_PATH" "$TARGET_XCFRAMEWORK_PATH"

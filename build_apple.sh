@@ -194,7 +194,7 @@ compile_libepoxy()
 {
   unarchive_and_enter $LIBEPOXY_VERSION ".tar.gz"
 
-  if [ "$TARGET" = "iOS" ] || [ "$TARGET" = "iOSSimulator" ]; then
+  if [ "$TARGET" != "macOS" ] && [ "$TARGET" != "macCatalyst" ]; then
     echo "Applying patch 1"
     sed -ie 's/libGLESv2.so/\/System\/Library\/Frameworks\/OpenGLES.framework\/OpenGLES/g' src/dispatch_common.c
     check_success
@@ -222,6 +222,48 @@ compile_libepoxy()
   mkdir -p $INCLUDE_PATH/libepoxy
   cp -r output/include/* $INCLUDE_PATH/libepoxy/
   cp output/lib/libepoxy.a $LIB_PATH/${1}_libGL.a
+  check_success
+
+  cd ..
+
+  echo "Cleaning"
+  cd ..
+  rm -rf $LIBEPOXY_VERSION
+}
+
+# libepoxy
+
+compile_libepoxy_angle()
+{
+  unarchive_and_enter $LIBEPOXY_VERSION ".tar.gz"
+
+  patch -p1 < ../libepoxy.angle.apple.patch
+  check_success
+
+  mkdir build
+  cd build
+
+  OPTIONS_FILE="../../build_${TARGET}_$1.txt"
+
+  echo "Replacing Xcode.app"
+  TO_REPLACE="/Applications/Xcode.app/Contents/Developer"
+  NEW_STRING="$(xcode-select -p)"
+  sed -ie "s#${TO_REPLACE}#${NEW_STRING}#g" $OPTIONS_FILE
+
+  echo "Replacing Include Path"
+  TO_REPLACE="/Users/linfel/Developer/include"
+  NEW_STRING="$INCLUDE_PATH"
+  sed -ie "s#${TO_REPLACE}#${NEW_STRING}#g" $OPTIONS_FILE
+
+  echo "Compiling for $1"
+  meson --buildtype=release --default-library=static -Dtests=false -Degl=yes --prefix=`pwd`/output --cross-file $OPTIONS_FILE
+  ninja install
+  check_success
+
+  echo "Copying products"
+  mkdir -p $INCLUDE_PATH/libepoxy_angle
+  cp -r output/include/* $INCLUDE_PATH/libepoxy_angle/
+  cp output/lib/libepoxy.a $LIB_PATH/${1}_libGL_angle.a
   check_success
 
   cd ..

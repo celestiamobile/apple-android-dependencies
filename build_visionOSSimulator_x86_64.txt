@@ -10,8 +10,8 @@ ranlib = '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xct
 strip = '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip'
 
 [built-in options]
-c_args = ['-target', 'x86_64-apple-xros1.0-simulator', '-isysroot', '/Applications/Xcode.app/Contents/Developer/Platforms/XRSimulator.platform/Developer/SDKs/XRSimulator.sdk']
-cpp_args = ['-target', 'x86_64-apple-xros1.0-simulator', '-isysroot', '/Applications/Xcode.app/Contents/Developer/Platforms/XRSimulator.platform/Developer/SDKs/XRSimulator.sdk']
+c_args = ['-target', 'x86_64-apple-xros1.0-simulator', '-isysroot', '/Applications/Xcode.app/Contents/Developer/Platforms/XRSimulator.platform/Developer/SDKs/XRSimulator.sdk', '-I/Users/linfel/Developer/include/angle']
+cpp_args = ['-target', 'x86_64-apple-xros1.0-simulator', '-isysroot', '/Applications/Xcode.app/Contents/Developer/Platforms/XRSimulator.platform/Developer/SDKs/XRSimulator.sdk', '-I/Users/linfel/Developer/include/angle']
 c_link_args = ['-target', 'x86_64-apple-xros1.0-simulator', '-isysroot', '/Applications/Xcode.app/Contents/Developer/Platforms/XRSimulator.platform/Developer/SDKs/XRSimulator.sdk']
 cpp_link_args = ['-target', 'x86_64-apple-xros1.0-simulator', '-isysroot', '/Applications/Xcode.app/Contents/Developer/Platforms/XRSimulator.platform/Developer/SDKs/XRSimulator.sdk']
 objc_args = ['-target', 'x86_64-apple-xros1.0-simulator', '-isysroot', '/Applications/Xcode.app/Contents/Developer/Platforms/XRSimulator.platform/Developer/SDKs/XRSimulator.sdk']

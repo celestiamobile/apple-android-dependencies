@@ -253,6 +253,7 @@ compile_icu
 #
 #unarchive_and_enter $EGL_VERSION ".tar.gz"
 #cp -r api/KHR $INCLUDE_PATH/angle/
+#cp -r api/EGL $INCLUDE_PATH/angle/
 #cd ..
 #
 unarchive_and_enter $MINIAUDIO_VERSION ".tar.gz"

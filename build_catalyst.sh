@@ -55,19 +55,25 @@ compile_libepoxy "x86_64"
 fat_create_and_clean "libGL"
 create_xcframework "libGL" "libepoxy" "libepoxy"
 
-compile_icu "arm64" "${CC_ARM64}" "${HOST_ARM64}"
-compile_icu "x86_64" "${CC_X86_64}" "${HOST_X86_64}"
-fat_create_and_clean "libicu"
-create_xcframework "libicu" "icu" "icu"
-
 mkdir -p $INCLUDE_PATH/angle
 unarchive_and_enter $OPENGL_VERSION ".tar.gz"
 cp -r api/* $INCLUDE_PATH/angle/
 cd ..
 unarchive_and_enter $EGL_VERSION ".tar.gz"
 cp -r api/KHR $INCLUDE_PATH/angle/
+cp -r api/EGL $INCLUDE_PATH/angle/
 cd ..
 create_xcframework "libangle" "angle" "angle"
+
+compile_libepoxy_angle "arm64"
+compile_libepoxy_angle "x86_64"
+fat_create_and_clean "libGL_angle"
+create_xcframework "libGL_angle" "libepoxy_angle" "libepoxy_angle"
+
+compile_icu "arm64" "${CC_ARM64}" "${HOST_ARM64}"
+compile_icu "x86_64" "${CC_X86_64}" "${HOST_X86_64}"
+fat_create_and_clean "libicu"
+create_xcframework "libicu" "icu" "icu"
 
 unarchive_and_enter $MINIAUDIO_VERSION ".tar.gz"
 mkdir -p $INCLUDE_PATH/miniaudio
