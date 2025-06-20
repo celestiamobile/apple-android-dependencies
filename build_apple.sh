@@ -196,18 +196,9 @@ compile_libepoxy()
 
   if [ "$TARGET" = "iOS" ] || [ "$TARGET" = "iOSSimulator" ]; then
     echo "Applying patch 1"
-    sed -ie 's/libGLESv2/OpenGLES/g' meson.build
-    check_success
-    echo "Applying patch 2"
-    sed -ie 's/glesv2/OpenGLES/g' meson.build
-    check_success
-    echo "Applying patch 3"
     sed -ie 's/libGLESv2.so/\/System\/Library\/Frameworks\/OpenGLES.framework\/OpenGLES/g' src/dispatch_common.c
     check_success
-    echo "Applying patch 4"
-    sed -ie 's/ gl_dep.found()/ false/g' src/meson.build
-    check_success
-    echo "Applying patch 5"
+    echo "Applying patch 2"
     sed -ie 's/epoxy_gl_dlsym(name)/epoxy_gles2_dlsym(name)/g' src/dispatch_common.c
     check_success
   fi
