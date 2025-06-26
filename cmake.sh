@@ -26,42 +26,31 @@ _build_with_cmake_arch()
   if [ "$TARGET" = "iOS" ]; then
     echo "Building for iOS"
     if [ "$1" = "arm64" ]; then
+      DEPLOYMENT_TARGET="$DEPLOYMENT_TARGET_ARM64"
       PLATFORM="OS64"
     else
       echo "Unknown arch"
       exit
     fi
-    if [ "$LEGACY_SUPPORT" = true ]; then
-      DEPLOYMENT_TARGET="11.0"
-    else
-      DEPLOYMENT_TARGET="14.0"
-    fi
   elif [ "$TARGET" = "iOSSimulator" ]; then
     echo "Building for iOS Simulator"
     if [ "$1" = "arm64" ]; then
+      DEPLOYMENT_TARGET="$DEPLOYMENT_TARGET_ARM64"
       PLATFORM="SIMULATORARM64"
     elif [ "$1" = "x86_64" ]; then
+      DEPLOYMENT_TARGET="$DEPLOYMENT_TARGET_X86_64"
       PLATFORM="SIMULATOR64"
     else
       echo "Unknown arch"
       exit
     fi
-    if [ "$LEGACY_SUPPORT" = true ]; then
-      DEPLOYMENT_TARGET="11.0"
-    else
-      DEPLOYMENT_TARGET="14.0"
-    fi
   elif [ "$TARGET" = "macOS" ]; then
     echo "Building for macOS"
     if [ "$1" = "arm64" ]; then
-      DEPLOYMENT_TARGET="11.0"
+      DEPLOYMENT_TARGET="$DEPLOYMENT_TARGET_ARM64"
       PLATFORM="MAC_ARM64"
     elif [ "$1" = "x86_64" ]; then
-      if [ "$LEGACY_SUPPORT" = true ]; then
-        DEPLOYMENT_TARGET="10.15"
-      else
-        DEPLOYMENT_TARGET="11.0"
-      fi
+      DEPLOYMENT_TARGET="$DEPLOYMENT_TARGET_X86_64"
       PLATFORM="MAC"
     else
       echo "Unknown arch"
@@ -70,10 +59,10 @@ _build_with_cmake_arch()
   elif [ "$TARGET" = "macCatalyst" ]; then
     echo "Building for macCatalyst"
     if [ "$1" = "arm64" ]; then
-      DEPLOYMENT_TARGET="14.0"
+      DEPLOYMENT_TARGET="$DEPLOYMENT_TARGET_ARM64"
       PLATFORM="MAC_CATALYST_ARM64"
     elif [ "$1" = "x86_64" ]; then
-      DEPLOYMENT_TARGET="14.0"
+      DEPLOYMENT_TARGET="$DEPLOYMENT_TARGET_X86_64"
       PLATFORM="MAC_CATALYST"
     else
       echo "Unknown arch"
@@ -81,14 +70,15 @@ _build_with_cmake_arch()
     fi
   elif [ "$TARGET" = "visionOS" ]; then
     echo "Building for visonOS"
-    DEPLOYMENT_TARGET="1.0"
+    DEPLOYMENT_TARGET="$DEPLOYMENT_TARGET_ARM64"
     PLATFORM="VISIONOS"
   elif [ "$TARGET" = "visionOSSimulator" ]; then
     echo "Building for visionOSSimulator"
-    DEPLOYMENT_TARGET="1.0"
     if [ "$1" = "arm64" ]; then
+      DEPLOYMENT_TARGET="$DEPLOYMENT_TARGET_ARM64"
       PLATFORM="SIMULATOR_VISIONOS_ARM64"
     elif [ "$1" = "x86_64" ]; then
+      DEPLOYMENT_TARGET="$DEPLOYMENT_TARGET_X86_64"
       PLATFORM="SIMULATOR_VISIONOS"
     else
       echo "Unknown arch"
