@@ -386,16 +386,6 @@ compile_icu "x86_64"
 mkdir -p $INCLUDE_PATH/json
 mv json.hpp $INCLUDE_PATH/json/
 
-mkdir -p $INCLUDE_PATH/angle
-unarchive_and_enter $OPENGL_VERSION ".tar.gz"
-cp -r api/* $INCLUDE_PATH/angle/
-cd ..
-
-unarchive_and_enter $EGL_VERSION ".tar.gz"
-cp -r api/KHR $INCLUDE_PATH/angle/
-cp -r api/EGL $INCLUDE_PATH/angle/
-cd ..
-
 unarchive_and_enter $MINIAUDIO_VERSION ".tar.gz"
 mkdir -p $INCLUDE_PATH/miniaudio
 cp miniaudio.h $INCLUDE_PATH/miniaudio/

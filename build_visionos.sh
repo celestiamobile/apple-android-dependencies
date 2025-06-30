@@ -58,7 +58,6 @@ unarchive_and_enter $EGL_VERSION ".tar.gz"
 cp -r api/KHR $INCLUDE_PATH/angle/
 cp -r api/EGL $INCLUDE_PATH/angle/
 cd ..
-create_xcframework "libangle" "angle" "angle"
 
 compile_libepoxy_angle "arm64"
 fat_create_and_clean "libGL_angle"
