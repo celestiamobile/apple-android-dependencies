@@ -1,0 +1,22 @@
+diff --git a/src/lj_arch.h b/src/lj_arch.h
+index a4eecf2..6bb4cb6 100644
+--- a/src/lj_arch.h
++++ b/src/lj_arch.h
+@@ -124,7 +124,7 @@
+ #define LJ_TARGET_POSIX		(LUAJIT_OS > LUAJIT_OS_WINDOWS)
+ #define LJ_TARGET_DLOPEN	LJ_TARGET_POSIX
+ 
+-#if defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE
++#if defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE && !(defined(TARGET_OS_MACCATALYST) && TARGET_OS_MACCATALYST)
+ #define LJ_TARGET_IOS		1
+ #else
+ #define LJ_TARGET_IOS		0
+@@ -652,7 +652,7 @@
+ #if defined(__ANDROID__) || defined(__symbian__) || LJ_TARGET_XBOX360 || LJ_TARGET_WINDOWS
+ #define LUAJIT_NO_LOG2
+ #endif
+-#if LJ_TARGET_CONSOLE || (LJ_TARGET_IOS && __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0)
++#if LJ_TARGET_CONSOLE || (LJ_TARGET_IOS && __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0) || (defined(TARGET_OS_MACCATALYST) && TARGET_OS_MACCATALYST)
+ #define LJ_NO_SYSTEM		1
+ #endif
+ 

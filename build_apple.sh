@@ -112,9 +112,13 @@ compile_luajit()
 {
   unarchive_and_enter $LUAJIT_VERSION ".tar.gz"
 
+  patch -p1 < ../luajit.catalyst.patch
+  check_success
+
   echo "Compiling for $1"
-  if [ "$TARGET" = "macOS" ]; then
+  if [ "$TARGET" = "macOS" ] || [ "$TARGET" = "macCatalyst" ];  then
     export MACOSX_DEPLOYMENT_TARGET=$4
+    export TARGET_SYS="Darwin"
   else
     export TARGET_SYS="iOS"
   fi

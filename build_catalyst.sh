@@ -40,8 +40,8 @@ create_xcframework "cspice" "cspice" "cspice"
 # compile_lua "x86_64"  "${CC_X86_64}"
 # fat_create_and_clean "liblua"
 
-compile_luajit "arm64" "$CC_EXECUTABLE" "$CC_ARM64_FLAGS"
-compile_luajit "x86_64" "$CC_EXECUTABLE" "$CC_X86_64_FLAGS"
+compile_luajit "arm64" "$CC_EXECUTABLE" "$CC_ARM64_FLAGS" "${MAC_DEPLOYMENT_TARGET_ARM64}"
+compile_luajit "x86_64" "$CC_EXECUTABLE" "$CC_X86_64_FLAGS" "${MAC_DEPLOYMENT_TARGET_X86_64}"
 fat_create_and_clean "libluajit"
 create_xcframework "libluajit" "luajit" "luajit"
 

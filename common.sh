@@ -194,6 +194,8 @@ elif [ "$TARGET" = "macCatalyst" ]; then
   CC_ARM64_FLAGS="-isysroot $(xcrun --sdk macosx --show-sdk-path) -target arm64-apple-ios-macabi -miphoneos-version-min=14.0 -O2"
   DEPLOYMENT_TARGET_X86_64="14.0"
   DEPLOYMENT_TARGET_ARM64="14.0"
+  MAC_DEPLOYMENT_TARGET_X86_64="11.0"
+  MAC_DEPLOYMENT_TARGET_ARM64="11.0"
   CC_X86_64="$CC_EXECUTABLE $CC_X86_64_FLAGS"
   CC_ARM64="$CC_EXECUTABLE $CC_ARM64_FLAGS"
   HOST_X86_64=x86_64-apple-ios
