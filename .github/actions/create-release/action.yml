@@ -1,0 +1,62 @@
+name: 'Create GitHub Release'
+description: 'Creates a GitHub release with Android and Apple artifacts'
+
+inputs:
+  tag-name:
+    description: 'Release tag name'
+    required: true
+  release-name:
+    description: 'Release name'
+    required: true
+  draft:
+    description: 'Create as draft release'
+    required: false
+    default: 'false'
+  prerelease:
+    description: 'Mark as prerelease'
+    required: false
+    default: 'false'
+  github-token:
+    description: 'GitHub token for creating release'
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Download Android Artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: android
+        path: ./artifacts/android/
+
+    - name: Download Apple Artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: apple
+        path: ./artifacts/apple/
+
+    - name: Create Android Archive
+      shell: bash
+      run: |
+        cd ./artifacts/android
+        tar -czf ../android-dependencies.tar.gz *
+        cd ../..
+
+    - name: Create Apple Archive
+      shell: bash
+      run: |
+        cd ./artifacts/apple
+        tar -czf ../apple-dependencies.tar.gz *
+        cd ../..
+
+    - name: Create Release
+      uses: softprops/action-gh-release@v2
+      with:
+        tag_name: ${{ inputs.tag-name }}
+        name: ${{ inputs.release-name }} ${{ inputs.tag-name }}
+        draft: ${{ inputs.draft }}
+        prerelease: ${{ inputs.prerelease }}
+        token: ${{ inputs.github-token }}
+        files: |
+          ./artifacts/android-dependencies.tar.gz
+          ./artifacts/apple-dependencies.tar.gz
