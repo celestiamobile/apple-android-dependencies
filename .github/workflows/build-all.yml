@@ -82,4 +82,4 @@ jobs:
       - name: Generate XCFramework
         uses: ./.github/actions/generate-xcframework
         with:
-          xcode-version: "16.2"
+          xcode-version: "16.4"

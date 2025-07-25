@@ -49,7 +49,7 @@ The GitHub Actions workflows have been refactored to eliminate code duplication 
 - Uploads XCFramework artifact
 
 **Inputs**:
-- `xcode-version` (optional, default: "16.2")
+- `xcode-version` (optional, default: "16.4")
 
 #### 5. `.github/actions/generate-xcframework-cross-workflow/action.yml`
 **Purpose**: Generates XCFramework from artifacts of another workflow run
@@ -58,7 +58,7 @@ The GitHub Actions workflows have been refactored to eliminate code duplication 
 - Used when XCFramework generation is triggered by workflow completion
 
 **Inputs**:
-- `xcode-version` (optional, default: "16.2")
+- `xcode-version` (optional, default: "16.4")
 - `workflow-run-id` (required): ID of the workflow run to download artifacts from
 
 ### Reusable Workflows

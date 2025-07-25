@@ -33,3 +33,4 @@ runs:
       with:
         name: ${{ inputs.platform }}
         path: ${{ inputs.platform }}/
+        retention-days: 30

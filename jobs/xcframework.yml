@@ -5,7 +5,7 @@ jobs:
     vmImage: ${{ parameters.vmImage }}
 
   variables:
-    xcodeVersion: ${{ '16.2' }}
+    xcodeVersion: ${{ '16.4' }}
 
   steps:
   - script: |
