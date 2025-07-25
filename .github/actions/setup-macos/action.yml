@@ -1,0 +1,35 @@
+name: 'Setup macOS Build Environment'
+description: 'Sets up Xcode, installs dependencies, downloads and prepares ICU for macOS builds'
+
+inputs:
+  xcode-version:
+    description: 'Xcode version to use'
+    required: false
+    default: '16.4'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Select Xcode
+      shell: bash
+      run: |
+        sudo xcode-select -s /Applications/Xcode_${{ inputs.xcode-version }}.app
+        xcodebuild -version
+
+    - name: Install Dependencies
+      shell: bash
+      run: |
+        rm -rf /usr/local/bin/2to3* /usr/local/bin/idle3* /usr/local/bin/pydoc* /usr/local/bin/python* /usr/local/share/man/man1/python* /usr/local/lib/pkgconfig/python* /usr/local/Frameworks/Python.framework
+        brew install meson wget cmake zsh yasm tcsh
+
+    - name: Download Dependencies
+      shell: bash
+      run: |
+        chmod +x download.sh
+        ./download.sh
+
+    - name: Prepare ICU
+      shell: bash
+      run: |
+        chmod +x prepare_icu.sh
+        ./prepare_icu.sh

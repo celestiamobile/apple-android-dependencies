@@ -1,0 +1,34 @@
+name: 'Setup Ubuntu Build Environment'
+description: 'Sets up Android NDK, installs dependencies, downloads and prepares ICU for Ubuntu builds'
+
+inputs:
+  ndk-version:
+    description: 'Android NDK version to use'
+    required: false
+    default: 'r28c'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup Android NDK
+      uses: nttld/setup-ndk@v1
+      with:
+        ndk-version: ${{ inputs.ndk-version }}
+
+    - name: Install Dependencies
+      shell: bash
+      run: |
+        sudo apt-get update
+        sudo apt-get install meson wget cmake zsh ncompress tcsh gcc-multilib yasm
+
+    - name: Download Dependencies
+      shell: bash
+      run: |
+        chmod +x download.sh
+        ./download.sh
+
+    - name: Prepare ICU
+      shell: bash
+      run: |
+        chmod +x prepare_icu.sh
+        ./prepare_icu.sh

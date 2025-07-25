@@ -1,0 +1,85 @@
+name: Build All Platforms
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+env:
+  XCODE_VERSION: "16.4"
+  NDK_VERSION: "r28c"
+
+jobs:
+  # Apple platforms
+  ios:
+    uses: ./.github/workflows/reusable-build.yml
+    with:
+      platform: ios
+      runner: macos-15
+      xcode-version: "16.4"
+
+  ios-simulator:
+    uses: ./.github/workflows/reusable-build.yml
+    with:
+      platform: iossim
+      runner: macos-15
+      xcode-version: "16.4"
+
+  visionos:
+    uses: ./.github/workflows/reusable-build.yml
+    with:
+      platform: visionos
+      runner: macos-15
+      xcode-version: "16.4"
+
+  visionos-simulator:
+    uses: ./.github/workflows/reusable-build.yml
+    with:
+      platform: visionossim
+      runner: macos-15
+      xcode-version: "16.4"
+
+  macos:
+    uses: ./.github/workflows/reusable-build.yml
+    with:
+      platform: mac
+      runner: macos-15
+      xcode-version: "16.4"
+
+  mac-catalyst:
+    uses: ./.github/workflows/reusable-build.yml
+    with:
+      platform: catalyst
+      runner: macos-15
+      xcode-version: "16.4"
+
+  # Cross-platform builds
+  android:
+    uses: ./.github/workflows/reusable-build.yml
+    with:
+      platform: android
+      runner: ubuntu-24.04
+      ndk-version: "r28c"
+
+  emscripten:
+    uses: ./.github/workflows/reusable-build.yml
+    with:
+      platform: emscripten
+      runner: macos-15
+      xcode-version: "16.4"
+      setup-emscripten: true
+
+  xcframework:
+    name: Generate XCFramework
+    runs-on: macos-15
+    needs: [ios, ios-simulator, visionos, visionos-simulator, macos, mac-catalyst]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Generate XCFramework
+        uses: ./.github/actions/generate-xcframework
+        with:
+          xcode-version: "16.2"

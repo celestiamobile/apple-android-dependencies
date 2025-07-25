@@ -1,0 +1,65 @@
+name: 'Generate XCFramework'
+description: 'Downloads Apple platform artifacts and generates XCFramework'
+
+inputs:
+  xcode-version:
+    description: 'Xcode version to use'
+    required: false
+    default: '16.2'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Select Xcode
+      shell: bash
+      run: |
+        sudo xcode-select -s /Applications/Xcode_${{ inputs.xcode-version }}.app
+
+    - name: Download iOS Artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: ios
+        path: ./ios/
+
+    - name: Download iOS Simulator Artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: iossim
+        path: ./iossim/
+
+    - name: Download visionOS Artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: visionos
+        path: ./visionos/
+
+    - name: Download visionOS Simulator Artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: visionossim
+        path: ./visionossim/
+
+    - name: Download Mac Artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: mac
+        path: ./mac/
+
+    - name: Download Catalyst Artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: catalyst
+        path: ./catalyst/
+
+    - name: Build XCFramework
+      shell: bash
+      run: |
+        chmod +x merge_xcframework.sh
+        mkdir apple
+        ./merge_xcframework.sh $(pwd)/apple $(pwd)
+
+    - name: Upload XCFramework Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: apple
+        path: apple/

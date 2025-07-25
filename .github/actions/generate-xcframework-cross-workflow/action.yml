@@ -1,0 +1,86 @@
+name: 'Generate XCFramework (Cross-Workflow)'
+description: 'Downloads Apple platform artifacts from another workflow run and generates XCFramework'
+
+inputs:
+  xcode-version:
+    description: 'Xcode version to use'
+    required: false
+    default: '16.2'
+  workflow-run-id:
+    description: 'Workflow run ID to download artifacts from'
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Select Xcode
+      shell: bash
+      run: |
+        sudo xcode-select -s /Applications/Xcode_${{ inputs.xcode-version }}.app
+
+    - name: Download iOS Artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: ios
+        path: ./ios/
+        github-token: ${{ github.token }}
+        repository: ${{ github.repository }}
+        run-id: ${{ inputs.workflow-run-id }}
+
+    - name: Download iOS Simulator Artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: iossim
+        path: ./iossim/
+        github-token: ${{ github.token }}
+        repository: ${{ github.repository }}
+        run-id: ${{ inputs.workflow-run-id }}
+
+    - name: Download visionOS Artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: visionos
+        path: ./visionos/
+        github-token: ${{ github.token }}
+        repository: ${{ github.repository }}
+        run-id: ${{ inputs.workflow-run-id }}
+
+    - name: Download visionOS Simulator Artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: visionossim
+        path: ./visionossim/
+        github-token: ${{ github.token }}
+        repository: ${{ github.repository }}
+        run-id: ${{ inputs.workflow-run-id }}
+
+    - name: Download Mac Artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: mac
+        path: ./mac/
+        github-token: ${{ github.token }}
+        repository: ${{ github.repository }}
+        run-id: ${{ inputs.workflow-run-id }}
+
+    - name: Download Catalyst Artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: catalyst
+        path: ./catalyst/
+        github-token: ${{ github.token }}
+        repository: ${{ github.repository }}
+        run-id: ${{ inputs.workflow-run-id }}
+
+    - name: Build XCFramework
+      shell: bash
+      run: |
+        chmod +x merge_xcframework.sh
+        mkdir apple
+        ./merge_xcframework.sh $(pwd)/apple $(pwd)
+
+    - name: Upload XCFramework Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: apple
+        path: apple/

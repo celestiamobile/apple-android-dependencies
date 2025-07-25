@@ -1,0 +1,35 @@
+name: 'Build Platform'
+description: 'Builds a specific platform target'
+
+inputs:
+  platform:
+    description: 'Platform to build (ios, iossim, visionos, visionossim, mac, catalyst, android, emscripten)'
+    required: true
+  sdk-path:
+    description: 'SDK path for building (used for Android NDK or Emscripten)'
+    required: false
+    default: ''
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Build ${{ inputs.platform }}
+      shell: bash
+      run: |
+        chmod +x build_${{ inputs.platform }}.sh
+        if [ "${{ inputs.platform }}" = "emscripten" ] && [ -n "${{ inputs.sdk-path }}" ]; then
+          cd "${{ inputs.sdk-path }}"
+          source ./emsdk_env.sh
+          cd -
+          ./build_${{ inputs.platform }}.sh $(pwd)/${{ inputs.platform }} "${{ inputs.sdk-path }}"
+        elif [ -n "${{ inputs.sdk-path }}" ]; then
+          ./build_${{ inputs.platform }}.sh $(pwd)/${{ inputs.platform }} "${{ inputs.sdk-path }}"
+        else
+          ./build_${{ inputs.platform }}.sh $(pwd)/${{ inputs.platform }}
+        fi
+
+    - name: Upload ${{ inputs.platform }} Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ inputs.platform }}
+        path: ${{ inputs.platform }}/

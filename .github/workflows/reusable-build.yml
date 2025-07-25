@@ -1,0 +1,74 @@
+name: 'Reusable Build Job'
+
+on:
+  workflow_call:
+    inputs:
+      platform:
+        description: 'Platform to build'
+        required: true
+        type: string
+      runner:
+        description: 'Runner to use'
+        required: true
+        type: string
+      xcode-version:
+        description: 'Xcode version to use'
+        required: false
+        type: string
+        default: '16.4'
+      ndk-version:
+        description: 'Android NDK version to use'
+        required: false
+        type: string
+        default: 'r28c'
+      setup-emscripten:
+        description: 'Whether to setup Emscripten'
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  build:
+    name: ${{ inputs.platform }}
+    runs-on: ${{ inputs.runner }}
+    timeout-minutes: 120
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup macOS Environment
+        if: contains(inputs.runner, 'macos')
+        uses: ./.github/actions/setup-macos
+        with:
+          xcode-version: ${{ inputs.xcode-version }}
+
+      - name: Setup Ubuntu Environment
+        if: contains(inputs.runner, 'ubuntu')
+        uses: ./.github/actions/setup-ubuntu
+        with:
+          ndk-version: ${{ inputs.ndk-version }}
+
+      - name: Setup Emscripten
+        if: inputs.setup-emscripten
+        run: |
+          git clone https://github.com/emscripten-core/emsdk.git
+          cd emsdk
+          ./emsdk install latest
+          ./emsdk activate latest
+
+      - name: Set SDK Path for Emscripten
+        if: inputs.setup-emscripten
+        run: |
+          cd emsdk
+          echo "SDK_PATH=$(pwd)" >> $GITHUB_ENV
+          source ./emsdk_env.sh
+
+      - name: Set SDK Path for Android
+        if: contains(inputs.runner, 'ubuntu')
+        run: echo "SDK_PATH=$ANDROID_NDK_ROOT" >> $GITHUB_ENV
+
+      - name: Build Platform
+        uses: ./.github/actions/build-platform
+        with:
+          platform: ${{ inputs.platform }}
+          sdk-path: ${{ env.SDK_PATH }}
