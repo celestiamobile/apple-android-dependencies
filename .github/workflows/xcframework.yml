@@ -19,5 +19,4 @@ jobs:
       - name: Generate XCFramework
         uses: ./.github/actions/generate-xcframework-cross-workflow
         with:
-          xcode-version: "16.4"
           workflow-run-id: ${{ github.event.workflow_run.id }}

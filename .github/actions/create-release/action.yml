@@ -49,6 +49,18 @@ runs:
         tar -czf ../apple-dependencies.tar.gz *
         cd ../..
 
+    - name: Prepare Individual XCFrameworks
+      shell: bash
+      run: |
+        cd ./artifacts/apple
+        # Create individual zip files for each XCFramework
+        for xcframework in *.xcframework; do
+          if [ -d "$xcframework" ]; then
+            zip -r "../${xcframework%.xcframework}.xcframework.zip" "$xcframework"
+          fi
+        done
+        cd ../..
+
     - name: Create Release
       uses: softprops/action-gh-release@v2
       with:
@@ -60,3 +72,4 @@ runs:
         files: |
           ./artifacts/android-dependencies.tar.gz
           ./artifacts/apple-dependencies.tar.gz
+          ./artifacts/*.xcframework.zip
