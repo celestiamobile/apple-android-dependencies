@@ -13,7 +13,9 @@ jobs:
 
   steps:
   - script: |
-      rm -rf /usr/local/bin/2to3* /usr/local/bin/idle3* /usr/local/bin/pydoc* /usr/local/bin/python* /usr/local/share/man/man1/python* /usr/local/lib/pkgconfig/python* /usr/local/Frameworks/Python.framework
+      # Error: cmake was installed from the local/pinned tap
+      brew remove cmake || true
+      brew untap local/pinned || true
       brew install meson wget cmake zsh yasm tcsh
     displayName: 'Install Dependencies (Mac)'
     condition: contains(variables['vmImage'], 'mac')
