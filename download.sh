@@ -43,7 +43,7 @@ wget "https://github.com/KhronosGroup/EGL-Registry/tarball/3ae2b7c48690d2ce13cc6
 
 wget "https://github.com/libjpeg-turbo/libjpeg-turbo/releases/download/3.1.2/${JPEG_TURBO_VERSION}.tar.gz" --no-check-certificate
 
-wget "https://codeload.github.com/mackron/miniaudio/tar.gz/refs/tags/0.11.23" -O "${MINIAUDIO_VERSION}.tar.gz" --no-check-certificate
+wget "https://codeload.github.com/mackron/miniaudio/tar.gz/refs/tags/0.11.22" -O "${MINIAUDIO_VERSION}.tar.gz" --no-check-certificate
 
 wget "https://github.com/libsdl-org/SDL/releases/download/release-2.32.10/${SDL2_VERSION}.tar.gz" --no-check-certificate
 
