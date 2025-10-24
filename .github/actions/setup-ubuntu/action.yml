@@ -5,7 +5,7 @@ inputs:
   ndk-version:
     description: 'Android NDK version to use'
     required: false
-    default: 'r28c'
+    default: 'r29'
 
 runs:
   using: 'composite'

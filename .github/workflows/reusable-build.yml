@@ -20,7 +20,7 @@ on:
         description: 'Android NDK version to use'
         required: false
         type: string
-        default: 'r28c'
+        default: 'r29'
       setup-emscripten:
         description: 'Whether to setup Emscripten'
         required: false
