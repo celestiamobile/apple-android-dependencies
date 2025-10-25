@@ -28,6 +28,8 @@ wget "https://github.com/zeux/meshoptimizer/archive/refs/tags/${MESHOPTIMIZER_DO
 
 wget "https://gitlab.com/libeigen/eigen/-/archive/5.0.0/${EIGEN_VERSION}.tar.gz" --no-check-certificate
 
+wget "https://gitlab.com/libeigen/eigen/-/archive/3.4.1/${EIGEN_LEGACY_VERSION}.tar.gz" --no-check-certificate
+
 ICU_DOWNLOAD_NAME="icu4c-77_1-src.tgz"
 wget "https://github.com/unicode-org/icu/releases/download/release-77-1/${ICU_DOWNLOAD_NAME}" -O "${ICU_VERSION}.tgz" --no-check-certificate
 
