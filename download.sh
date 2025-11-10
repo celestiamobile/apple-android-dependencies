@@ -16,11 +16,11 @@ wget "https://ftpmirror.gnu.org/gnu/gettext/${GETTEXT_LEGACY_VERSION}.tar.gz" --
 
 wget "https://www.lua.org/ftp/${LUA_VERSION}.tar.gz" --no-check-certificate
 
-wget "https://github.com/LuaJIT/LuaJIT/archive/25a61a182166fec06f1a1a025eb8fabbb6cf483e.tar.gz" -O "${LUAJIT_VERSION}.tar.gz" --no-check-certificate
+wget "https://github.com/LuaJIT/LuaJIT/archive/fdf2379ccba1eb68ff07f8bc48541568f5bbdfbf.tar.gz" -O "${LUAJIT_VERSION}.tar.gz" --no-check-certificate
 
 wget "https://github.com/anholt/libepoxy/archive/refs/tags/1.5.10.tar.gz" -O "${LIBEPOXY_VERSION}.tar.gz" --no-check-certificate
 
-FMT_DOWNLOAD_NAME="12.0.0.tar.gz"
+FMT_DOWNLOAD_NAME="12.1.0.tar.gz"
 wget "https://github.com/fmtlib/fmt/archive/${FMT_DOWNLOAD_NAME}" -O "${FMT_VERSION}.tar.gz" --no-check-certificate
 
 MESHOPTIMIZER_DOWNLOAD_NAME="v0.25.tar.gz"
@@ -30,8 +30,8 @@ wget "https://gitlab.com/libeigen/eigen/-/archive/5.0.0/${EIGEN_VERSION}.tar.gz"
 
 wget "https://gitlab.com/libeigen/eigen/-/archive/3.4.1/${EIGEN_LEGACY_VERSION}.tar.gz" --no-check-certificate
 
-ICU_DOWNLOAD_NAME="icu4c-77_1-src.tgz"
-wget "https://github.com/unicode-org/icu/releases/download/release-77-1/${ICU_DOWNLOAD_NAME}" -O "${ICU_VERSION}.tgz" --no-check-certificate
+ICU_DOWNLOAD_NAME="icu4c-78.1-sources.tgz"
+wget "https://github.com/unicode-org/icu/releases/download/release-78.1/${ICU_DOWNLOAD_NAME}" -O "${ICU_VERSION}.tgz" --no-check-certificate
 
 # wget "https://github.com/google/breakpad/tarball/e92bea30759edbae08205bccd14dc25bf1806f93" -O "${BREAKPAD_VERSION}.tar.gz" --no-check-certificate
 
