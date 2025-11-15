@@ -16,7 +16,7 @@ wget "https://ftpmirror.gnu.org/gnu/gettext/${GETTEXT_LEGACY_VERSION}.tar.gz" --
 
 wget "https://www.lua.org/ftp/${LUA_VERSION}.tar.gz" --no-check-certificate
 
-wget "https://github.com/LuaJIT/LuaJIT/archive/fdf2379ccba1eb68ff07f8bc48541568f5bbdfbf.tar.gz" -O "${LUAJIT_VERSION}.tar.gz" --no-check-certificate
+wget "https://github.com/LuaJIT/LuaJIT/archive/eba91fceb67a0a0163a9222869bf254c988c48c4.tar.gz" -O "${LUAJIT_VERSION}.tar.gz" --no-check-certificate
 
 wget "https://github.com/anholt/libepoxy/archive/refs/tags/1.5.10.tar.gz" -O "${LIBEPOXY_VERSION}.tar.gz" --no-check-certificate
 
@@ -26,7 +26,7 @@ wget "https://github.com/fmtlib/fmt/archive/${FMT_DOWNLOAD_NAME}" -O "${FMT_VERS
 MESHOPTIMIZER_DOWNLOAD_NAME="v0.25.tar.gz"
 wget "https://github.com/zeux/meshoptimizer/archive/refs/tags/${MESHOPTIMIZER_DOWNLOAD_NAME}" -O "${MESHOPTIMIZER_VERSION}.tar.gz" --no-check-certificate
 
-wget "https://gitlab.com/libeigen/eigen/-/archive/5.0.0/${EIGEN_VERSION}.tar.gz" --no-check-certificate
+wget "https://gitlab.com/libeigen/eigen/-/archive/5.0.1/${EIGEN_VERSION}.tar.gz" --no-check-certificate
 
 wget "https://gitlab.com/libeigen/eigen/-/archive/3.4.1/${EIGEN_LEGACY_VERSION}.tar.gz" --no-check-certificate
 
