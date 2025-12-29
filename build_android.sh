@@ -29,7 +29,7 @@ mkdir -p $LIB_PATH/arm64-v8a
 
 TIMESTAMP=`git show --no-patch --format=%cd --date=format-local:'%Y%m%d'`
 
-build_with_cmake "boost" $BOOST_VERSION ".tar.xz" "boost" "libboost_container" ".." "none" "-DBOOST_INCLUDE_LIBRARIES='container;smart_ptr'" "-DBUILD_SHARED_LIBS=OFF"
+build_with_cmake "boost" $BOOST_VERSION ".tar.xz" "boost" "libboost_container" ".." "none" "-DBOOST_INCLUDE_LIBRARIES='container;container_hash;describe;smart_ptr'" "-DBUILD_SHARED_LIBS=OFF"
 build_with_cmake "libzip" $LIBZIP_VERSION ".tar.gz" "libzip" "libzip" ".." "none" "-DENABLE_COMMONCRYPTO=OFF" "-DENABLE_GNUTLS=OFF" "-DENABLE_MBEDTLS=OFF" "-DENABLE_OPENSSL=OFF" "-DENABLE_WINDOWS_CRYPTO=OFF" "-DENABLE_BZIP2=OFF" "-DENABLE_LZMA=OFF" "-DENABLE_ZSTD=OFF" "-DENABLE_FDOPEN=OFF" "-DBUILD_TOOLS=OFF" "-DBUILD_REGRESS=OFF" "-DBUILD_EXAMPLES=OFF" "-DBUILD_DOC=OFF" "-DBUILD_SHARED_LIBS=OFF" "-DHAVE_MEMCPY_S=OFF" "-DHAVE_STRNCPY_S=OFF" "-DHAVE_STRERRORLEN_S=OFF" "-DHAVE_STRERROR_S=OFF"
 build_with_cmake "jpeg" $JPEG_TURBO_VERSION ".tar.gz" "jpeg" "libjpeg" ".." "none" "-DENABLE_STATIC=ON" "-DENABLE_SHARED=OFF" "-DWITH_TURBOJPEG=OFF" "-DBUILD=$TIMESTAMP"
 build_with_cmake "libpng" $LIBPNG_VERSION ".tar.xz" "libpng" "libpng" ".." "none" "-DPNG_SHARED=OFF"
