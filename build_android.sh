@@ -268,7 +268,7 @@ compile_luajit()
     HOST_CC="gcc"
   fi
 
-  make install DEFAULT_CC=clang HOST_CC=$HOST_CC CROSS=$BIN_PREFIX \
+  make install DEFAULT_CC=clang HOST_CC="$HOST_CC" CROSS=$BIN_PREFIX \
      STATIC_CC="$STATIC_CC" DYNAMIC_CC="$CC" \
      TARGET_LD="$STATIC_CC" TARGET_AR="$AR rcus" \
      TARGET_STRIP="$STRIP" TARGET_SYS=Linux PREFIX=$OUTPUT_PATH
