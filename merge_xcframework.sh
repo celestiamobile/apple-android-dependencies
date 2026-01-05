@@ -7,6 +7,7 @@ SOURCE_XCFRAMEWOKR_PARENT_PATH=$2
 
 . $(pwd)/xcframework.sh
 
+create_xcframework_from_xcframework "fast_float" "fast_float" "$SOURCE_XCFRAMEWOKR_PARENT_PATH" "$TARGET_XCFRAMEWORK_PATH"
 create_xcframework_from_xcframework "libboost_container" "boost" "$SOURCE_XCFRAMEWOKR_PARENT_PATH" "$TARGET_XCFRAMEWORK_PATH"
 create_xcframework_from_xcframework "cspice" "cspice" "$SOURCE_XCFRAMEWOKR_PARENT_PATH" "$TARGET_XCFRAMEWORK_PATH"
 create_xcframework_from_xcframework "eigen3" "eigen3" "$SOURCE_XCFRAMEWOKR_PARENT_PATH" "$TARGET_XCFRAMEWORK_PATH"
