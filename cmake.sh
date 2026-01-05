@@ -254,7 +254,7 @@ build_with_cmake()
     if [ ! -z "$5" ] && [ "$5" != "none" ]; then
       fat_create_and_clean $5
     fi
-    if [ -z "$5" ]; then
+    if [ -z "$5" ] || [ "$5" = "none" ]; then
       create_xcframework $1 $1 $1
     else
       create_xcframework $5 $4 $1
@@ -271,7 +271,7 @@ build_with_cmake()
     if [ ! -z "$5" ] && [ "$5" != "none" ]; then
       fat_create_and_clean $5
     fi
-    if [ -z "$4" ]; then
+    if [ -z "$5" ] || [ "$5" = "none" ]; then
       create_xcframework $1 $1 $1
     else
       create_xcframework $5 $4 $1

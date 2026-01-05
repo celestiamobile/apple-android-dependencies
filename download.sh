@@ -57,3 +57,6 @@ wget "https://github.com/nih-at/libzip/releases/download/v1.11.4/${LIBZIP_VERSIO
 
 BOOST_DOWNLOAD_NAME="boost-1.90.0-cmake"
 wget "https://github.com/boostorg/boost/releases/download/boost-1.90.0/${BOOST_DOWNLOAD_NAME}.tar.xz" -O "${BOOST_VERSION}.tar.xz" --no-check-certificate
+
+FAST_FLOAT_DOWNLOAD_NAME="v8.2.2.tar.gz"
+wget "https://github.com/fastfloat/fast_float/archive/refs/tags/${FAST_FLOAT_DOWNLOAD_NAME}" -O "${FAST_FLOAT_VERSION}.tar.gz" --no-check-certificate
