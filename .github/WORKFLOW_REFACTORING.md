@@ -124,7 +124,7 @@ new-platform:
   uses: ./.github/workflows/reusable-build.yml
   with:
     platform: newplatform
-    runner: macos-15
+    runner: macos-26
     xcode-version: "16.4"
 ```
 
@@ -135,7 +135,7 @@ ios:
   uses: ./.github/workflows/reusable-build.yml
   with:
     platform: ios
-    runner: macos-15
+    runner: macos-26
 ```
 
 ### Customizing Environment
@@ -145,7 +145,7 @@ ios-beta:
   uses: ./.github/workflows/reusable-build.yml
   with:
     platform: ios
-    runner: macos-15
+    runner: macos-26
     xcode-version: "16.5-beta"
 ```
 

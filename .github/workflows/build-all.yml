@@ -27,37 +27,37 @@ jobs:
     uses: ./.github/workflows/reusable-build.yml
     with:
       platform: ios
-      runner: macos-15
+      runner: macos-26
 
   ios-simulator:
     uses: ./.github/workflows/reusable-build.yml
     with:
       platform: iossim
-      runner: macos-15
+      runner: macos-26
 
   visionos:
     uses: ./.github/workflows/reusable-build.yml
     with:
       platform: visionos
-      runner: macos-15
+      runner: macos-26
 
   visionos-simulator:
     uses: ./.github/workflows/reusable-build.yml
     with:
       platform: visionossim
-      runner: macos-15
+      runner: macos-26
 
   macos:
     uses: ./.github/workflows/reusable-build.yml
     with:
       platform: mac
-      runner: macos-15
+      runner: macos-26
 
   mac-catalyst:
     uses: ./.github/workflows/reusable-build.yml
     with:
       platform: catalyst
-      runner: macos-15
+      runner: macos-26
 
   # Cross-platform builds
   android:
@@ -70,12 +70,12 @@ jobs:
     uses: ./.github/workflows/reusable-build.yml
     with:
       platform: emscripten
-      runner: macos-15
+      runner: macos-26
       setup-emscripten: true
 
   xcframework:
     name: Generate XCFramework
-    runs-on: macos-15
+    runs-on: macos-26
     needs: [ios, ios-simulator, visionos, visionos-simulator, macos, mac-catalyst]
     steps:
       - name: Checkout
