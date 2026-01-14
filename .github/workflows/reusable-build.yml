@@ -15,7 +15,7 @@ on:
         description: 'Xcode version to use'
         required: false
         type: string
-        default: '26.1'
+        default: '26.2'
       ndk-version:
         description: 'Android NDK version to use'
         required: false

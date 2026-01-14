@@ -5,7 +5,7 @@ inputs:
   xcode-version:
     description: 'Xcode version to use'
     required: false
-    default: '26.1'
+    default: '26.2'
   workflow-run-id:
     description: 'Workflow run ID to download artifacts from'
     required: true
