@@ -1,5 +1,5 @@
 CSPICE_VERSION="cspice"
-LIBPNG_VERSION="libpng-1.6.53"
+LIBPNG_VERSION="libpng-1.6.54"
 #JPEG_VERSION="jpeg-9e"
 #BREAKPAD_VERSION="google-breakpad-e92bea3"
 FREETYPE_VERSION="freetype-2.14.1"
