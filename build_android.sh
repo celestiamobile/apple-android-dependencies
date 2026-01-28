@@ -1,5 +1,7 @@
 #!/bin/zsh
 
+set -e -o pipefail
+
 cd `dirname $0`
 
 TARGET="Android"
