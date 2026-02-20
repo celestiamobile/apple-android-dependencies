@@ -16,6 +16,7 @@ runs:
     - name: Build ${{ inputs.platform }}
       shell: bash
       run: |
+        set -e -o pipefail
         chmod +x build_${{ inputs.platform }}.sh
         if [ "${{ inputs.platform }}" = "emscripten" ] && [ -n "${{ inputs.sdk-path }}" ]; then
           cd "${{ inputs.sdk-path }}"

@@ -20,6 +20,7 @@ runs:
     - name: Set NDK Environment Variables
       shell: bash
       run: |
+        set -e -o pipefail
         echo "ANDROID_NDK_HOME=${{ steps.setup-ndk.outputs.ndk-path }}" >> $GITHUB_ENV
         echo "ANDROID_NDK_ROOT=${{ steps.setup-ndk.outputs.ndk-path }}" >> $GITHUB_ENV
         echo "NDK_HOME=${{ steps.setup-ndk.outputs.ndk-path }}" >> $GITHUB_ENV
@@ -28,17 +29,20 @@ runs:
     - name: Install Dependencies
       shell: bash
       run: |
+        set -e -o pipefail
         sudo apt-get update
         sudo apt-get install meson wget cmake zsh ncompress tcsh gcc-multilib yasm
 
     - name: Download Dependencies
       shell: bash
       run: |
+        set -e -o pipefail
         chmod +x download.sh
         ./download.sh
 
     - name: Prepare ICU
       shell: bash
       run: |
+        set -e -o pipefail
         chmod +x prepare_icu.sh
         ./prepare_icu.sh

@@ -13,6 +13,7 @@ runs:
     - name: Select Xcode
       shell: bash
       run: |
+        set -e -o pipefail
         sudo xcode-select -s /Applications/Xcode_${{ inputs.xcode-version }}.app
 
     - name: Download iOS Artifacts
@@ -54,6 +55,7 @@ runs:
     - name: Build XCFramework
       shell: bash
       run: |
+        set -e -o pipefail
         chmod +x merge_xcframework.sh
         mkdir apple
         ./merge_xcframework.sh $(pwd)/apple $(pwd)

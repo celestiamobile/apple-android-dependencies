@@ -51,6 +51,7 @@ jobs:
       - name: Setup Emscripten
         if: inputs.setup-emscripten
         run: |
+          set -e -o pipefail
           git clone https://github.com/emscripten-core/emsdk.git
           cd emsdk
           ./emsdk install latest
@@ -59,6 +60,7 @@ jobs:
       - name: Set SDK Path for Emscripten
         if: inputs.setup-emscripten
         run: |
+          set -e -o pipefail
           cd emsdk
           echo "SDK_PATH=$(pwd)" >> $GITHUB_ENV
           source ./emsdk_env.sh

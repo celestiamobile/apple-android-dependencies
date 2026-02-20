@@ -38,6 +38,7 @@ runs:
     - name: Create Android Archive
       shell: bash
       run: |
+        set -e -o pipefail
         cd ./artifacts/android
         tar -czf ../android-dependencies.tar.gz *
         cd ../..
@@ -45,6 +46,7 @@ runs:
     - name: Create Apple Archive
       shell: bash
       run: |
+        set -e -o pipefail
         cd ./artifacts/apple
         tar -czf ../apple-dependencies.tar.gz *
         cd ../..
@@ -52,6 +54,7 @@ runs:
     - name: Prepare Individual XCFrameworks
       shell: bash
       run: |
+        set -e -o pipefail
         cd ./artifacts/apple
         # Create individual zip files for each XCFramework
         for xcframework in *.xcframework; do

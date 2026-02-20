@@ -13,23 +13,27 @@ runs:
     - name: Select Xcode
       shell: bash
       run: |
+        set -e -o pipefail
         sudo xcode-select -s /Applications/Xcode_${{ inputs.xcode-version }}.app
         xcodebuild -version
 
     - name: Install Dependencies
       shell: bash
       run: |
+        set -e -o pipefail
         rm -rf /usr/local/bin/2to3* /usr/local/bin/idle3* /usr/local/bin/pydoc* /usr/local/bin/python* /usr/local/share/man/man1/python* /usr/local/lib/pkgconfig/python* /usr/local/Frameworks/Python.framework
         brew install meson wget cmake zsh yasm tcsh
 
     - name: Download Dependencies
       shell: bash
       run: |
+        set -e -o pipefail
         chmod +x download.sh
         ./download.sh
 
     - name: Prepare ICU
       shell: bash
       run: |
+        set -e -o pipefail
         chmod +x prepare_icu.sh
         ./prepare_icu.sh
