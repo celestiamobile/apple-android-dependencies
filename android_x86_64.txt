@@ -3,7 +3,7 @@ c = '/Users/linfel/Library/Android/sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt
 cpp = '/Users/linfel/Library/Android/sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/darwin-x86_64/bin/x86_64-linux-android23-clang++'
 ar = '/Users/linfel/Library/Android/sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-ar'
 as = '/Users/linfel/Library/Android/sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-as'
-ld = '/Users/linfel/Library/Android/sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-ld'
+ld = '/Users/linfel/Library/Android/sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/darwin-x86_64/bin/ld'
 ranlib = '/Users/linfel/Library/Android/sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-ranlib'
 strip = '/Users/linfel/Library/Android/sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-strip'
 
