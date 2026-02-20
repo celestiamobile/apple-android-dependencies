@@ -4,7 +4,7 @@ cd `dirname $0`
 
 . `pwd`/versions.sh
 
-wget "https://downloads.sourceforge.net/project/libpng/libpng16/1.6.54/${LIBPNG_VERSION}.tar.xz" --no-check-certificate
+wget "https://downloads.sourceforge.net/project/libpng/libpng16/1.6.55/${LIBPNG_VERSION}.tar.xz" --no-check-certificate
 
 #JPEG_DOWNLOAD_NAME="jpegsrc.v9e.tar.gz"
 #wget "https://www.ijg.org/files/${JPEG_DOWNLOAD_NAME}" -O "${JPEG_VERSION}.tar.gz" --no-check-certificate
@@ -16,7 +16,7 @@ wget "https://ftpmirror.gnu.org/gnu/gettext/${GETTEXT_LEGACY_VERSION}.tar.gz" --
 
 wget "https://www.lua.org/ftp/${LUA_VERSION}.tar.gz" --no-check-certificate
 
-wget "https://github.com/LuaJIT/LuaJIT/archive/707c12bf00dafdfd3899b1a6c36435dbbf6c7022.tar.gz" -O "${LUAJIT_VERSION}.tar.gz" --no-check-certificate
+wget "https://github.com/LuaJIT/LuaJIT/archive/1c3b5a4d722598ecbb9219480142eda682e87bb1.tar.gz" -O "${LUAJIT_VERSION}.tar.gz" --no-check-certificate
 
 wget "https://github.com/anholt/libepoxy/archive/refs/tags/1.5.10.tar.gz" -O "${LIBEPOXY_VERSION}.tar.gz" --no-check-certificate
 
@@ -39,13 +39,13 @@ wget "https://github.com/nlohmann/json/releases/download/v3.12.0/json.hpp" --no-
 
 wget "https://zlib.net/${ZLIB_VERSION}.tar.gz" --no-check-certificate
 
-wget "https://github.com/KhronosGroup/OpenGL-Registry/tarball/d38ff693f3e99ac5a61e3858de76c6c02976fa67" -O "${OPENGL_VERSION}.tar.gz" --no-check-certificate
+wget "https://github.com/KhronosGroup/OpenGL-Registry/tarball/0b449b97cdf1043eef5e1f0e235cbbab6ec10c86" -O "${OPENGL_VERSION}.tar.gz" --no-check-certificate
 
 wget "https://github.com/KhronosGroup/EGL-Registry/tarball/3ae2b7c48690d2ce13cc6db3db02dfc0572be65e" -O "${EGL_VERSION}.tar.gz" --no-check-certificate
 
 wget "https://github.com/libjpeg-turbo/libjpeg-turbo/releases/download/3.1.3/${JPEG_TURBO_VERSION}.tar.gz" --no-check-certificate
 
-wget "https://codeload.github.com/mackron/miniaudio/tar.gz/refs/tags/0.11.22" -O "${MINIAUDIO_VERSION}.tar.gz" --no-check-certificate
+wget "https://codeload.github.com/mackron/miniaudio/tar.gz/refs/tags/0.11.24" -O "${MINIAUDIO_VERSION}.tar.gz" --no-check-certificate
 
 wget "https://github.com/libsdl-org/SDL/releases/download/release-2.32.10/${SDL2_VERSION}.tar.gz" --no-check-certificate
 
@@ -58,5 +58,5 @@ wget "https://github.com/nih-at/libzip/releases/download/v1.11.4/${LIBZIP_VERSIO
 BOOST_DOWNLOAD_NAME="boost-1.90.0-cmake"
 wget "https://github.com/boostorg/boost/releases/download/boost-1.90.0/${BOOST_DOWNLOAD_NAME}.tar.xz" -O "${BOOST_VERSION}.tar.xz" --no-check-certificate
 
-FAST_FLOAT_DOWNLOAD_NAME="v8.2.2.tar.gz"
+FAST_FLOAT_DOWNLOAD_NAME="v8.2.3.tar.gz"
 wget "https://github.com/fastfloat/fast_float/archive/refs/tags/${FAST_FLOAT_DOWNLOAD_NAME}" -O "${FAST_FLOAT_VERSION}.tar.gz" --no-check-certificate
