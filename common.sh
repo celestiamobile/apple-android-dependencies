@@ -120,8 +120,8 @@ if [ "$TARGET" = "iOS" ]; then
     CC_ARM64_FLAGS="-isysroot $(xcrun --sdk iphoneos --show-sdk-path) -arch arm64 -miphoneos-version-min=11.0 -O2"
     DEPLOYMENT_TARGET_ARM64="11.0"
   else
-    CC_ARM64_FLAGS="-isysroot $(xcrun --sdk iphoneos --show-sdk-path) -arch arm64 -miphoneos-version-min=14.0 -O2"
-    DEPLOYMENT_TARGET_ARM64="14.0"
+    CC_ARM64_FLAGS="-isysroot $(xcrun --sdk iphoneos --show-sdk-path) -arch arm64 -miphoneos-version-min=15.0 -O2"
+    DEPLOYMENT_TARGET_ARM64="15.0"
   fi
   CC_ARM64="$CC_EXECUTABLE $CC_ARM64_FLAGS"
   HOST_ARM64=aarch64-apple-ios
@@ -136,10 +136,10 @@ elif [ "$TARGET" = "iOSSimulator" ]; then
     DEPLOYMENT_TARGET_X86_64="11.0"
     DEPLOYMENT_TARGET_ARM64="11.0"
   else
-    CC_X86_64_FLAGS="-isysroot $(xcrun --sdk iphonesimulator --show-sdk-path) -arch x86_64 -miphonesimulator-version-min=14.0 -O2"
-    CC_ARM64_FLAGS="-isysroot $(xcrun --sdk iphonesimulator --show-sdk-path) -arch arm64 -miphonesimulator-version-min=14.0 -O2"
-    DEPLOYMENT_TARGET_X86_64="14.0"
-    DEPLOYMENT_TARGET_ARM64="14.0"
+    CC_X86_64_FLAGS="-isysroot $(xcrun --sdk iphonesimulator --show-sdk-path) -arch x86_64 -miphonesimulator-version-min=15.0 -O2"
+    CC_ARM64_FLAGS="-isysroot $(xcrun --sdk iphonesimulator --show-sdk-path) -arch arm64 -miphonesimulator-version-min=15.0 -O2"
+    DEPLOYMENT_TARGET_X86_64="15.0"
+    DEPLOYMENT_TARGET_ARM64="15.0"
   fi
   CC_X86_64="$CC_EXECUTABLE $CC_X86_64_FLAGS"
   CC_ARM64="$CC_EXECUTABLE $CC_ARM64_FLAGS"
@@ -176,11 +176,11 @@ elif [ "$TARGET" = "macOS" ]; then
     CC_X86_64_FLAGS="-isysroot $(xcrun --sdk macosx --show-sdk-path)  -arch x86_64 -mmacosx-version-min=10.15 -O2"
     DEPLOYMENT_TARGET_X86_64="10.15"
   else
-    CC_X86_64_FLAGS="-isysroot $(xcrun --sdk macosx --show-sdk-path)  -arch x86_64 -mmacosx-version-min=11.0 -O2"
-    DEPLOYMENT_TARGET_X86_64="11.0"
+    CC_X86_64_FLAGS="-isysroot $(xcrun --sdk macosx --show-sdk-path)  -arch x86_64 -mmacosx-version-min=12.0 -O2"
+    DEPLOYMENT_TARGET_X86_64="12.0"
   fi
-  CC_ARM64_FLAGS="-isysroot $(xcrun --sdk macosx --show-sdk-path)  -arch arm64 -mmacosx-version-min=11.0 -O2"
-  DEPLOYMENT_TARGET_ARM64="11.0"
+  CC_ARM64_FLAGS="-isysroot $(xcrun --sdk macosx --show-sdk-path)  -arch arm64 -mmacosx-version-min=12.0 -O2"
+  DEPLOYMENT_TARGET_ARM64="12.0"
   CC_X86_64="$CC_EXECUTABLE $CC_X86_64_FLAGS"
   CC_ARM64="$CC_EXECUTABLE $CC_ARM64_FLAGS"
   HOST_X86_64=x86_64-apple-darwin
@@ -190,12 +190,12 @@ elif [ "$TARGET" = "macCatalyst" ]; then
   CMAKE=cmake
   CMAKE_TOOLCHAIN_PATH="$(pwd)/ios.toolchain.cmake"
   CC_EXECUTABLE=$(xcrun --sdk macosx --find clang)
-  CC_X86_64_FLAGS="-isysroot $(xcrun --sdk macosx --show-sdk-path) -target x86_64-apple-ios-macabi -miphoneos-version-min=14.0 -O2"
-  CC_ARM64_FLAGS="-isysroot $(xcrun --sdk macosx --show-sdk-path) -target arm64-apple-ios-macabi -miphoneos-version-min=14.0 -O2"
-  DEPLOYMENT_TARGET_X86_64="14.0"
-  DEPLOYMENT_TARGET_ARM64="14.0"
-  MAC_DEPLOYMENT_TARGET_X86_64="11.0"
-  MAC_DEPLOYMENT_TARGET_ARM64="11.0"
+  CC_X86_64_FLAGS="-isysroot $(xcrun --sdk macosx --show-sdk-path) -target x86_64-apple-ios-macabi -miphoneos-version-min=15.0 -O2"
+  CC_ARM64_FLAGS="-isysroot $(xcrun --sdk macosx --show-sdk-path) -target arm64-apple-ios-macabi -miphoneos-version-min=15.0 -O2"
+  DEPLOYMENT_TARGET_X86_64="15.0"
+  DEPLOYMENT_TARGET_ARM64="15.0"
+  MAC_DEPLOYMENT_TARGET_X86_64="12.0"
+  MAC_DEPLOYMENT_TARGET_ARM64="12.0"
   CC_X86_64="$CC_EXECUTABLE $CC_X86_64_FLAGS"
   CC_ARM64="$CC_EXECUTABLE $CC_ARM64_FLAGS"
   HOST_X86_64=x86_64-apple-ios
