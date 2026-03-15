@@ -60,3 +60,5 @@ wget "https://github.com/boostorg/boost/releases/download/boost-1.90.0/${BOOST_D
 
 FAST_FLOAT_DOWNLOAD_NAME="v8.2.3.tar.gz"
 wget "https://github.com/fastfloat/fast_float/archive/refs/tags/${FAST_FLOAT_DOWNLOAD_NAME}" -O "${FAST_FLOAT_VERSION}.tar.gz" --no-check-certificate
+
+wget "https://github.com/harfbuzz/harfbuzz/releases/download/13.1.1/${HARFBUZZ_VERSION}.tar.xz" -O "${HARFBUZZ_VERSION}.tar.xz" --no-check-certificate
