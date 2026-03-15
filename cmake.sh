@@ -150,11 +150,37 @@ _build_with_cmake_arch()
     cp -r $SOURCE_INCLUDE_PATH/* $HEADER_PATH
     check_success
     if [ ! -z "$5" ] && [ "$5" != "none" ]; then
+      # if $5 has this format A;B;C;D combine B.a, C.a, D.a into A.a
+      if [[ "$5" == *";"* ]]; then
+        local libs_array=("${(@s/;/)${5}}")
+        LIBNAME="${libs_array[1]}"
+
+        echo "Combining multiple libraries into ${LIBNAME}..."
+        mkdir -p $OUTPUT_PATH/lib/temp_${LIBNAME}
+        (
+          cd $OUTPUT_PATH/lib/temp_${LIBNAME}
+          for ((i=2; i<=${#libs_array[@]}; ++i)); do
+            local SUBLIB="${libs_array[$i]}"
+            if [ -f "../${SUBLIB}.a" ]; then
+              echo "  Extracting ${SUBLIB}.a..."
+              ar -x ../${SUBLIB}.a
+            fi
+          done
+          rm -f ../${LIBNAME}.a
+          echo "  Archiving combined objects into ${LIBNAME}.a..."
+          find . -type f \( -name "*.o" -o -name "*.ao" \) -exec ar rcs ../${LIBNAME}.a {} +
+        )
+        rm -rf $OUTPUT_PATH/lib/temp_${LIBNAME}
+        echo "Finished combining ${LIBNAME}.a"
+      else
+        LIBNAME=$5
+      fi
+
       if [ "$TARGET" = "Android" ]; then
-        cp $OUTPUT_PATH/lib/$5.a $LIB_PATH/$1/$5.a
+        cp $OUTPUT_PATH/lib/$LIBNAME.a $LIB_PATH/$1/$LIBNAME.a
         check_success
       else
-        cp $OUTPUT_PATH/lib/$5.a $LIB_PATH/${1}_$5.a
+        cp $OUTPUT_PATH/lib/$LIBNAME.a $LIB_PATH/${1}_$LIBNAME.a
         check_success
       fi
     fi
@@ -249,15 +275,22 @@ build_with_cmake_arch()
 build_with_cmake()
 {
   echo "Building $1"
+  if [ ! -z "$5" ] && [ "$5" != "none" ]; then
+    if [[ "$5" == *";"* ]]; then
+      LIBNAME="${5%%;*}"
+    else
+      LIBNAME=$5
+    fi
+  fi
   if [ "$TARGET" = "iOS" ] || [ "$TARGET" = "visionOS" ]; then
     build_with_cmake_arch "arm64" ${@:2}
-    if [ ! -z "$5" ] && [ "$5" != "none" ]; then
-      fat_create_and_clean $5
+    if [ ! -z "$LIBNAME" ] && [ "$LIBNAME" != "none" ]; then
+      fat_create_and_clean $LIBNAME
     fi
-    if [ -z "$5" ] || [ "$5" = "none" ]; then
+    if [ -z "$LIBNAME" ] || [ "$LIBNAME" = "none" ]; then
       create_xcframework $1 $1 $1
     else
-      create_xcframework $5 $4 $1
+      create_xcframework $LIBNAME $4 $1
     fi
   elif [ "$TARGET" = "Android" ]; then
     build_with_cmake_arch "x86_64" ${@:2}
@@ -268,13 +301,13 @@ build_with_cmake()
   else
     build_with_cmake_arch "arm64" ${@:2}
     build_with_cmake_arch "x86_64" ${@:2}
-    if [ ! -z "$5" ] && [ "$5" != "none" ]; then
-      fat_create_and_clean $5
+    if [ ! -z "$LIBNAME" ] && [ "$LIBNAME" != "none" ]; then
+      fat_create_and_clean $LIBNAME
     fi
-    if [ -z "$5" ] || [ "$5" = "none" ]; then
+    if [ -z "$LIBNAME" ] || [ "$LIBNAME" = "none" ]; then
       create_xcframework $1 $1 $1
     else
-      create_xcframework $5 $4 $1
+      create_xcframework $LIBNAME $4 $1
     fi
   fi
 }

@@ -78,7 +78,7 @@ fat_create_and_clean "libicuuc"
 fat_create_and_clean "libicu"
 create_xcframework "libicu" "icu" "icu"
 
-build_with_cmake "harfbuzz" $HARFBUZZ_VERSION ".tar.xz" "harfbuzz" "libharfbuzz" ".." "none" "-DBUILD_SHARED_LIBS=OFF" "-DHB_HAVE_FREETYPE=ON" "-DHB_HAVE_ICU=ON" "-DFREETYPE_INCLUDE_DIR_freetype2=$INCLUDE_PATH/freetype" "-DFREETYPE_LIBRARIES=$LIB_PATH/libfreetype.a" "-DICU_INCLUDE_DIR=$INCLUDE_PATH/icu" "-DICU_UC_LIBRARY_RELEASE=$LIB_PATH/libicuuc.a"
+build_with_cmake "harfbuzz" $HARFBUZZ_VERSION ".tar.xz" "harfbuzz" "libharfbuzz;libharfbuzz;libharfbuzz-icu;libharfbuzz-subset;libharfbuzz-raster" ".." "harfbuzz" "-DBUILD_SHARED_LIBS=OFF" "-DHB_HAVE_FREETYPE=ON" "-DHB_HAVE_ICU=ON" "-DFREETYPE_INCLUDE_DIR_freetype2=$INCLUDE_PATH/freetype" "-DFREETYPE_LIBRARIES=$LIB_PATH/libfreetype.a" "-DICU_INCLUDE_DIR=$INCLUDE_PATH/icu" "-DICU_UC_LIBRARY_RELEASE=$LIB_PATH/libicuuc.a"
 
 unarchive_and_enter $MINIAUDIO_VERSION ".tar.gz"
 mkdir -p $INCLUDE_PATH/miniaudio

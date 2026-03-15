@@ -25,7 +25,7 @@ build_with_cmake "boost" $BOOST_VERSION ".tar.xz" "boost" "libboost_container" "
 build_with_cmake "libzip" $LIBZIP_VERSION ".tar.gz" "libzip" "libzip" ".." "none" "-DENABLE_COMMONCRYPTO=OFF" "-DENABLE_GNUTLS=OFF" "-DENABLE_MBEDTLS=OFF" "-DENABLE_OPENSSL=OFF" "-DENABLE_WINDOWS_CRYPTO=OFF" "-DENABLE_BZIP2=OFF" "-DENABLE_LZMA=OFF" "-DENABLE_ZSTD=OFF" "-DENABLE_FDOPEN=OFF" "-DBUILD_TOOLS=OFF" "-DBUILD_REGRESS=OFF" "-DBUILD_EXAMPLES=OFF" "-DBUILD_DOC=OFF" "-DBUILD_SHARED_LIBS=OFF" "-DHAVE_MEMCPY_S=OFF" "-DHAVE_STRNCPY_S=OFF" "-DHAVE_STRERRORLEN_S=OFF" "-DHAVE_STRERROR_S=OFF"
 build_with_cmake "jpeg" $JPEG_TURBO_VERSION ".tar.gz" "jpeg" "libjpeg" ".." "none" "-DENABLE_STATIC=ON" "-DENABLE_SHARED=OFF" "-DWITH_TURBOJPEG=OFF" "-DBUILD=$TIMESTAMP"
 build_with_cmake "libpng" $LIBPNG_VERSION ".tar.xz" "libpng" "libpng" ".." "none" "-DPNG_SHARED=OFF"
-build_with_cmake "freetype" $FREETYPE_VERSION ".tar.xz" "freetype" "libfreetype" ".." "freetype2" "-DFT_DISABLE_BROTLI=ON" "-DFT_DISABLE_HARFBUZZ=ON" "-DFT_DISABLE_PNG=ON"
+build_with_cmake "freetype" $FREETYPE_VERSION ".tar.xz" "freetype" "libfreetype" ".." "freetype2" "-DFT_DISABLE_BROTLI=ON" "-DFT_DISABLE_HARFBUZZ=ON" "-DPNG_INCLUDE_DIR=$INCLUDE_PATH/libpng" "-DPNG_LIBRARY=$LIB_PATH/libpng.a"
 build_with_cmake "fmt" $FMT_VERSION ".tar.gz" "fmt" "libfmt" ".." "none" "-DFMT_TEST=OFF" "-DBUILD_SHARED_LIBS=OFF"
 build_with_cmake "eigen3" $EIGEN_VERSION ".tar.gz" "none" "none" ".." "none" "-DEIGEN_BUILD_LAPACK=OFF" "-DEIGEN_BUILD_BLAS=OFF" "-DEIGEN_BUILD_TESTING=OFF"
 build_with_cmake "meshoptimizer" $MESHOPTIMIZER_VERSION ".tar.gz" "meshoptimizer" "libmeshoptimizer"
@@ -72,8 +72,13 @@ create_xcframework "libGL_angle" "libepoxy_angle" "libepoxy_angle"
 
 compile_icu "arm64" "${CC_ARM64}" "${HOST_ARM64}"
 compile_icu "x86_64" "${CC_X86_64}" "${HOST_X86_64}"
+fat_create_and_clean "libicudata"
+fat_create_and_clean "libicui18n"
+fat_create_and_clean "libicuuc"
 fat_create_and_clean "libicu"
 create_xcframework "libicu" "icu" "icu"
+
+build_with_cmake "harfbuzz" $HARFBUZZ_VERSION ".tar.xz" "harfbuzz" "libharfbuzz;libharfbuzz;libharfbuzz-icu;libharfbuzz-subset;libharfbuzz-raster" ".." "harfbuzz" "-DBUILD_SHARED_LIBS=OFF" "-DHB_HAVE_FREETYPE=ON" "-DHB_HAVE_ICU=ON" "-DFREETYPE_INCLUDE_DIR_freetype2=$INCLUDE_PATH/freetype" "-DFREETYPE_LIBRARIES=$LIB_PATH/libfreetype.a" "-DICU_INCLUDE_DIR=$INCLUDE_PATH/icu" "-DICU_UC_LIBRARY_RELEASE=$LIB_PATH/libicuuc.a"
 
 unarchive_and_enter $MINIAUDIO_VERSION ".tar.gz"
 mkdir -p $INCLUDE_PATH/miniaudio
