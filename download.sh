@@ -4,19 +4,19 @@ cd `dirname $0`
 
 . `pwd`/versions.sh
 
-wget "https://downloads.sourceforge.net/project/libpng/libpng16/1.6.55/${LIBPNG_VERSION}.tar.xz" --no-check-certificate
+wget "https://downloads.sourceforge.net/project/libpng/libpng16/1.6.56/${LIBPNG_VERSION}.tar.xz" --no-check-certificate
 
 #JPEG_DOWNLOAD_NAME="jpegsrc.v9e.tar.gz"
 #wget "https://www.ijg.org/files/${JPEG_DOWNLOAD_NAME}" -O "${JPEG_VERSION}.tar.gz" --no-check-certificate
 
-wget "https://downloads.sourceforge.net/project/freetype/freetype2/2.14.1/${FREETYPE_VERSION}.tar.xz" --no-check-certificate
+wget "https://downloads.sourceforge.net/project/freetype/freetype2/2.14.3/${FREETYPE_VERSION}.tar.xz" --no-check-certificate
 
 wget "https://ftpmirror.gnu.org/gnu/gettext/${GETTEXT_VERSION}.tar.gz" --no-check-certificate
 wget "https://ftpmirror.gnu.org/gnu/gettext/${GETTEXT_LEGACY_VERSION}.tar.gz" --no-check-certificate
 
 wget "https://www.lua.org/ftp/${LUA_VERSION}.tar.gz" --no-check-certificate
 
-wget "https://github.com/LuaJIT/LuaJIT/archive/1c3b5a4d722598ecbb9219480142eda682e87bb1.tar.gz" -O "${LUAJIT_VERSION}.tar.gz" --no-check-certificate
+wget "https://github.com/LuaJIT/LuaJIT/archive/fbb36bb6bfa88716a47c58bcf9ce9f2ef752abac.tar.gz" -O "${LUAJIT_VERSION}.tar.gz" --no-check-certificate
 
 wget "https://github.com/anholt/libepoxy/archive/refs/tags/1.5.10.tar.gz" -O "${LIBEPOXY_VERSION}.tar.gz" --no-check-certificate
 
@@ -30,8 +30,8 @@ wget "https://gitlab.com/libeigen/eigen/-/archive/5.0.1/${EIGEN_VERSION}.tar.gz"
 
 wget "https://gitlab.com/libeigen/eigen/-/archive/3.4.1/${EIGEN_LEGACY_VERSION}.tar.gz" --no-check-certificate
 
-ICU_DOWNLOAD_NAME="icu4c-78.2-sources.tgz"
-wget "https://github.com/unicode-org/icu/releases/download/release-78.2/${ICU_DOWNLOAD_NAME}" -O "${ICU_VERSION}.tgz" --no-check-certificate
+ICU_DOWNLOAD_NAME="icu4c-78.3-sources.tgz"
+wget "https://github.com/unicode-org/icu/releases/download/release-78.3/${ICU_DOWNLOAD_NAME}" -O "${ICU_VERSION}.tgz" --no-check-certificate
 
 # wget "https://github.com/google/breakpad/tarball/e92bea30759edbae08205bccd14dc25bf1806f93" -O "${BREAKPAD_VERSION}.tar.gz" --no-check-certificate
 
@@ -43,9 +43,9 @@ wget "https://github.com/KhronosGroup/OpenGL-Registry/tarball/0b449b97cdf1043eef
 
 wget "https://github.com/KhronosGroup/EGL-Registry/tarball/3ae2b7c48690d2ce13cc6db3db02dfc0572be65e" -O "${EGL_VERSION}.tar.gz" --no-check-certificate
 
-wget "https://github.com/libjpeg-turbo/libjpeg-turbo/releases/download/3.1.3/${JPEG_TURBO_VERSION}.tar.gz" --no-check-certificate
+wget "https://github.com/libjpeg-turbo/libjpeg-turbo/releases/download/3.1.4.1/${JPEG_TURBO_VERSION}.tar.gz" --no-check-certificate
 
-wget "https://codeload.github.com/mackron/miniaudio/tar.gz/refs/tags/0.11.24" -O "${MINIAUDIO_VERSION}.tar.gz" --no-check-certificate
+wget "https://codeload.github.com/mackron/miniaudio/tar.gz/refs/tags/0.11.25" -O "${MINIAUDIO_VERSION}.tar.gz" --no-check-certificate
 
 wget "https://github.com/libsdl-org/SDL/releases/download/release-2.32.10/${SDL2_VERSION}.tar.gz" --no-check-certificate
 
@@ -58,5 +58,5 @@ wget "https://github.com/nih-at/libzip/releases/download/v1.11.4/${LIBZIP_VERSIO
 BOOST_DOWNLOAD_NAME="boost-1.90.0-cmake"
 wget "https://github.com/boostorg/boost/releases/download/boost-1.90.0/${BOOST_DOWNLOAD_NAME}.tar.xz" -O "${BOOST_VERSION}.tar.xz" --no-check-certificate
 
-FAST_FLOAT_DOWNLOAD_NAME="v8.2.3.tar.gz"
+FAST_FLOAT_DOWNLOAD_NAME="v8.2.4.tar.gz"
 wget "https://github.com/fastfloat/fast_float/archive/refs/tags/${FAST_FLOAT_DOWNLOAD_NAME}" -O "${FAST_FLOAT_VERSION}.tar.gz" --no-check-certificate
