@@ -4,7 +4,7 @@ cd `dirname $0`
 
 . `pwd`/versions.sh
 
-wget "https://downloads.sourceforge.net/project/libpng/libpng16/1.6.56/${LIBPNG_VERSION}.tar.xz" --no-check-certificate
+wget "https://downloads.sourceforge.net/project/libpng/libpng16/1.6.57/${LIBPNG_VERSION}.tar.xz" --no-check-certificate
 
 #JPEG_DOWNLOAD_NAME="jpegsrc.v9e.tar.gz"
 #wget "https://www.ijg.org/files/${JPEG_DOWNLOAD_NAME}" -O "${JPEG_VERSION}.tar.gz" --no-check-certificate
@@ -16,14 +16,14 @@ wget "https://ftpmirror.gnu.org/gnu/gettext/${GETTEXT_LEGACY_VERSION}.tar.gz" --
 
 wget "https://www.lua.org/ftp/${LUA_VERSION}.tar.gz" --no-check-certificate
 
-wget "https://github.com/LuaJIT/LuaJIT/archive/fbb36bb6bfa88716a47c58bcf9ce9f2ef752abac.tar.gz" -O "${LUAJIT_VERSION}.tar.gz" --no-check-certificate
+wget "https://github.com/LuaJIT/LuaJIT/archive/18b087cd2cd4ddc4a79782bf155383a689d5093d.tar.gz" -O "${LUAJIT_VERSION}.tar.gz" --no-check-certificate
 
 wget "https://github.com/anholt/libepoxy/archive/refs/tags/1.5.10.tar.gz" -O "${LIBEPOXY_VERSION}.tar.gz" --no-check-certificate
 
 FMT_DOWNLOAD_NAME="12.1.0.tar.gz"
 wget "https://github.com/fmtlib/fmt/archive/${FMT_DOWNLOAD_NAME}" -O "${FMT_VERSION}.tar.gz" --no-check-certificate
 
-MESHOPTIMIZER_DOWNLOAD_NAME="v1.0.tar.gz"
+MESHOPTIMIZER_DOWNLOAD_NAME="v1.1.tar.gz"
 wget "https://github.com/zeux/meshoptimizer/archive/refs/tags/${MESHOPTIMIZER_DOWNLOAD_NAME}" -O "${MESHOPTIMIZER_VERSION}.tar.gz" --no-check-certificate
 
 wget "https://gitlab.com/libeigen/eigen/-/archive/5.0.1/${EIGEN_VERSION}.tar.gz" --no-check-certificate
