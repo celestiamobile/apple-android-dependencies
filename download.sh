@@ -60,3 +60,5 @@ wget "https://github.com/boostorg/boost/releases/download/boost-1.91.0-1/${BOOST
 
 FAST_FLOAT_DOWNLOAD_NAME="v8.2.5.tar.gz"
 wget "https://github.com/fastfloat/fast_float/archive/refs/tags/${FAST_FLOAT_DOWNLOAD_NAME}" -O "${FAST_FLOAT_VERSION}.tar.gz" --no-check-certificate
+
+wget "https://ffmpeg.org/releases/${FFMPEG_VERSION}.tar.gz" --no-check-certificate

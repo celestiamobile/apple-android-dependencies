@@ -76,6 +76,10 @@ cp miniaudio.h $INCLUDE_PATH/miniaudio/
 cd ..
 create_xcframework "libminiaudio" "miniaudio" "miniaudio"
 
+compile_ffmpeg "arm64" "${CC_ARM64}"
+fat_create_and_clean "libffmpeg"
+create_xcframework "libffmpeg" "ffmpeg" "ffmpeg"
+
 mkdir temp
 mv $XCFRAMEWORK_PATH temp
 rm -rf $1

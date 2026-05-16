@@ -331,3 +331,79 @@ compile_icu()
   cd ..
   rm -rf $ICU_VERSION
 }
+
+# ffmpeg
+
+compile_ffmpeg()
+{
+  unarchive_and_enter $FFMPEG_VERSION ".tar.gz"
+
+  echo "Applying patch: VideoToolbox OpenGLES availability"
+  awk '/kCVPixelBufferOpenGLESCompatibilityKey/{
+    print "#if (TARGET_OS_IOS && !TARGET_OS_MACCATALYST) || TARGET_OS_TV"
+    print $0
+    print "#endif"
+    next
+  }{print}' libavcodec/videotoolbox.c > videotoolbox_patched.c
+  mv videotoolbox_patched.c libavcodec/videotoolbox.c
+  check_success
+
+  echo "Compiling for $1"
+  OUTPUT_PATH="$(pwd)/output"
+
+  EXTRA_FLAGS=""
+  if [ "$1" = "x86_64" ] && ! command -v nasm &>/dev/null; then
+    echo "nasm not found, disabling x86 assembly"
+    EXTRA_FLAGS="--disable-x86asm"
+  fi
+
+  ./configure \
+    --cc="$2" \
+    --ar="$(xcrun --find ar)" \
+    --ranlib="$(xcrun --find ranlib)" \
+    --prefix="${OUTPUT_PATH}" \
+    --arch=$1 \
+    --target-os=darwin \
+    --enable-cross-compile \
+    --disable-autodetect \
+    --disable-everything \
+    --enable-avformat \
+    --enable-avcodec \
+    --enable-avutil \
+    --enable-swscale \
+    --enable-demuxer=mov,matroska,avi \
+    --enable-decoder=h264,hevc,vp9,av1,mpeg4,vp8 \
+    --enable-parser=h264,hevc,vp9,av1,mpeg4,vp8 \
+    --enable-protocol=file \
+    --enable-videotoolbox \
+    --enable-hwaccel=h264_videotoolbox,hevc_videotoolbox \
+    --disable-programs \
+    --disable-doc \
+    --disable-debug \
+    --enable-static \
+    --disable-shared \
+    $EXTRA_FLAGS
+  check_success
+
+  make -j4 install
+  check_success
+
+  echo "Copying products"
+  mkdir -p $INCLUDE_PATH/ffmpeg
+  cp -r output/include/* $INCLUDE_PATH/ffmpeg/
+
+  echo "Merge static libraries"
+  libtool -static -o merged_libffmpeg.a \
+    output/lib/libavformat.a \
+    output/lib/libavcodec.a \
+    output/lib/libavutil.a \
+    output/lib/libswscale.a
+  lipo -thin $1 merged_libffmpeg.a -output $LIB_PATH/${1}_libffmpeg.a 2>/dev/null || \
+    cp merged_libffmpeg.a $LIB_PATH/${1}_libffmpeg.a
+  rm -f merged_libffmpeg.a
+  check_success
+
+  echo "Cleaning"
+  cd ..
+  rm -rf $FFMPEG_VERSION
+}
