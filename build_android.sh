@@ -49,6 +49,12 @@ compile_x264()
   echo "Compiling for $1"
   OUTPUT_PATH="$(pwd)/output"
 
+  EXTRA_FLAGS=""
+  if [ "$1" = "x86_64" ] && ! command -v nasm &>/dev/null; then
+    echo "nasm not found, disabling asm"
+    EXTRA_FLAGS="--disable-asm"
+  fi
+
   ./configure \
     --prefix="${OUTPUT_PATH}" \
     --host=$HOST \
@@ -58,7 +64,8 @@ compile_x264()
     --disable-avs \
     --disable-ffms \
     --disable-gpac \
-    --disable-lsmash
+    --disable-lsmash \
+    $EXTRA_FLAGS
   check_success
 
   make -j4 install
