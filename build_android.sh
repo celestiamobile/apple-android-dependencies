@@ -384,6 +384,50 @@ compile_icu "arm64-v8a"
 configure_x86_64
 compile_icu "x86_64"
 
+# x264
+
+echo "Building x264"
+compile_x264()
+{
+  unarchive_and_enter $X264_VERSION ".tar.gz"
+
+  echo "Compiling for $1"
+  OUTPUT_PATH="$(pwd)/output"
+
+  ./configure \
+    --cc="$CC" \
+    --prefix="${OUTPUT_PATH}" \
+    --host=$HOST \
+    --enable-static \
+    --disable-cli \
+    --disable-opencl \
+    --disable-avs \
+    --disable-ffms \
+    --disable-gpac \
+    --disable-lsmash
+  check_success
+
+  make -j4 install
+  check_success
+
+  echo "Copying products"
+  mkdir -p $INCLUDE_PATH/x264
+  cp output/include/*.h $INCLUDE_PATH/x264/
+  cp output/lib/libx264.a $LIB_PATH/${1}/libx264.a
+  check_success
+
+  echo "Cleaning"
+  cd ..
+  rm -rf $X264_VERSION
+}
+
+configure_x86_64
+compile_x264 "x86_64"
+configure_armv7
+compile_x264 "armeabi-v7a"
+configure_arm64
+compile_x264 "arm64-v8a"
+
 # ffmpeg
 
 echo "Building ffmpeg"
@@ -416,9 +460,15 @@ compile_ffmpeg()
     --enable-avutil \
     --enable-swscale \
     --enable-demuxer=mov,matroska,avi \
-    --enable-decoder=h264,hevc,vp9,av1,mpeg4,vp8 \
+    --enable-muxer=matroska \
+    --enable-decoder=h264,hevc,vp9,av1,mpeg4,vp8,prores \
     --enable-parser=h264,hevc,vp9,av1,mpeg4,vp8 \
     --enable-protocol=file \
+    --enable-gpl \
+    --enable-libx264 \
+    --enable-encoder=libx264 \
+    --extra-cflags="-I${INCLUDE_PATH}/x264" \
+    --extra-ldflags="-L${LIB_PATH}/$1" \
     --disable-programs \
     --disable-doc \
     --disable-debug \

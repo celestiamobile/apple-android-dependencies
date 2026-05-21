@@ -332,6 +332,48 @@ compile_icu()
   rm -rf $ICU_VERSION
 }
 
+# x264
+
+compile_x264()
+{
+  unarchive_and_enter $X264_VERSION ".tar.gz"
+
+  echo "Compiling for $1"
+  export CC="$2"
+  OUTPUT_PATH="$(pwd)/output"
+
+  if [ "$1" = "arm64" ]; then
+    X264_HOST="aarch64-apple-darwin"
+  else
+    X264_HOST="x86_64-apple-darwin"
+  fi
+
+  ./configure \
+    --prefix="${OUTPUT_PATH}" \
+    --host=${X264_HOST} \
+    --enable-static \
+    --disable-cli \
+    --disable-opencl \
+    --disable-avs \
+    --disable-ffms \
+    --disable-gpac \
+    --disable-lsmash
+  check_success
+
+  make -j4 install
+  check_success
+
+  echo "Copying products"
+  mkdir -p $INCLUDE_PATH/x264
+  cp output/include/*.h $INCLUDE_PATH/x264/
+  cp output/lib/libx264.a $LIB_PATH/${1}_libx264.a
+  check_success
+
+  echo "Cleaning"
+  cd ..
+  rm -rf $X264_VERSION
+}
+
 # ffmpeg
 
 compile_ffmpeg()
@@ -372,11 +414,17 @@ compile_ffmpeg()
     --enable-avutil \
     --enable-swscale \
     --enable-demuxer=mov,matroska,avi \
-    --enable-decoder=h264,hevc,vp9,av1,mpeg4,vp8 \
+    --enable-muxer=matroska \
+    --enable-decoder=h264,hevc,vp9,av1,mpeg4,vp8,prores \
     --enable-parser=h264,hevc,vp9,av1,mpeg4,vp8 \
     --enable-protocol=file \
     --enable-videotoolbox \
     --enable-hwaccel=h264_videotoolbox,hevc_videotoolbox \
+    --enable-gpl \
+    --enable-libx264 \
+    --enable-encoder=libx264 \
+    --extra-cflags="-I${INCLUDE_PATH}/x264" \
+    --extra-ldflags="-L${LIB_PATH}" \
     --disable-programs \
     --disable-doc \
     --disable-debug \

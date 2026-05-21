@@ -24,3 +24,4 @@ create_xcframework_from_xcframework "libluajit" "luajit" "$SOURCE_XCFRAMEWOKR_PA
 create_xcframework_from_xcframework "libmeshoptimizer" "meshoptimizer" "$SOURCE_XCFRAMEWOKR_PARENT_PATH" "$TARGET_XCFRAMEWORK_PATH"
 create_xcframework_from_xcframework "libminiaudio" "miniaudio" "$SOURCE_XCFRAMEWOKR_PARENT_PATH" "$TARGET_XCFRAMEWORK_PATH"
 create_xcframework_from_xcframework "libffmpeg" "ffmpeg" "$SOURCE_XCFRAMEWOKR_PARENT_PATH" "$TARGET_XCFRAMEWORK_PATH"
+create_xcframework_from_xcframework "libx264" "x264" "$SOURCE_XCFRAMEWOKR_PARENT_PATH" "$TARGET_XCFRAMEWORK_PATH"
