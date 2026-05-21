@@ -49,6 +49,9 @@ compile_x264()
   echo "Compiling for $1"
   OUTPUT_PATH="$(pwd)/output"
 
+  SAVED_AS=$AS
+  unset AS
+
   EXTRA_FLAGS=""
   if [ "$1" = "x86_64" ] && ! command -v nasm &>/dev/null; then
     echo "nasm not found, disabling asm"
@@ -67,6 +70,7 @@ compile_x264()
     --disable-lsmash \
     $EXTRA_FLAGS
   check_success
+  export AS=$SAVED_AS
 
   make -j4 install
   check_success
