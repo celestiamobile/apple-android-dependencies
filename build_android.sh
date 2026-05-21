@@ -38,6 +38,128 @@ build_with_cmake "freetype" $FREETYPE_VERSION ".tar.xz" "freetype" "libfreetype"
 build_with_cmake "fmt" $FMT_VERSION ".tar.gz" "fmt" "libfmt" ".." "none" "-DFMT_TEST=OFF" "-DBUILD_SHARED_LIBS=OFF"
 build_with_cmake "eigen3" $EIGEN_VERSION ".tar.gz" "none" "none" ".." "none" "-DEIGEN_BUILD_LAPACK=OFF" "-DEIGEN_BUILD_BLAS=OFF" "-DEIGEN_BUILD_TESTING=OFF"
 build_with_cmake "meshoptimizer" $MESHOPTIMIZER_VERSION ".tar.gz" "meshoptimizer" "libmeshoptimizer"
+
+# x264
+
+echo "Building x264"
+compile_x264()
+{
+  unarchive_and_enter $X264_VERSION ".tar.gz"
+
+  echo "Compiling for $1"
+  OUTPUT_PATH="$(pwd)/output"
+
+  ./configure \
+    --prefix="${OUTPUT_PATH}" \
+    --host=$HOST \
+    --enable-static \
+    --disable-cli \
+    --disable-opencl \
+    --disable-avs \
+    --disable-ffms \
+    --disable-gpac \
+    --disable-lsmash
+  check_success
+
+  make -j4 install
+  check_success
+
+  echo "Copying products"
+  mkdir -p $INCLUDE_PATH/x264
+  cp output/include/*.h $INCLUDE_PATH/x264/
+  cp output/lib/libx264.a $LIB_PATH/${1}/libx264.a
+  check_success
+
+  echo "Cleaning"
+  cd ..
+  rm -rf $X264_VERSION
+}
+
+configure_x86_64
+compile_x264 "x86_64"
+configure_armv7
+compile_x264 "armeabi-v7a"
+configure_arm64
+compile_x264 "arm64-v8a"
+
+# ffmpeg
+
+echo "Building ffmpeg"
+compile_ffmpeg()
+{
+  unarchive_and_enter $FFMPEG_VERSION ".tar.gz"
+
+  echo "Compiling for $1"
+  OUTPUT_PATH="$(pwd)/output"
+
+  case "$1" in
+    arm64-v8a)   FFMPEG_ARCH=aarch64 ;;
+    armeabi-v7a) FFMPEG_ARCH=arm ;;
+    x86_64)      FFMPEG_ARCH=x86_64 ;;
+  esac
+
+  ./configure \
+    --cc="$CC" \
+    --ar="$AR" \
+    --ranlib="$RANLIB" \
+    --strip="$STRIP" \
+    --prefix="${OUTPUT_PATH}" \
+    --arch=${FFMPEG_ARCH} \
+    --target-os=android \
+    --enable-cross-compile \
+    --disable-autodetect \
+    --disable-everything \
+    --enable-avformat \
+    --enable-avcodec \
+    --enable-avutil \
+    --enable-swscale \
+    --enable-demuxer=mov,matroska,avi \
+    --enable-muxer=matroska \
+    --enable-decoder=h264,hevc,vp9,av1,mpeg4,vp8,prores \
+    --enable-parser=h264,hevc,vp9,av1,mpeg4,vp8 \
+    --enable-protocol=file \
+    --enable-gpl \
+    --enable-libx264 \
+    --enable-encoder=libx264 \
+    --extra-cflags="-I${INCLUDE_PATH}/x264" \
+    --extra-ldflags="-L${LIB_PATH}/$1" \
+    --disable-programs \
+    --disable-doc \
+    --disable-debug \
+    --enable-static \
+    --disable-shared
+  check_success
+
+  make -j4 install
+  check_success
+
+  echo "Copying products"
+  mkdir -p $INCLUDE_PATH/ffmpeg
+  cp -r output/include/* $INCLUDE_PATH/ffmpeg/
+
+  echo "Merge static libraries"
+  mkdir -p temp_ff/avformat temp_ff/avcodec temp_ff/avutil temp_ff/swscale
+  (cd temp_ff/avformat && "$AR" -x ../../output/lib/libavformat.a)
+  (cd temp_ff/avcodec  && "$AR" -x ../../output/lib/libavcodec.a)
+  (cd temp_ff/avutil   && "$AR" -x ../../output/lib/libavutil.a)
+  (cd temp_ff/swscale  && "$AR" -x ../../output/lib/libswscale.a)
+  "$AR" rcs $LIB_PATH/${1}/libffmpeg.a \
+    temp_ff/avformat/*.o temp_ff/avcodec/*.o temp_ff/avutil/*.o temp_ff/swscale/*.o
+  rm -rf temp_ff
+  check_success
+
+  echo "Cleaning"
+  cd ..
+  rm -rf $FFMPEG_VERSION
+}
+
+configure_x86_64
+compile_ffmpeg "x86_64"
+configure_armv7
+compile_ffmpeg "armeabi-v7a"
+configure_arm64
+compile_ffmpeg "arm64-v8a"
+
 # build_with_cmake "aom" $AOM_VERSION ".tar.gz" "aom" "libaom" ".." "none" "-DCMAKE_CXX_STANDARD=17" "-DAOM_TARGET_CPU=CELESTIA_STANDARD_ARCH" "-DENABLE_DOCS=OFF" "-DBUILD_SHARED_LIBS=OFF" "-DENABLE_EXAMPLES=OFF"  "-DENABLE_TESTDATA=OFF" "-DENABLE_TESTS=OFF" "-DENABLE_TOOLS=OFF" "-DENABLE_NEON=CELESTIA_ARCH_IS_ARM64"
 # build_with_cmake "libavif" $LIBAVIF_VERSION ".tar.gz" "libavif" "libavif" ".." "none" "-DAVIF_BUILD_APPS=OFF" "-DBUILD_SHARED_LIBS=OFF" "-DAOM_INCLUDE_DIR=$INCLUDE_PATH/aom" "-DAOM_LIBRARY=$LIB_PATH/CELESTIA_ARCH/libaom.a" "-DCMAKE_DISABLE_FIND_PACKAGE_libsharpyuv=TRUE"  "-DCMAKE_DISABLE_FIND_PACKAGE_libyuv=TRUE" "-DAVIF_CODEC_AOM=SYSTEM"
 #
@@ -383,128 +505,6 @@ configure_arm64
 compile_icu "arm64-v8a"
 configure_x86_64
 compile_icu "x86_64"
-
-# x264
-
-echo "Building x264"
-compile_x264()
-{
-  unarchive_and_enter $X264_VERSION ".tar.gz"
-
-  echo "Compiling for $1"
-  OUTPUT_PATH="$(pwd)/output"
-
-  ./configure \
-    --cc="$CC" \
-    --prefix="${OUTPUT_PATH}" \
-    --host=$HOST \
-    --enable-static \
-    --disable-cli \
-    --disable-opencl \
-    --disable-avs \
-    --disable-ffms \
-    --disable-gpac \
-    --disable-lsmash
-  check_success
-
-  make -j4 install
-  check_success
-
-  echo "Copying products"
-  mkdir -p $INCLUDE_PATH/x264
-  cp output/include/*.h $INCLUDE_PATH/x264/
-  cp output/lib/libx264.a $LIB_PATH/${1}/libx264.a
-  check_success
-
-  echo "Cleaning"
-  cd ..
-  rm -rf $X264_VERSION
-}
-
-configure_x86_64
-compile_x264 "x86_64"
-configure_armv7
-compile_x264 "armeabi-v7a"
-configure_arm64
-compile_x264 "arm64-v8a"
-
-# ffmpeg
-
-echo "Building ffmpeg"
-compile_ffmpeg()
-{
-  unarchive_and_enter $FFMPEG_VERSION ".tar.gz"
-
-  echo "Compiling for $1"
-  OUTPUT_PATH="$(pwd)/output"
-
-  case "$1" in
-    arm64-v8a)   FFMPEG_ARCH=aarch64 ;;
-    armeabi-v7a) FFMPEG_ARCH=arm ;;
-    x86_64)      FFMPEG_ARCH=x86_64 ;;
-  esac
-
-  ./configure \
-    --cc="$CC" \
-    --ar="$AR" \
-    --ranlib="$RANLIB" \
-    --strip="$STRIP" \
-    --prefix="${OUTPUT_PATH}" \
-    --arch=${FFMPEG_ARCH} \
-    --target-os=android \
-    --enable-cross-compile \
-    --disable-autodetect \
-    --disable-everything \
-    --enable-avformat \
-    --enable-avcodec \
-    --enable-avutil \
-    --enable-swscale \
-    --enable-demuxer=mov,matroska,avi \
-    --enable-muxer=matroska \
-    --enable-decoder=h264,hevc,vp9,av1,mpeg4,vp8,prores \
-    --enable-parser=h264,hevc,vp9,av1,mpeg4,vp8 \
-    --enable-protocol=file \
-    --enable-gpl \
-    --enable-libx264 \
-    --enable-encoder=libx264 \
-    --extra-cflags="-I${INCLUDE_PATH}/x264" \
-    --extra-ldflags="-L${LIB_PATH}/$1" \
-    --disable-programs \
-    --disable-doc \
-    --disable-debug \
-    --enable-static \
-    --disable-shared
-  check_success
-
-  make -j4 install
-  check_success
-
-  echo "Copying products"
-  mkdir -p $INCLUDE_PATH/ffmpeg
-  cp -r output/include/* $INCLUDE_PATH/ffmpeg/
-
-  echo "Merge static libraries"
-  mkdir -p temp_ff/avformat temp_ff/avcodec temp_ff/avutil temp_ff/swscale
-  (cd temp_ff/avformat && "$AR" -x ../../output/lib/libavformat.a)
-  (cd temp_ff/avcodec  && "$AR" -x ../../output/lib/libavcodec.a)
-  (cd temp_ff/avutil   && "$AR" -x ../../output/lib/libavutil.a)
-  (cd temp_ff/swscale  && "$AR" -x ../../output/lib/libswscale.a)
-  "$AR" rcs $LIB_PATH/${1}/libffmpeg.a \
-    temp_ff/avformat/*.o temp_ff/avcodec/*.o temp_ff/avutil/*.o temp_ff/swscale/*.o
-  rm -rf temp_ff
-  check_success
-
-  echo "Cleaning"
-  cd ..
-  rm -rf $FFMPEG_VERSION
-}
-
-configure_x86_64
-compile_ffmpeg "x86_64"
-configure_armv7
-compile_ffmpeg "armeabi-v7a"
-configure_arm64
-compile_ffmpeg "arm64-v8a"
 
 mkdir -p $INCLUDE_PATH/json
 mv json.hpp $INCLUDE_PATH/json/
