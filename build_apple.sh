@@ -369,14 +369,13 @@ compile_x264()
   cp output/lib/libx264.a $LIB_PATH/${1}_libx264.a
 
   mkdir -p $LIB_PATH/pkgconfig
-  X264_BUILD=$(sed -n 's/^#define X264_BUILD \([0-9]*\).*/\1/p' output/include/x264_config.h)
   cat > $LIB_PATH/pkgconfig/x264.pc <<PCEOF
 libdir=$LIB_PATH
 includedir=$INCLUDE_PATH/x264
 
 Name: x264
 Description: H.264 (MPEG4 AVC) encoder library
-Version: 0.164.$X264_BUILD
+Version: 0.164
 Libs: -L\${libdir} -lx264
 Cflags: -I\${includedir}
 PCEOF

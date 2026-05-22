@@ -81,15 +81,13 @@ compile_x264()
   cp output/lib/libx264.a $LIB_PATH/${1}/libx264.a
 
   mkdir -p $LIB_PATH/${1}/pkgconfig
-  X264_BUILD=$(awk '/^#define X264_BUILD/{print $3}' output/include/x264_config.h)
-  X264_VERSION_STR="0.164${X264_BUILD:+.$X264_BUILD}"
   cat > $LIB_PATH/${1}/pkgconfig/x264.pc <<PCEOF
 libdir=$LIB_PATH/${1}
 includedir=$INCLUDE_PATH/x264
 
 Name: x264
 Description: H.264 (MPEG4 AVC) encoder library
-Version: $X264_VERSION_STR
+Version: 0.164
 Libs: -L\${libdir} -lx264
 Cflags: -I\${includedir}
 PCEOF
@@ -116,7 +114,7 @@ compile_ffmpeg()
 
   echo "Compiling for $1"
   OUTPUT_PATH="$(pwd)/output"
-  export PKG_CONFIG_PATH="$LIB_PATH/$1/pkgconfig${PKG_CONFIG_PATH:+:$PKG_CONFIG_PATH}"
+  export PKG_CONFIG_PATH="$LIB_PATH/$1/pkgconfig"
 
   case "$1" in
     arm64-v8a)   FFMPEG_ARCH=aarch64 ;;
