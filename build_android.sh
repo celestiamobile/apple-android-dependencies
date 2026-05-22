@@ -52,10 +52,7 @@ compile_x264()
   SAVED_AS=$AS
   unset AS
 
-  EXTRA_FLAGS=""
-  if [ "$1" = "armeabi-v7a" ] || [ "$1" = "arm64-v8a" ]; then
-    EXTRA_FLAGS="--disable-asm"
-  fi
+  EXTRA_FLAGS="--disable-asm"
 
   ./configure \
     --prefix="${OUTPUT_PATH}" \
