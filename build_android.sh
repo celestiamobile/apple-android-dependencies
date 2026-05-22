@@ -161,14 +161,15 @@ compile_ffmpeg()
   cp -r output/include/* $INCLUDE_PATH/ffmpeg/
 
   echo "Merge static libraries"
-  mkdir -p temp_ff/avformat temp_ff/avcodec temp_ff/avutil temp_ff/swscale
-  (cd temp_ff/avformat && "$AR" -x ../../output/lib/libavformat.a)
-  (cd temp_ff/avcodec  && "$AR" -x ../../output/lib/libavcodec.a)
-  (cd temp_ff/avutil   && "$AR" -x ../../output/lib/libavutil.a)
-  (cd temp_ff/swscale  && "$AR" -x ../../output/lib/libswscale.a)
-  "$AR" rcs $LIB_PATH/${1}/libffmpeg.a \
-    temp_ff/avformat/*.o temp_ff/avcodec/*.o temp_ff/avutil/*.o temp_ff/swscale/*.o
-  rm -rf temp_ff
+  "$AR" -M <<ARIEOF
+CREATE $LIB_PATH/${1}/libffmpeg.a
+ADDLIB output/lib/libavformat.a
+ADDLIB output/lib/libavcodec.a
+ADDLIB output/lib/libavutil.a
+ADDLIB output/lib/libswscale.a
+SAVE
+END
+ARIEOF
   check_success
 
   echo "Cleaning"
