@@ -53,8 +53,7 @@ compile_x264()
   unset AS
 
   EXTRA_FLAGS=""
-  if [ "$1" = "x86_64" ] && ! command -v nasm &>/dev/null; then
-    echo "nasm not found, disabling asm"
+  if [ "$1" = "armeabi-v7a" ] || [ "$1" = "arm64-v8a" ]; then
     EXTRA_FLAGS="--disable-asm"
   fi
 
@@ -88,7 +87,7 @@ includedir=$INCLUDE_PATH/x264
 Name: x264
 Description: H.264 (MPEG4 AVC) encoder library
 Version: 0.164
-Libs: -L\${libdir} -lx264
+Libs: -L\${libdir} -lx264 -lm
 Cflags: -I\${includedir}
 PCEOF
   check_success
@@ -146,7 +145,7 @@ compile_ffmpeg()
     --enable-libx264 \
     --enable-encoder=libx264 \
     --extra-cflags="-I${INCLUDE_PATH}/x264" \
-    --extra-ldflags="-L${LIB_PATH}/$1 -lm" \
+    --extra-ldflags="-L${LIB_PATH}/$1" \
     --disable-programs \
     --disable-doc \
     --disable-debug \
