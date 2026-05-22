@@ -128,7 +128,7 @@ compile_ffmpeg()
     --target-os=android \
     --enable-cross-compile \
     --disable-autodetect \
-    --disable-asm \
+    $([ "${FFMPEG_ARCH}" = "x86_64" ] && echo "--disable-asm") \
     --disable-everything \
     --enable-avformat \
     --enable-avcodec \
