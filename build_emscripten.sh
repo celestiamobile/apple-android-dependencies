@@ -20,7 +20,6 @@ build_with_cmake "fast_float" $FAST_FLOAT_VERSION ".tar.gz" "fast_float" "none" 
 build_with_cmake "boost" $BOOST_VERSION ".tar.xz" "boost" "libboost_container" ".." "none" "-DBOOST_INCLUDE_LIBRARIES='container;container_hash;describe;smart_ptr'" "-DBUILD_SHARED_LIBS=OFF" "-DCMAKE_CXX_FLAGS=-pthread"
 build_with_cmake "SDL2" $SDL2_VERSION ".tar.gz" "SDL2" "libSDL2" ".." "none" "-DSDL_STATIC=ON" "-DSDL_SHARED=OFF" "-DSDL_TEST=OFF" "-DSDL_TESTS=OFF"
 
-configure_emscripten
 build_with_cmake "jpeg" $JPEG_TURBO_VERSION ".tar.gz" "jpeg" "libjpeg" ".." "none" "-DENABLE_STATIC=ON" "-DENABLE_SHARED=OFF" "-DWITH_TURBOJPEG=OFF" "-DWITH_SIMD=OFF" "-DBUILD=$TIMESTAMP"
 build_with_cmake "zlib" $ZLIB_VERSION ".tar.gz" "zlib" "libz" ".." "none" "-DZLIB_BUILD_SHARED=OFF"
 build_with_cmake "libpng" $LIBPNG_VERSION ".tar.xz" "libpng" "libpng" ".." "none" "-DZLIB_LIBRARY=$RESULT_PATH/lib/libz.a" "-DZLIB_INCLUDE_DIR=$RESULT_PATH/include" "-DPNG_SHARED=OFF"
