@@ -18,7 +18,63 @@ TIMESTAMP=`git show --no-patch --format=%cd --date=format-local:'%Y%m%d'`
 
 build_with_cmake "fast_float" $FAST_FLOAT_VERSION ".tar.gz" "fast_float" "none" ".." "none"
 build_with_cmake "boost" $BOOST_VERSION ".tar.xz" "boost" "libboost_container" ".." "none" "-DBOOST_INCLUDE_LIBRARIES='container;container_hash;describe;smart_ptr'" "-DBUILD_SHARED_LIBS=OFF" "-DCMAKE_CXX_FLAGS=-pthread"
-build_with_cmake "SDL2" $SDL2_VERSION ".tar.gz" "SDL2" "libSDL2" ".." "none" "-DSDL_STATIC=ON" "-DSDL_SHARED=OFF" "-DSDL_TEST=OFF"
+build_with_cmake "SDL3" $SDL3_VERSION ".tar.gz" "SDL3" "libSDL3" ".." "none" "-DSDL_STATIC=ON" "-DSDL_SHARED=OFF" "-DSDL_TEST=OFF" "-DSDL_TESTS=OFF"
+
+echo "Building SDL2 (sdl2-compat)"
+compile_sdl2_compat()
+{
+  unarchive_and_enter $SDL2_COMPAT_VERSION ".tar.gz"
+
+  # Relax static build check to allow Emscripten
+  echo "Patching static build restriction for Emscripten"
+  sed -ie 's/SDL2COMPAT_STATIC AND NOT (CMAKE_SYSTEM_NAME MATCHES "Linux")/SDL2COMPAT_STATIC AND NOT (CMAKE_SYSTEM_NAME MATCHES "Linux|Emscripten")/' CMakeLists.txt
+  check_success
+
+  # Patch sdl2_compat.c to use dlopen(NULL) on Emscripten
+  # SDL3 is statically linked into the wasm module, so we load symbols from main module
+  echo "Patching sdl2_compat.c for Emscripten dlopen(NULL)"
+  sed -ie '/#elif defined(SDL_PLATFORM_UNIX)/i\
+#elif defined(__EMSCRIPTEN__)\
+    #include <dlfcn.h>\
+    static void *Loaded_SDL3 = NULL;\
+    #define LoadSDL3Library() ((Loaded_SDL3 = dlopen(NULL, RTLD_LOCAL|RTLD_NOW)) != NULL)\
+    #define LookupSDL3Sym(sym) dlsym(Loaded_SDL3, sym)\
+    #define CloseSDL3Library() { if (Loaded_SDL3) { dlclose(Loaded_SDL3); Loaded_SDL3 = NULL; } }
+' src/sdl2_compat.c
+  check_success
+
+  mkdir build
+  cd build
+
+  OUTPUT_PATH=$RESULT_PATH
+  emcmake cmake .. \
+          -DCMAKE_POSITION_INDEPENDENT_CODE=ON \
+          -DCMAKE_INSTALL_PREFIX=$OUTPUT_PATH \
+          -DCMAKE_BUILD_TYPE=Release \
+          -DSDL2COMPAT_STATIC=ON \
+          -DSDL2COMPAT_TESTS=OFF \
+          -DSDL2COMPAT_INSTALL=ON \
+          -DSDL2COMPAT_X11=OFF \
+          -DCMAKE_PREFIX_PATH=$RESULT_PATH \
+          -DCMAKE_FIND_ROOT_PATH=$RESULT_PATH
+  check_success
+
+  cmake --build . --config Release --target install
+  check_success
+
+  # Remove shared libraries - we only need static for emscripten
+  rm -f $OUTPUT_PATH/lib/libSDL2*.so*
+  rm -f $OUTPUT_PATH/lib/cmake/SDL2/SDL2Targets*.cmake
+
+  cd ..
+
+  echo "Cleaning"
+  cd ..
+  rm -rf $SDL2_COMPAT_VERSION
+}
+
+configure_emscripten
+compile_sdl2_compat
 build_with_cmake "jpeg" $JPEG_TURBO_VERSION ".tar.gz" "jpeg" "libjpeg" ".." "none" "-DENABLE_STATIC=ON" "-DENABLE_SHARED=OFF" "-DWITH_TURBOJPEG=OFF" "-DWITH_SIMD=OFF" "-DBUILD=$TIMESTAMP"
 build_with_cmake "zlib" $ZLIB_VERSION ".tar.gz" "zlib" "libz" ".." "none" "-DZLIB_BUILD_SHARED=OFF"
 build_with_cmake "libpng" $LIBPNG_VERSION ".tar.xz" "libpng" "libpng" ".." "none" "-DZLIB_LIBRARY=$RESULT_PATH/lib/libz.a" "-DZLIB_INCLUDE_DIR=$RESULT_PATH/include" "-DPNG_SHARED=OFF"
@@ -172,41 +228,137 @@ compile_lua()
 configure_emscripten
 compile_lua
 
-## libepoxy
-#
-#echo "Building libepoxy"
-#compile_libepoxy()
-#{
-#  unarchive_and_enter $LIBEPOXY_VERSION ".tar.gz"
-#
-#  mkdir build
-#  cd build
-#
-#  OPTIONS_FILE="../../emscripten.txt"
-#
-#  echo "Replacing SDK"
-#  TO_REPLACE="/Users/linfel/Developer/Personal/Celestia/emsdk"
-#  NEW_STRING="$EMSDK_ROOT"
-#  sed -ie "s#${TO_REPLACE}#${NEW_STRING}#g" $OPTIONS_FILE
-#
-#  meson --buildtype=release --default-library=static -Dtests=false --prefix=`pwd`/output --cross-file $OPTIONS_FILE
-#  ninja install
-#  check_success
-#
-#  echo "Copying products"
-#  mkdir -p $INCLUDE_PATH/libepoxy
-#  cp -r output/include/* $INCLUDE_PATH/libepoxy/
-#  cp output/lib/libepoxy.a $LIB_PATH/libGL.a
-#  check_success
-#
-#  cd ..
-#
-#  echo "Cleaning"
-#  cd ..
-#  rm -rf $LIBEPOXY_VERSION
-#}
-#
-#compile_libepoxy
+# libepoxy
+
+echo "Building libepoxy"
+compile_libepoxy()
+{
+  unarchive_and_enter $LIBEPOXY_VERSION ".tar.gz"
+
+  # Patch dispatch_common.h: add __EMSCRIPTEN__ platform case
+  echo "Applying emscripten patch 1 (dispatch_common.h)"
+  sed -ie 's/#elif defined(__APPLE__)/#elif defined(__EMSCRIPTEN__)\
+#define PLATFORM_HAS_EGL ENABLE_EGL\
+#define PLATFORM_HAS_GLX 0\
+#define PLATFORM_HAS_WGL 0\
+#elif defined(__APPLE__)/' src/dispatch_common.h
+  check_success
+
+  # Patch dispatch_common.c: add __EMSCRIPTEN__ library defines
+  echo "Applying emscripten patch 2 (library defines)"
+  sed -ie 's/#if defined(__APPLE__)/#if defined(__EMSCRIPTEN__)\
+#define GLX_LIB NULL\
+#define EGL_LIB NULL\
+#define GLES1_LIB NULL\
+#define GLES2_LIB NULL\
+#define OPENGL_LIB NULL\
+#elif defined(__APPLE__)/' src/dispatch_common.c
+  check_success
+
+  # Patch: treat emscripten like Android for core_symbol_support (all via eglGetProcAddress)
+  echo "Applying emscripten patch 3 (core_symbol_support = 0)"
+  sed -ie 's/#elif defined(__ANDROID__)/#elif defined(__EMSCRIPTEN__) || defined(__ANDROID__)/' src/dispatch_common.c
+  check_success
+
+  # Patch: add extern declaration for emscripten helper (defined in dispatch_emscripten.c)
+  echo "Applying emscripten patch 4 (extern helper declaration)"
+  sed -ie '/^#include "dispatch_common.h"/a\
+\
+#ifdef __EMSCRIPTEN__\
+/* Defined in dispatch_emscripten.c to avoid epoxy macro conflicts */\
+extern void *_epoxy_emscripten_gpa(const char *name);\
+#endif
+' src/dispatch_common.c
+  check_success
+
+  # Patch get_dlopen_handle: return sentinel on emscripten (no dlopen support)
+  echo "Applying emscripten patch 5 (get_dlopen_handle)"
+  perl -i -0pe 's/(get_dlopen_handle\(void \*\*handle, const char \*lib_name, bool exit_on_fail, bool load\)\n\{)/$1\n#ifdef __EMSCRIPTEN__\n    (void)lib_name; (void)exit_on_fail; (void)load;\n    if (!*handle) *handle = (void*)0x1;\n    return true;\n#endif/' src/dispatch_common.c
+  check_success
+
+  # Patch do_dlsym: use emscripten helper for function resolution
+  echo "Applying emscripten patch 6 (do_dlsym)"
+  perl -i -0pe 's/(do_dlsym\(void \*\*handle, const char \*name, bool exit_on_fail\)\n\{\n    void \*result;\n    const char \*error = "";)/$1\n#ifdef __EMSCRIPTEN__\n    (void)handle; (void)error;\n    result = _epoxy_emscripten_gpa(name);\n    if (!result \&\& exit_on_fail) { fprintf(stderr, "%s() not found\\n", name); abort(); }\n    return result;\n#endif/' src/dispatch_common.c
+  check_success
+
+  # Create dispatch_emscripten.c: resolves EGL+GL functions without epoxy macro interference
+  echo "Creating dispatch_emscripten.c"
+  cat > src/dispatch_emscripten.c << 'EMEOF'
+#ifdef __EMSCRIPTEN__
+#include <EGL/egl.h>
+#include <string.h>
+
+void *_epoxy_emscripten_gpa(const char *name) {
+    void *ret = (void*)eglGetProcAddress(name);
+    if (ret) return ret;
+
+    /* EGL functions are linked directly but eglGetProcAddress
+     * does not return them per the EGL spec. Match by name. */
+    #define EGL_FN(fn) if (strcmp(name, #fn) == 0) return (void*)&fn;
+    EGL_FN(eglGetProcAddress)
+    EGL_FN(eglGetCurrentDisplay)
+    EGL_FN(eglGetCurrentContext)
+    EGL_FN(eglGetCurrentSurface)
+    EGL_FN(eglQueryContext)
+    EGL_FN(eglGetError)
+    EGL_FN(eglBindAPI)
+    EGL_FN(eglQueryAPI)
+    EGL_FN(eglQueryString)
+    EGL_FN(eglSwapInterval)
+    EGL_FN(eglSwapBuffers)
+    EGL_FN(eglMakeCurrent)
+    EGL_FN(eglDestroyContext)
+    EGL_FN(eglDestroySurface)
+    EGL_FN(eglGetDisplay)
+    EGL_FN(eglInitialize)
+    EGL_FN(eglTerminate)
+    EGL_FN(eglChooseConfig)
+    EGL_FN(eglGetConfigAttrib)
+    EGL_FN(eglGetConfigs)
+    EGL_FN(eglCreateWindowSurface)
+    EGL_FN(eglCreateContext)
+    EGL_FN(eglQuerySurface)
+    EGL_FN(eglReleaseThread)
+    EGL_FN(eglWaitClient)
+    EGL_FN(eglWaitGL)
+    EGL_FN(eglWaitNative)
+    #undef EGL_FN
+
+    return NULL;
+}
+#endif
+EMEOF
+  check_success
+
+  # Add dispatch_emscripten.c to meson build sources
+  echo "Patching meson.build to include dispatch_emscripten.c"
+  sed -ie "s/epoxy_sources = sources + gen_sources/epoxy_sources = sources + gen_sources + ['dispatch_emscripten.c']/" src/meson.build
+  check_success
+
+  mkdir build
+  cd build
+
+  OPTIONS_FILE="../../emscripten.txt"
+
+  echo "Replacing SDK path in cross file"
+  TO_REPLACE="/Users/linfel/Developer/Personal/Celestia/emsdk"
+  NEW_STRING="$EMSDK_ROOT"
+  sed -ie "s#${TO_REPLACE}#${NEW_STRING}#g" $OPTIONS_FILE
+
+  meson setup --buildtype=release --default-library=static -Dtests=false -Degl=yes -Dglx=no -Dx11=false --prefix=$RESULT_PATH --cross-file $OPTIONS_FILE .  ..
+  check_success
+
+  ninja install
+  check_success
+
+  cd ..
+
+  echo "Cleaning"
+  cd ..
+  rm -rf $LIBEPOXY_VERSION
+}
+
+compile_libepoxy
 
 # icu
 

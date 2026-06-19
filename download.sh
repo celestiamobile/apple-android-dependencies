@@ -47,7 +47,9 @@ wget "https://github.com/libjpeg-turbo/libjpeg-turbo/releases/download/3.1.4.1/$
 
 wget "https://codeload.github.com/mackron/miniaudio/tar.gz/refs/tags/0.11.25" -O "${MINIAUDIO_VERSION}.tar.gz" --no-check-certificate
 
-wget "https://github.com/libsdl-org/SDL/releases/download/release-2.32.10/${SDL2_VERSION}.tar.gz" --no-check-certificate
+wget "https://github.com/libsdl-org/SDL/releases/download/release-3.4.10/${SDL3_VERSION}.tar.gz" --no-check-certificate
+
+wget "https://github.com/libsdl-org/sdl2-compat/releases/download/release-2.32.70/${SDL2_COMPAT_VERSION}.tar.gz" --no-check-certificate
 
 wget "https://github.com/nih-at/libzip/releases/download/v1.11.4/${LIBZIP_VERSION}.tar.gz" --no-check-certificate
 
