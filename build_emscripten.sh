@@ -18,63 +18,9 @@ TIMESTAMP=`git show --no-patch --format=%cd --date=format-local:'%Y%m%d'`
 
 build_with_cmake "fast_float" $FAST_FLOAT_VERSION ".tar.gz" "fast_float" "none" ".." "none"
 build_with_cmake "boost" $BOOST_VERSION ".tar.xz" "boost" "libboost_container" ".." "none" "-DBOOST_INCLUDE_LIBRARIES='container;container_hash;describe;smart_ptr'" "-DBUILD_SHARED_LIBS=OFF" "-DCMAKE_CXX_FLAGS=-pthread"
-build_with_cmake "SDL3" $SDL3_VERSION ".tar.gz" "SDL3" "libSDL3" ".." "none" "-DSDL_STATIC=ON" "-DSDL_SHARED=OFF" "-DSDL_TEST=OFF" "-DSDL_TESTS=OFF"
-
-echo "Building SDL2 (sdl2-compat)"
-compile_sdl2_compat()
-{
-  unarchive_and_enter $SDL2_COMPAT_VERSION ".tar.gz"
-
-  # Relax static build check to allow Emscripten
-  echo "Patching static build restriction for Emscripten"
-  sed -ie 's/SDL2COMPAT_STATIC AND NOT (CMAKE_SYSTEM_NAME MATCHES "Linux")/SDL2COMPAT_STATIC AND NOT (CMAKE_SYSTEM_NAME MATCHES "Linux|Emscripten")/' CMakeLists.txt
-  check_success
-
-  # Patch sdl2_compat.c to use dlopen(NULL) on Emscripten
-  # SDL3 is statically linked into the wasm module, so we load symbols from main module
-  echo "Patching sdl2_compat.c for Emscripten dlopen(NULL)"
-  sed -ie '/#elif defined(SDL_PLATFORM_UNIX)/i\
-#elif defined(__EMSCRIPTEN__)\
-    #include <dlfcn.h>\
-    static void *Loaded_SDL3 = NULL;\
-    #define LoadSDL3Library() ((Loaded_SDL3 = dlopen(NULL, RTLD_LOCAL|RTLD_NOW)) != NULL)\
-    #define LookupSDL3Sym(sym) dlsym(Loaded_SDL3, sym)\
-    #define CloseSDL3Library() { if (Loaded_SDL3) { dlclose(Loaded_SDL3); Loaded_SDL3 = NULL; } }
-' src/sdl2_compat.c
-  check_success
-
-  mkdir build
-  cd build
-
-  OUTPUT_PATH=$RESULT_PATH
-  emcmake cmake .. \
-          -DCMAKE_POSITION_INDEPENDENT_CODE=ON \
-          -DCMAKE_INSTALL_PREFIX=$OUTPUT_PATH \
-          -DCMAKE_BUILD_TYPE=Release \
-          -DSDL2COMPAT_STATIC=ON \
-          -DSDL2COMPAT_TESTS=OFF \
-          -DSDL2COMPAT_INSTALL=ON \
-          -DSDL2COMPAT_X11=OFF \
-          -DCMAKE_PREFIX_PATH=$RESULT_PATH \
-          -DCMAKE_FIND_ROOT_PATH=$RESULT_PATH
-  check_success
-
-  cmake --build . --config Release --target install
-  check_success
-
-  # Remove shared libraries - we only need static for emscripten
-  rm -f $OUTPUT_PATH/lib/libSDL2*.so*
-  rm -f $OUTPUT_PATH/lib/cmake/SDL2/SDL2Targets*.cmake
-
-  cd ..
-
-  echo "Cleaning"
-  cd ..
-  rm -rf $SDL2_COMPAT_VERSION
-}
+build_with_cmake "SDL2" $SDL2_VERSION ".tar.gz" "SDL2" "libSDL2" ".." "none" "-DSDL_STATIC=ON" "-DSDL_SHARED=OFF" "-DSDL_TEST=OFF" "-DSDL_TESTS=OFF"
 
 configure_emscripten
-compile_sdl2_compat
 build_with_cmake "jpeg" $JPEG_TURBO_VERSION ".tar.gz" "jpeg" "libjpeg" ".." "none" "-DENABLE_STATIC=ON" "-DENABLE_SHARED=OFF" "-DWITH_TURBOJPEG=OFF" "-DWITH_SIMD=OFF" "-DBUILD=$TIMESTAMP"
 build_with_cmake "zlib" $ZLIB_VERSION ".tar.gz" "zlib" "libz" ".." "none" "-DZLIB_BUILD_SHARED=OFF"
 build_with_cmake "libpng" $LIBPNG_VERSION ".tar.xz" "libpng" "libpng" ".." "none" "-DZLIB_LIBRARY=$RESULT_PATH/lib/libz.a" "-DZLIB_INCLUDE_DIR=$RESULT_PATH/include" "-DPNG_SHARED=OFF"
