@@ -106,8 +106,8 @@ configure_x86_64()
 configure_emscripten()
 {
   export AR=emar
-  export CC="emcc -fPIC -O2 -pthread"
-  export CXX="em++ -fPIC -O2 -pthread"
+  export CC="emcc -fPIC -O2"
+  export CXX="em++ -fPIC -O2"
   export RANLIB=emranlib
   export STRIP=emstrip
 }

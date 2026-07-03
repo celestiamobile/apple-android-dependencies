@@ -7,8 +7,8 @@ strip = 'emstrip'
 pkgconfig = ['pkg-config']
 
 [built-in options]
-c_args = ['-fPIC', '-pthread']
-cpp_args = ['-fPIC', '-pthread']
+c_args = ['-fPIC']
+cpp_args = ['-fPIC']
 
 [properties]
 sys_root = '/Users/linfel/Developer/Personal/Celestia/emsdk/upstream/emscripten/cache/sysroot'
