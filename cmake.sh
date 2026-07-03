@@ -115,6 +115,8 @@ _build_with_cmake_arch()
             -DCMAKE_POSITION_INDEPENDENT_CODE=ON \
             -DCMAKE_INSTALL_PREFIX=$OUTPUT_PATH \
             -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_C_FLAGS=-pthread \
+            -DCMAKE_CXX_FLAGS=-pthread \
             ${@:8}
     check_success
   else
