@@ -16,7 +16,7 @@ wget "https://ftp.gnu.org/gnu/gettext/${GETTEXT_LEGACY_VERSION}.tar.gz" --no-che
 
 wget "https://www.lua.org/ftp/${LUA_VERSION}.tar.gz" --no-check-certificate
 
-wget "https://github.com/LuaJIT/LuaJIT/archive/18b087cd2cd4ddc4a79782bf155383a689d5093d.tar.gz" -O "${LUAJIT_VERSION}.tar.gz" --no-check-certificate
+wget "https://github.com/LuaJIT/LuaJIT/archive/1edc3e52b67eaf6ce5f809be8e17d6862594b8bc.tar.gz" -O "${LUAJIT_VERSION}.tar.gz" --no-check-certificate
 
 wget "https://github.com/anholt/libepoxy/archive/refs/tags/1.5.10.tar.gz" -O "${LIBEPOXY_VERSION}.tar.gz" --no-check-certificate
 
@@ -39,7 +39,7 @@ wget "https://github.com/nlohmann/json/releases/download/v3.12.0/json.hpp" --no-
 
 wget "https://zlib.net/${ZLIB_VERSION}.tar.gz" --no-check-certificate
 
-wget "https://github.com/KhronosGroup/OpenGL-Registry/tarball/9cb90ca4902d588bef3c830fbb1da484893bd5fb" -O "${OPENGL_VERSION}.tar.gz" --no-check-certificate
+wget "https://github.com/KhronosGroup/OpenGL-Registry/tarball/e8f7cd0e35ac8d6f5667a021ff83d04b1fec41ef" -O "${OPENGL_VERSION}.tar.gz" --no-check-certificate
 
 wget "https://github.com/KhronosGroup/EGL-Registry/tarball/3d7796b3721d93976b6bfe536aa97bbc4bce8667" -O "${EGL_VERSION}.tar.gz" --no-check-certificate
 
@@ -56,8 +56,8 @@ wget "https://github.com/nih-at/libzip/releases/download/v1.11.4/${LIBZIP_VERSIO
 
 # wget "https://storage.googleapis.com/aom-releases/${AOM_VERSION}.tar.gz" -O "${AOM_VERSION}.tar.gz" --no-check-certificate
 
-BOOST_DOWNLOAD_NAME="boost-1.91.0-1-cmake"
-wget "https://github.com/boostorg/boost/releases/download/boost-1.91.0-1/${BOOST_DOWNLOAD_NAME}.tar.xz" -O "${BOOST_VERSION}.tar.xz" --no-check-certificate
+BOOST_DOWNLOAD_NAME="boost-1.92.0-cmake"
+wget "https://github.com/boostorg/boost/releases/download/boost-1.92.0/${BOOST_DOWNLOAD_NAME}.tar.xz" -O "${BOOST_VERSION}.tar.xz" --no-check-certificate
 
 FAST_FLOAT_DOWNLOAD_NAME="v8.2.10.tar.gz"
 wget "https://github.com/fastfloat/fast_float/archive/refs/tags/${FAST_FLOAT_DOWNLOAD_NAME}" -O "${FAST_FLOAT_VERSION}.tar.gz" --no-check-certificate
