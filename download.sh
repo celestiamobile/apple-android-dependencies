@@ -37,7 +37,7 @@ wget "https://github.com/unicode-org/icu/releases/download/release-78.3/${ICU_DO
 
 wget "https://github.com/nlohmann/json/releases/download/v3.12.0/json.hpp" --no-check-certificate
 
-wget "https://zlib.net/${ZLIB_VERSION}.tar.gz" --no-check-certificate
+wget "https://github.com/madler/zlib/releases/download/v1.3.2/${ZLIB_VERSION}.tar.gz" --no-check-certificate
 
 wget "https://github.com/KhronosGroup/OpenGL-Registry/tarball/e8f7cd0e35ac8d6f5667a021ff83d04b1fec41ef" -O "${OPENGL_VERSION}.tar.gz" --no-check-certificate
 
