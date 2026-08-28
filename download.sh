@@ -11,8 +11,18 @@ wget "https://downloads.sourceforge.net/project/libpng/libpng16/1.6.58/${LIBPNG_
 
 wget "https://downloads.sourceforge.net/project/freetype/freetype2/2.14.3/${FREETYPE_VERSION}.tar.xz" --no-check-certificate
 
-wget "https://ftp.gnu.org/gnu/gettext/${GETTEXT_VERSION}.tar.gz" --no-check-certificate
-wget "https://ftp.gnu.org/gnu/gettext/${GETTEXT_LEGACY_VERSION}.tar.gz" --no-check-certificate
+download_gettext()
+{
+  local version=$1
+  local checksum=$2
+  local archive="${version}.tar.gz"
+
+  wget "https://mirrors.kernel.org/gnu/gettext/${archive}" -O "${archive}" --no-check-certificate &&
+    echo "${checksum}  ${archive}" | shasum -a 256 --check || exit 1
+}
+
+download_gettext "${GETTEXT_VERSION}" "85d99b79c981a404874c02e0342176cf75c7698e2b51fe41031cf6526d974f1a"
+download_gettext "${GETTEXT_LEGACY_VERSION}" "40e21f07b71199fb2796fc43cee82635928eca244c62d3768f581adf928b4f06"
 
 wget "https://www.lua.org/ftp/${LUA_VERSION}.tar.gz" --no-check-certificate
 
