@@ -26,7 +26,7 @@ download_gettext "${GETTEXT_LEGACY_VERSION}" "40e21f07b71199fb2796fc43cee8263592
 
 wget "https://www.lua.org/ftp/${LUA_VERSION}.tar.gz" --no-check-certificate
 
-wget "https://github.com/LuaJIT/LuaJIT/archive/1edc3e52b67eaf6ce5f809be8e17d6862594b8bc.tar.gz" -O "${LUAJIT_VERSION}.tar.gz" --no-check-certificate
+wget "https://github.com/LuaJIT/LuaJIT/archive/24c20c94e7db195b640854619577441f9b4bc6be.tar.gz" -O "${LUAJIT_VERSION}.tar.gz" --no-check-certificate
 
 wget "https://github.com/anholt/libepoxy/archive/refs/tags/1.5.10.tar.gz" -O "${LIBEPOXY_VERSION}.tar.gz" --no-check-certificate
 
@@ -49,9 +49,9 @@ wget "https://github.com/nlohmann/json/releases/download/v3.12.0/json.hpp" --no-
 
 wget "https://github.com/madler/zlib/releases/download/v1.3.2/${ZLIB_VERSION}.tar.gz" --no-check-certificate
 
-wget "https://github.com/KhronosGroup/OpenGL-Registry/tarball/e8f7cd0e35ac8d6f5667a021ff83d04b1fec41ef" -O "${OPENGL_VERSION}.tar.gz" --no-check-certificate
+wget "https://github.com/KhronosGroup/OpenGL-Registry/tarball/1cdd228e34966dd6b95bd203e9f84faba0f371a1" -O "${OPENGL_VERSION}.tar.gz" --no-check-certificate
 
-wget "https://github.com/KhronosGroup/EGL-Registry/tarball/3d7796b3721d93976b6bfe536aa97bbc4bce8667" -O "${EGL_VERSION}.tar.gz" --no-check-certificate
+wget "https://github.com/KhronosGroup/EGL-Registry/tarball/5961a7fe64cf8a126890ced6f13d69e0a1e1b83e" -O "${EGL_VERSION}.tar.gz" --no-check-certificate
 
 wget "https://github.com/libjpeg-turbo/libjpeg-turbo/releases/download/3.2.0/${JPEG_TURBO_VERSION}.tar.gz" --no-check-certificate
 
