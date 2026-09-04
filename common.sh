@@ -4,7 +4,7 @@ check_success()
     echo "Succeeded"
   else
     echo "Failed"
-    exit
+    exit 1
   fi
 }
 
@@ -34,7 +34,7 @@ unarchive_and_enter()
     check_success
   else
     echo "Unknown format"
-    exit
+    exit 1
   fi
 
   if [ -n "$3" ]; then
@@ -211,5 +211,5 @@ elif [ "$TARGET" = "Emscripten" ]; then
   HOST=wasm32-unknown-emscripten
 else
   echo "Unknown target"
-  exit
+  exit 1
 fi

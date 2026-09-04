@@ -74,4 +74,11 @@ wget "https://github.com/fastfloat/fast_float/archive/refs/tags/${FAST_FLOAT_DOW
 
 wget "https://ffmpeg.org/releases/${FFMPEG_VERSION}.tar.gz" --no-check-certificate
 
-wget "https://code.videolan.org/videolan/x264/-/archive/stable/x264-stable.tar.gz" -O "${X264_VERSION}.tar.gz" --no-check-certificate
+X264_REVISION="b35605ace3ddf7c1a5d67a2eb553f034aef41d55"
+X264_REPOSITORY="${X264_VERSION}-repository"
+rm -rf "${X264_REPOSITORY}"
+git clone --branch stable --single-branch --filter=blob:none --no-checkout \
+  "https://code.videolan.org/videolan/x264.git" "${X264_REPOSITORY}" &&
+  git -C "${X264_REPOSITORY}" archive --format=tar.gz --prefix="${X264_VERSION}/" \
+    -o "$(pwd)/${X264_VERSION}.tar.gz" "${X264_REVISION}" &&
+  rm -rf "${X264_REPOSITORY}" || exit 1
