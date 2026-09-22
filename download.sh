@@ -26,7 +26,7 @@ download_gettext "${GETTEXT_LEGACY_VERSION}" "40e21f07b71199fb2796fc43cee8263592
 
 wget "https://www.lua.org/ftp/${LUA_VERSION}.tar.gz" --no-check-certificate
 
-wget "https://github.com/LuaJIT/LuaJIT/archive/24c20c94e7db195b640854619577441f9b4bc6be.tar.gz" -O "${LUAJIT_VERSION}.tar.gz" --no-check-certificate
+wget "https://github.com/LuaJIT/LuaJIT/archive/c6ffc141a8762b41703f9287d63d93622a13dd8f.tar.gz" -O "${LUAJIT_VERSION}.tar.gz" --no-check-certificate
 
 wget "https://github.com/anholt/libepoxy/archive/refs/tags/1.5.10.tar.gz" -O "${LIBEPOXY_VERSION}.tar.gz" --no-check-certificate
 
@@ -51,7 +51,7 @@ wget "https://github.com/madler/zlib/releases/download/v1.3.2/${ZLIB_VERSION}.ta
 
 wget "https://github.com/KhronosGroup/OpenGL-Registry/tarball/1cdd228e34966dd6b95bd203e9f84faba0f371a1" -O "${OPENGL_VERSION}.tar.gz" --no-check-certificate
 
-wget "https://github.com/KhronosGroup/EGL-Registry/tarball/5961a7fe64cf8a126890ced6f13d69e0a1e1b83e" -O "${EGL_VERSION}.tar.gz" --no-check-certificate
+wget "https://github.com/KhronosGroup/EGL-Registry/tarball/db3425b8246136faccb5e2782b5694960bd6edf1" -O "${EGL_VERSION}.tar.gz" --no-check-certificate
 
 wget "https://github.com/libjpeg-turbo/libjpeg-turbo/releases/download/3.2.0/${JPEG_TURBO_VERSION}.tar.gz" --no-check-certificate
 
@@ -69,7 +69,7 @@ wget "https://github.com/nih-at/libzip/releases/download/v1.11.4/${LIBZIP_VERSIO
 BOOST_DOWNLOAD_NAME="boost-1.92.0-cmake"
 wget "https://github.com/boostorg/boost/releases/download/boost-1.92.0/${BOOST_DOWNLOAD_NAME}.tar.xz" -O "${BOOST_VERSION}.tar.xz" --no-check-certificate
 
-FAST_FLOAT_DOWNLOAD_NAME="v8.2.10.tar.gz"
+FAST_FLOAT_DOWNLOAD_NAME="v8.3.0.tar.gz"
 wget "https://github.com/fastfloat/fast_float/archive/refs/tags/${FAST_FLOAT_DOWNLOAD_NAME}" -O "${FAST_FLOAT_VERSION}.tar.gz" --no-check-certificate
 
 wget "https://ffmpeg.org/releases/${FFMPEG_VERSION}.tar.gz" --no-check-certificate
