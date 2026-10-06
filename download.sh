@@ -4,7 +4,7 @@ cd `dirname $0`
 
 . `pwd`/versions.sh
 
-wget "https://downloads.sourceforge.net/project/libpng/libpng16/1.6.58/${LIBPNG_VERSION}.tar.xz" --no-check-certificate
+wget "https://downloads.sourceforge.net/project/libpng/libpng16/1.6.59/${LIBPNG_VERSION}.tar.xz" --no-check-certificate
 
 #JPEG_DOWNLOAD_NAME="jpegsrc.v9e.tar.gz"
 #wget "https://www.ijg.org/files/${JPEG_DOWNLOAD_NAME}" -O "${JPEG_VERSION}.tar.gz" --no-check-certificate
@@ -33,7 +33,7 @@ wget "https://github.com/anholt/libepoxy/archive/refs/tags/1.5.10.tar.gz" -O "${
 FMT_DOWNLOAD_NAME="12.2.0.tar.gz"
 wget "https://github.com/fmtlib/fmt/archive/${FMT_DOWNLOAD_NAME}" -O "${FMT_VERSION}.tar.gz" --no-check-certificate
 
-MESHOPTIMIZER_DOWNLOAD_NAME="v1.2.tar.gz"
+MESHOPTIMIZER_DOWNLOAD_NAME="v1.3.tar.gz"
 wget "https://github.com/zeux/meshoptimizer/archive/refs/tags/${MESHOPTIMIZER_DOWNLOAD_NAME}" -O "${MESHOPTIMIZER_VERSION}.tar.gz" --no-check-certificate
 
 wget "https://gitlab.com/libeigen/eigen/-/archive/5.0.1/${EIGEN_VERSION}.tar.gz" --no-check-certificate
@@ -69,7 +69,7 @@ wget "https://github.com/nih-at/libzip/releases/download/v1.11.4/${LIBZIP_VERSIO
 BOOST_DOWNLOAD_NAME="boost-1.92.0-cmake"
 wget "https://github.com/boostorg/boost/releases/download/boost-1.92.0/${BOOST_DOWNLOAD_NAME}.tar.xz" -O "${BOOST_VERSION}.tar.xz" --no-check-certificate
 
-FAST_FLOAT_DOWNLOAD_NAME="v8.3.0.tar.gz"
+FAST_FLOAT_DOWNLOAD_NAME="v8.3.1.tar.gz"
 wget "https://github.com/fastfloat/fast_float/archive/refs/tags/${FAST_FLOAT_DOWNLOAD_NAME}" -O "${FAST_FLOAT_VERSION}.tar.gz" --no-check-certificate
 
 wget "https://ffmpeg.org/releases/${FFMPEG_VERSION}.tar.gz" --no-check-certificate
