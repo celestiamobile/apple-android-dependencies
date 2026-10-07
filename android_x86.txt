@@ -1,11 +1,11 @@
 [binaries]
-c = '/Users/linfel/Library/Android/sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/darwin-x86_64/bin/i686-linux-android23-clang'
-cpp = '/Users/linfel/Library/Android/sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/darwin-x86_64/bin/i686-linux-android23-clang++'
-ar = '/Users/linfel/Library/Android/sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-ar'
-as = '/Users/linfel/Library/Android/sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-as'
-ld = '/Users/linfel/Library/Android/sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/darwin-x86_64/bin/ld'
-ranlib = '/Users/linfel/Library/Android/sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-ranlib'
-strip = '/Users/linfel/Library/Android/sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-strip'
+c = '/Users/linfel/Library/Android/sdk/ndk/30.0.16248370/toolchains/llvm/prebuilt/darwin-x86_64/bin/i686-linux-android23-clang'
+cpp = '/Users/linfel/Library/Android/sdk/ndk/30.0.16248370/toolchains/llvm/prebuilt/darwin-x86_64/bin/i686-linux-android23-clang++'
+ar = '/Users/linfel/Library/Android/sdk/ndk/30.0.16248370/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-ar'
+as = '/Users/linfel/Library/Android/sdk/ndk/30.0.16248370/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-as'
+ld = '/Users/linfel/Library/Android/sdk/ndk/30.0.16248370/toolchains/llvm/prebuilt/darwin-x86_64/bin/ld'
+ranlib = '/Users/linfel/Library/Android/sdk/ndk/30.0.16248370/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-ranlib'
+strip = '/Users/linfel/Library/Android/sdk/ndk/30.0.16248370/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-strip'
 
 [built-in options]
 c_args = []
@@ -14,7 +14,7 @@ c_link_args = []
 cpp_link_args = []
 
 [properties]
-sys_root = '/Users/linfel/Library/Android/sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/darwin-x86_64/sysroot'
+sys_root = '/Users/linfel/Library/Android/sdk/ndk/30.0.16248370/toolchains/llvm/prebuilt/darwin-x86_64/sysroot'
 
 [host_machine]
 system = 'android'

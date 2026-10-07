@@ -27,7 +27,7 @@ The GitHub Actions workflows have been refactored to eliminate code duplication 
 - Prepares ICU
 
 **Inputs**:
-- `ndk-version` (optional, default: "r28c")
+- `ndk-version` (optional, default: "r30")
 
 #### 3. `.github/actions/build-platform/action.yml`
 **Purpose**: Builds a specific platform target
@@ -75,7 +75,7 @@ The GitHub Actions workflows have been refactored to eliminate code duplication 
 - `platform` (required): Platform to build
 - `runner` (required): GitHub runner to use
 - `xcode-version` (optional, default: "16.4")
-- `ndk-version` (optional, default: "r28c")
+- `ndk-version` (optional, default: "r30")
 - `setup-emscripten` (optional, default: false)
 
 ## Main Workflows

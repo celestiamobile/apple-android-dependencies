@@ -449,7 +449,7 @@ compile_libepoxy()
   OPTIONS_FILE="../../android_$1.txt"
 
   echo "Replacing NDK"
-  TO_REPLACE="/Users/linfel/Library/Android/sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/darwin-x86_64"
+  TO_REPLACE="/Users/linfel/Library/Android/sdk/ndk/30.0.16248370/toolchains/llvm/prebuilt/darwin-x86_64"
   NEW_STRING="$NDK_TOOLCHAIN"
   sed -ie "s#${TO_REPLACE}#${NEW_STRING}#g" $OPTIONS_FILE
 
