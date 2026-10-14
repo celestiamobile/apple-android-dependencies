@@ -9,7 +9,7 @@ wget "https://downloads.sourceforge.net/project/libpng/libpng16/1.6.59/${LIBPNG_
 #JPEG_DOWNLOAD_NAME="jpegsrc.v9e.tar.gz"
 #wget "https://www.ijg.org/files/${JPEG_DOWNLOAD_NAME}" -O "${JPEG_VERSION}.tar.gz" --no-check-certificate
 
-wget "https://downloads.sourceforge.net/project/freetype/freetype2/2.14.3/${FREETYPE_VERSION}.tar.xz" --no-check-certificate
+wget "https://downloads.sourceforge.net/project/freetype/freetype2/2.15.0/${FREETYPE_VERSION}.tar.xz" --no-check-certificate
 
 download_gettext()
 {
@@ -26,7 +26,7 @@ download_gettext "${GETTEXT_LEGACY_VERSION}" "40e21f07b71199fb2796fc43cee8263592
 
 wget "https://www.lua.org/ftp/${LUA_VERSION}.tar.gz" --no-check-certificate
 
-wget "https://github.com/LuaJIT/LuaJIT/archive/c6ffc141a8762b41703f9287d63d93622a13dd8f.tar.gz" -O "${LUAJIT_VERSION}.tar.gz" --no-check-certificate
+wget "https://github.com/LuaJIT/LuaJIT/archive/2a8e017ef1ece6a95b983ffca073d30609dce7c4.tar.gz" -O "${LUAJIT_VERSION}.tar.gz" --no-check-certificate
 
 wget "https://github.com/anholt/libepoxy/archive/refs/tags/1.5.10.tar.gz" -O "${LIBEPOXY_VERSION}.tar.gz" --no-check-certificate
 
@@ -49,7 +49,7 @@ wget "https://github.com/nlohmann/json/releases/download/v3.12.0/json.hpp" --no-
 
 wget "https://github.com/madler/zlib/releases/download/v1.3.2/${ZLIB_VERSION}.tar.gz" --no-check-certificate
 
-wget "https://github.com/KhronosGroup/OpenGL-Registry/tarball/1cdd228e34966dd6b95bd203e9f84faba0f371a1" -O "${OPENGL_VERSION}.tar.gz" --no-check-certificate
+wget "https://github.com/KhronosGroup/OpenGL-Registry/tarball/6af574a14089ccfee87efe230ebcdd8742859813" -O "${OPENGL_VERSION}.tar.gz" --no-check-certificate
 
 wget "https://github.com/KhronosGroup/EGL-Registry/tarball/db3425b8246136faccb5e2782b5694960bd6edf1" -O "${EGL_VERSION}.tar.gz" --no-check-certificate
 
@@ -60,7 +60,7 @@ wget "https://codeload.github.com/mackron/miniaudio/tar.gz/refs/tags/0.11.25" -O
 
 wget "https://github.com/libsdl-org/SDL/releases/download/release-2.32.10/${SDL2_VERSION}.tar.gz" --no-check-certificate
 
-wget "https://github.com/nih-at/libzip/releases/download/v1.11.4/${LIBZIP_VERSION}.tar.gz" --no-check-certificate
+wget "https://github.com/nih-at/libzip/releases/download/v1.12.1/${LIBZIP_VERSION}.tar.gz" --no-check-certificate
 
 # wget "https://github.com/AOMediaCodec/libavif/archive/refs/tags/v1.1.1.tar.gz" -O "${LIBAVIF_VERSION}.tar.gz" --no-check-certificate
 
@@ -69,7 +69,7 @@ wget "https://github.com/nih-at/libzip/releases/download/v1.11.4/${LIBZIP_VERSIO
 BOOST_DOWNLOAD_NAME="boost-1.92.0-cmake"
 wget "https://github.com/boostorg/boost/releases/download/boost-1.92.0/${BOOST_DOWNLOAD_NAME}.tar.xz" -O "${BOOST_VERSION}.tar.xz" --no-check-certificate
 
-FAST_FLOAT_DOWNLOAD_NAME="v8.3.1.tar.gz"
+FAST_FLOAT_DOWNLOAD_NAME="v8.3.2.tar.gz"
 wget "https://github.com/fastfloat/fast_float/archive/refs/tags/${FAST_FLOAT_DOWNLOAD_NAME}" -O "${FAST_FLOAT_VERSION}.tar.gz" --no-check-certificate
 
 wget "https://ffmpeg.org/releases/${FFMPEG_VERSION}.tar.gz" --no-check-certificate
